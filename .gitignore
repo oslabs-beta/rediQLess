@@ -1,0 +1,20 @@
+# dependencies
+/node_modules
+
+# production
+/build
+
+# misc
+.DS_Store
+
+# database link
+.env
+
+#ignore cache
+.cache/
+
+coverage/
+
+#VSCode files
+.vscode/
+
