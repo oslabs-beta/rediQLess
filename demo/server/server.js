@@ -4,6 +4,8 @@ const path = require("path");
 const app = express();
 const gqlHTTP = require("express-graphql");
 const PORT = process.env.PORT || 3000;
+const schema = require('./schema/schema');
+
 
 app.use(express.json());
 
@@ -19,7 +21,7 @@ make sure to access it on the gqlHTTP object
  *
  */
 
-app.use("/graphql", gqlHTTP.graphqlHTTP({ graphiql: true }));
+app.use("/graphql", gqlHTTP.graphqlHTTP({ schema, graphiql: true }));
 
 // Default Error Handler
 app.use((err, req, res, next) => {
