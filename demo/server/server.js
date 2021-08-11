@@ -21,6 +21,14 @@ make sure to access it on the gqlHTTP object
 
 app.use("/graphql", gqlHTTP.graphqlHTTP({ graphiql: true }));
 
+
+// statically serve everything in the build folder on the route '/build'
+app.use('/build', express.static(path.join(__dirname, '../../build')));
+// serve index.html on the route '/'
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../../index.html'));
+});
+
 // Default Error Handler
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -31,7 +39,7 @@ app.use((err, req, res, next) => {
 
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
-  return res.status(errorObj.status).json(errObj.message);
+  return res.status(errorObj.status).json(defaultErr);
 });
 
 // Catch all unknown routes(404)
