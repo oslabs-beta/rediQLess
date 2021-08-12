@@ -1,56 +1,97 @@
-const graphql = require('graphql');
-const _ = require('lodash')
-// import graphQL types from the graphQL packaged to use on the graphQL file
+const axios = require('axios')
+
 const {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLSchema,
-    GraphQLID,
-    GraphQLInt,
-    GraphQLList,
-    GraphQLNonNull
-} = graphql;
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLBoolean,
+  GraphQLList,
+  GraphQLSchema,
+  GraphQLID
+} = require("graphql");
 
-var movies = [
-    {id: '1', name: 'Rambo'}, { id: '2', name: 'Terminator'}, {id: '3', name: 'Star Wars'}, {id: '4', name: 'Jerry McGuire'}
-]
+// Launch Type
+const LaunchType = new GraphQLObjectType({
+  name: "Launch",
+  fields: () => ({
+    flight_number: { type: GraphQLInt },
+    mission_name: { type: GraphQLString },
+    launch_date_utc: { type: GraphQLString },
+    launch_success: { type: GraphQLBoolean },
+    cost_per_launch: { type: GraphQLInt },
+    // rocket: { type: GraphQLString},
+    rocket: { type: RocketType }
+    // rocket: {
+    //   // type: RocketType,
+    //   // resolve(parent, args){
+    //   //   console.log('RocketType parent ' + parent)
+    //   //   return axios.get('https://api.spacexdata.com/v4/rockets')
+    //   //   .then(res => res.data);
+    //   type: new GraphQLList(RocketType),
+    //   resolve: rocket => rocket.map('https://api.spacexdata.com/v4/rockets')
+    // },
+  })
+});
 
-const MovieType = new GraphQLObjectType({
-    name: 'Movie',
+// Rocket Type
+const RocketType = new GraphQLObjectType({
+    name: "Rocket",
     fields: () => ({
-        id: { type: GraphQLID },
-        name: { type: GraphQLString }
+      rocket_id: { type: GraphQLString },
+      rocket_name: { type: GraphQLString },
+      rocket_type: { type: GraphQLString },
+      cost_per_launch: {type: GraphQLInt},
+      boosters: { type: GraphQLInt }
     }),
-})
+  });
 
+// Root Query
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
-// place our queries in an object
     fields: {
-        // parameters must match with schema
-        movie: {
-            // type of the data that we're querying
-            type: MovieType,
-            // when someone queires for a particular movie, we must pass in args
-            // because we need to know what they want to query
-            args: { id: { type: GraphQLID }},
-            // resolve() to get our data
-resolve(parent, args){
-    // grab movie with particular id
-    args.id
-    console.log(typeof(args.id))
-    return _.find(movies, { id: args.id} )
-}
-        },
-        movieList: {
-            type: new GraphQLList(MovieType),
+        launches: {
+            type: new GraphQLList(LaunchType),
             resolve(parent, args){
-                return movies.find({})
+                return axios
+                .get('https://api.spacexdata.com/v3/launches')
+                .then(res => res.data);
             }
+        },
+        launch: {
+            type: LaunchType,
+            args: {
+                flight_number: { type: GraphQLInt }
+            },
+            resolve(parent, args) {
+              
+                return axios
+                .get(`https://api.spacexdata.com/v3/launches/${args.flight_number}`)
+                .then(res => res.data);
+            }
+        },
+        rockets: {
+          type: new GraphQLList(RocketType),
+          resolve(parent, args){
+              return axios.get('https://api.spacexdata.com/v3/rockets')
+              .then(res => res.data);
+          }
+      },
+        rocket: {
+          type: RocketType,
+          args: {
+            id: { type: GraphQLString }
+          },
+          resolve(parent, args) {
+            return axios
+            .get(`https://api.spacexdata.com/v3/rockets/${args.id}`)
+            .then(res => res.data)
+          }
         }
+     
+
     }
 })
 
 module.exports = new GraphQLSchema({
-    query: RootQuery,
+    query: RootQuery
 })

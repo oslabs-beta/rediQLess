@@ -6,6 +6,10 @@ const gqlHTTP = require("express-graphql");
 const PORT = process.env.PORT || 3000;
 const schema = require('./schema/schema');
 
+const redis = require('redis')
+const REDIS_PORT = process.env.PORT || 6379
+
+const client = redis.createClient(REDIS_PORT)
 
 app.use(express.json());
 
