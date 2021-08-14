@@ -7,7 +7,7 @@ export const App = () => {
   
     return (
     <>
-      <h1>Pierresssssssss</h1>
+      <h1>Pierre</h1>
      
        
     </>

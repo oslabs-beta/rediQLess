@@ -21,13 +21,12 @@ make sure to access it on the gqlHTTP object
 
 app.use("/graphql", gqlHTTP.graphqlHTTP({ graphiql: true }));
 
+app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
-// statically serve everything in the build folder on the route '/build'
-app.use('/build', express.static(path.join(__dirname, '../build')));
-// serve index.html on the route '/'
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, '../index.html'));
-});
+app.get('/', (req, res) =>
+  res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
+);
+
 
 // Default Error Handler
 app.use((err, req, res, next) => {
