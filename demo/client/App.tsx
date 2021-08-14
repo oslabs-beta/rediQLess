@@ -7,7 +7,7 @@ export const App = () => {
   
     return (
     <>
-      <h1>Pierre</h1>
+      <h1>TS test - before implementing TW Css</h1>
      
        
     </>
