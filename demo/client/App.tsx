@@ -1,13 +1,15 @@
 import React from "react";
-import './styles.css';
+import './index.css';
+import Navbar from "./components/navbar"
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
-
-export const App = () => {
+export const App:React.FC = () => {
   
     return (
     <>
-      <h1>TS test - before implementing TW Css</h1>
+    <Navbar />
+      {/* <h1>TS test - before implementing TW Css</h1> */}
      
        
     </>
