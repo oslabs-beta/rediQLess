@@ -5,7 +5,8 @@ const app = express();
 const gqlHTTP = require("express-graphql");
 const PORT = process.env.PORT || 1500;
 const schema = require('./schema/schema');
-const RediQLCache = require('./RediQLCache/src/RediQL')
+const RediQLCache = require('./RediQLCache/src/RediQL');
+const SpaceXApp = require('../client/SpaceXApp')
 
 
 const redis = require('redis')
