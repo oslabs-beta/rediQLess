@@ -2,12 +2,8 @@ import React from "react";
 
 
 
-interface NavbarProps {
-  username?: string
-}
 
-
-const Navbar = ({username}:NavbarProps):JSX.Element => {
+const Navbar = ():JSX.Element => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <nav
@@ -25,7 +21,6 @@ const Navbar = ({username}:NavbarProps):JSX.Element => {
             }
             href="https://github.com/oslabs-beta/rediQLess"
           >
-            {username}
             rediQLess
           </a>
         </div>

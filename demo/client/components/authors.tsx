@@ -13,9 +13,9 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
 //redo h1 in tailwindcss
 //github and linkedin i class with link 
 	return (
-		<div>
+		<div className="flex">
 			<h1>{name}</h1>
-			<img src={image}></img>
+			<img className={("w-3/12 rounded-full")}src={image}></img>
 			<article>{info}</article>
 			<a
                 className={
@@ -30,7 +30,6 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
                     " fab fa-github text-lg leading-lg "
                   }
                 />
-                <span className="lg:hidden inline-block ml-2">Star</span>
               </a>
 			  <a
                 className={
@@ -45,7 +44,6 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
                     " fab fa-linkedin text-lg leading-lg "
                   }
                 />
-                <span className="lg:hidden inline-block ml-2">Star</span>
               </a>
 		</div>
 	)

@@ -8,7 +8,7 @@ const authorData = [
 	  },
 	  {
 		name: "Eric Saldivar",
-		image: "SQ",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/profile.jpg",
 		info: "45.28 USD",
 		github: "https://github.com/esaldivar",
 		linkedin: 'https://www.linkedin.com/in/esaldivar1214/'
