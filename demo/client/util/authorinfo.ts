@@ -1,7 +1,7 @@
 const authorData = [
 	{
 		name: "Charlie Malave",
-		image: "TWTR",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/1629337049016.jpeg",
 		info: "22.76 USD",
 		github: "https://github.com/cmalave13",
 		linkedin: 'https://www.linkedin.com/in/charlesmalave/'
@@ -15,14 +15,14 @@ const authorData = [
 	  },
 	  {
 		name: "Ian Judd",
-		image: "SHOP",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/Image+from+iOS.jpg",
 		info: "341.79 USD",
 		github: "https://github.com/ikjudd",
 		linkedin: 'https://www.linkedin.com/in/iankjudd/'
 	  },
 	  {
 		name: "Travis Woolston",
-		image: "RUN",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/abe+in+car.jpg",
 		info: "9.87 USD",
 		github: "https://github.com/TravisWoolston",
 		linkedin: 'https://www.linkedin.com/in/traviswoolston/'	  
