@@ -13,7 +13,7 @@ export const App:React.FC = () => {
     <>
     <Navbar />
       {/* <h1>TS test - before implementing TW Css</h1> */}
-    <AuthorsContainer />
+    <AuthorsContainer/>
      <SpaceXApp />
        
     </>

@@ -14,8 +14,8 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
 //github and linkedin i class with link 
 	return (
 		<div className="flex flex-col center items-center w-1/4 mx-8">
-			<h1 className="mb-4">{name}</h1>
 			<img className="w-3/4 rounded-full mb-4" src={image}></img>
+      <h1 className="mb-4">{name}</h1>
 			<article>{info}</article>
       <div className="flex">
       <a
@@ -27,8 +27,8 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
               >
                 <i
                   className={
-                    ("lg:text-white text-gray-500") +
-                    " fab fa-github fa-3x text-xl leading-lg "
+                    ("text-black") +
+                    " fab fa-github fa-3x text-xl leading-lg"
                   }
                 />
               </a>
@@ -41,7 +41,7 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
               >
                 <i
                   className={
-                    ("lg:text-white text-gray-500") +
+                    ("text-blue-900 ") +
                     " fab fa-linkedin fa-4x "
                   }
                 />
