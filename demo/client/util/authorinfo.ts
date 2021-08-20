@@ -15,14 +15,14 @@ const authorData = [
 	  },
 	  {
 		name: "Ian Judd",
-		image: "https://rediqless.s3.us-east-2.amazonaws.com/Image+from+iOS.jpg",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/Screen+Shot+2021-08-19+at+8.34.34+PM.png",
 		info: "341.79 USD",
 		github: "https://github.com/ikjudd",
 		linkedin: 'https://www.linkedin.com/in/iankjudd/'
 	  },
 	  {
 		name: "Travis Woolston",
-		image: "https://rediqless.s3.us-east-2.amazonaws.com/abe+in+car.jpg",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/Screen+Shot+2021-08-19+at+8.34.47+PM.png",
 		info: "9.87 USD",
 		github: "https://github.com/TravisWoolston",
 		linkedin: 'https://www.linkedin.com/in/traviswoolston/'	  
