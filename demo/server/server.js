@@ -6,8 +6,7 @@ const gqlHTTP = require("express-graphql");
 const PORT = process.env.PORT || 1500;
 const schema = require('./schema/schema');
 const RediQLCache = require('./RediQLCache/src/RediQL');
-const SpaceXApp = require('../client/SpaceXApp')
-
+const cors = require('cors');
 
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
@@ -17,6 +16,8 @@ const client = redis.createClient(REDIS_PORT)
 client.on("error", (err) => {
   console.log(err)
 })
+
+app.use(cors());
 
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
 

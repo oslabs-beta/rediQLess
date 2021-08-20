@@ -48,7 +48,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     proxy: {
-      '/api': {
+      '/graphql': {
         target: 'http://localhost:1500',
       },
     },
