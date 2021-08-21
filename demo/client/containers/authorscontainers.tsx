@@ -14,9 +14,7 @@ import authorData from '../util/authorinfo';
 const AuthorsContainer = () => {
 
 	return (
-		<div className={
-			("relative flex")
-		  }>
+		<div className="flex flex-wrap items-center text-center m-10 px-4 py-6 border-2 border-gray-50">
 			{authorData.map((el, index:number) => {
 			return <AuthorProfile key={index} name={el.name} image={el.image} info={el.info} github={el.github} linkedin={el.linkedin}/>
 		})}	
