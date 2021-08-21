@@ -8,14 +8,16 @@ const schema = require('./schema/schema');
 const RediQLCache = require('./RediQLCache/src/RediQL');
 const cors = require('cors');
 
-const redis = require('redis')
-const REDIS_PORT = process.env.PORT || 6379
+const cache = new RediQLCache()
 
-const client = redis.createClient(REDIS_PORT)
+// const redis = require('redis')
+// const REDIS_PORT = process.env.PORT || 6379
 
-client.on("error", (err) => {
-  console.log(err)
-})
+// const client = redis.createClient(REDIS_PORT)
+
+// client.on("error", (err) => {
+//   console.log(err)
+// })
 
 app.use(cors());
 
@@ -41,8 +43,29 @@ app.use(express.urlencoded({ extended: true }));
 // make sure to access it on the gqlHTTP object
 //  *
 //  */
+console.log(cache.query)
+app.use('/rediql', cache.query, (req, res) => {
+  console.log(res.locals);
+  res.json({data: res.locals})
+})
 
 app.use("/graphql", gqlHTTP.graphqlHTTP({ schema, graphiql: true }));
+
+/*
+POTENTIAL IMPLEMENTATION:
+app.use 
+1st arg:/graphql
+2nd: rediql middleware 
+3rd: async function taking in req/res and setting the date to res.locals called graphQLResponse
+
+I think our response time would be the res.locals.dif
+
+app.use('/rediql', RediQL(redisClient, schema), async (req, res) => {
+  console.log('dif is: ', res.locals.dif);
+  return res.status(202).json({data: res.locals.graphQlResponse, responseTime: res.locals.dif})
+})
+
+*/
 
 // // Default Error Handler
 // app.use((err, req, res, next) => {
