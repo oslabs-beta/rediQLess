@@ -1,5 +1,5 @@
 /**
- * 
+ * @description A component that is imported in the the feature container.  It contains the Key Features of the REDIQLESS product.  
  */
 
 import React from "react";

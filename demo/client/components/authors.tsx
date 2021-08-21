@@ -1,3 +1,7 @@
+/**
+ * @description This is a JSX container that imports authorinfo, strongly types the values through the Author interface then passes the information as props for it's parent components.
+ */
+
 import React from "react";
 
 interface Author {
