@@ -1,7 +1,9 @@
+/**
+ * This is a JSX container that contains the navbar information which includes the features, demo, team member information, the github link for the documentation to the product, and the download button for the NPM package
+ * @module ReactScroll helps to link to the parts of the SPA and smoothly transition to that area of the application.
+ */
+
 import React from "react";
-
-
-
 
 const Navbar = ():JSX.Element => {
 

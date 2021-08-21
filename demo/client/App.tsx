@@ -4,6 +4,7 @@ import Navbar from "./containers/navcontainer"
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AuthorsContainer from "./containers/authorscontainers";
 import SpaceXApp from "./SpaceXApp";
+import Features from "./containers/featurecontainer";
 
 
 export const App:React.FC = () => {
@@ -15,8 +16,8 @@ export const App:React.FC = () => {
     <Navbar />
       {/* <h1>TS test - before implementing TW Css</h1> */}
     <AuthorsContainer/>
-     <SpaceXApp />
-       
+    <SpaceXApp />
+    <Features />
     </>
   )
 }
