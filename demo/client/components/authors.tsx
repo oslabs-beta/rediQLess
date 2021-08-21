@@ -27,7 +27,7 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
               >
                 <i
                   className={
-                    ("text-black") +
+                    ("text-white") +
                     " fab fa-github fa-3x text-xl leading-lg"
                   }
                 />
@@ -41,7 +41,7 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
               >
                 <i
                   className={
-                    ("text-blue-900 ") +
+                    ("text-white ") +
                     " fab fa-linkedin fa-4x "
                   }
                 />
