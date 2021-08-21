@@ -13,7 +13,7 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
 //redo h1 in tailwindcss
 //github and linkedin i class with link 
 	return (
-		<div className="flex flex-col center items-center w-1/4 mx-8">
+		<div className="flex flex-col center items-center w-1/4 ">
 			<img className="w-3/4 rounded-full mb-4" src={image}></img>
       <h1 className="mb-4">{name}</h1>
 			<article>{info}</article>

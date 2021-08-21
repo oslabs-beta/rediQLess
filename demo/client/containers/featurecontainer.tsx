@@ -4,13 +4,26 @@
 
  import React from "react";
 
- const Features = () => {
+
+
+ const FeaturesContainer = () => {
 
 	return (
-		<div>
-			Key Features
+		<div className="items-center">
+			<h1 className="text-center mt-10 mb-10">Not just caching, it's RediQLess.</h1>
+			<div className="flex justify-around">
+				<div>
+					Feature 1
+				</div>
+				<div>
+					Logo
+				</div>
+				<div>
+					Feature 2
+				</div>
+			</div>
 		</div>
 	)
  }
 
- export default Features;
+ export default FeaturesContainer;
