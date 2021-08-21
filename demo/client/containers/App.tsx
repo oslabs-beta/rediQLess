@@ -1,10 +1,10 @@
 import React from "react";
-import './index.css';
-import Navbar from "./containers/navcontainer"
+import '../index.css';
+import Navbar from "./navcontainer"
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import AuthorsContainer from "./containers/authorscontainers";
+import AuthorsContainer from "./authorscontainers";
 import SpaceXApp from "./SpaceXApp";
-import FeaturesContainer from "./containers/featurecontainer";
+import FeaturesContainer from "./featurecontainer";
 
 
 export const App:React.FC = () => {
