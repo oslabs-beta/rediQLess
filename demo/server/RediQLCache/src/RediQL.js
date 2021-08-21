@@ -1,7 +1,17 @@
-const redis = require('redis');
 const { parse } = require('graphql/language/parser');
 const { visit, BREAK } = require('graphql/language/visitor');
 const { graphql } = require('graphql');
+
+const axios = require('axios')
+const { request, gql } = require('graphql-request')
+const redis = require('redis')
+const REDIS_PORT = process.env.PORT || 6379
+const redisClient = redis.createClient(REDIS_PORT)
+// const redisClient = redis.createClient(REDIS_PORT)
+
+// redisClient.on("error", (err) => {
+//   console.log(err)
+// })
 
 // build our class component for the RediQLCache
 // create a controller method
@@ -16,26 +26,72 @@ const { graphql } = require('graphql');
 // LOOK UP GRAPHQL METHODS AND SEE HOW THEY WORK
 // READ ABOUT AST
 
+// const rediQL = (redisClient, schema) => async (req,res,next) => {
+
+//     // check redisClient for data
+//     // searches redis cache
+//     // if if finds it, it returns on the res 
+
+//     //if it doesn't find data
+//     //make the gql request
+
+// }
+
 class RediQLCache {
-    constructor(schema, redisPort, cacheExpiration = 2000){
-        this.schema = schema;
-        this.redisPort = redisPort;
-        this.redisCache = redis.createClient(redisPort);
-        this.query = this.query.bind(this);
-        this.clearCache = this.clearCache.bind(this);
+    constructor (){
+        console.log('constructor ', request)
+        this.QLQuery = `
+        { 
+          launches {
+            flight_number
+            mission_name
+            launch_date_utc
+            launch_success
+          }
+        }`
+        this.request = request
+        this.query = this.query.bind(this)
+        // this.url = url
+        this.client = redisClient
+        this.cache = this.cache.bind(this)
     }
+    cache(){
+        /*
+        Sends a get request to the redis cache, if the first argument exists as a key, 
+        it will return that key's data. If not, it will return false.
+        */
+
+        this.client.get(this.QLQuery, (err, data) => {
+            if(err) throw err;
+            if(data !== null) {
+                console.log('Here is a bunch of data for you.')
+                return data;     
+            }
+            else {
+                console.log('Could not retrieve novel data, or you sent an invalid query.')
+               return false;
+            }
+        })
+    }
+
     async query(req, res, next){
-        //handle request without query
-        if (!req.body.query){
-            return next('Error: No graphQL request found on request body.')
-        }
-        //retrieve GraphQL query from request object
-        const queryString = req.body.query;
-        
-        //create abstract syntax tree with graphql-js parser
-        const AST = parse(queryString)
-        console.log('AST => ', AST)
+       
+    const foundCached = this.cache()
+    console.log('Query already exists in the cache!')
+    if (foundCached) return foundCached
+    else {
+        console.log(this.request, this.QLQuery)
+        const responseData = await this.request('http://localhost:1500/graphql', this.QLQuery)
+        console.log('Novel query has been made!')
+        console.log('Here is your novel response data ', responseData)
+        this.client.setex(this.QLQuery, 3600, JSON.stringify(responseData))
+        res.locals.query = responseData
+        console.log(responseData)
+        return responseData
+
+    }
     }
 }
+
 
 module.exports = RediQLCache
