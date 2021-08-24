@@ -14,7 +14,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      animation: ['hover', 'group-hover'],
+      rotate: ['active', 'group-hover'], 
+    }
   },
   plugins: [],
 }
