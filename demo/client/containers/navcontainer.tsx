@@ -10,7 +10,7 @@ const Navbar = ():JSX.Element => {
   return (
   <nav
       className={
-        ("w-full flex px-2 py-3 bg-pink-500 mb-3")
+        ("w-full flex px-2 py-3 bg-rdgreen-default mb-3")
       }
     >
     <div className="flex w-11/12 justify-center">
