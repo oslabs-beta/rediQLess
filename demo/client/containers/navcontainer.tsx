@@ -8,12 +8,12 @@ import React from "react";
 const Navbar = ():JSX.Element => {
 
   return (
-  <nav
+    <nav
       className={
         ("w-full flex px-2 py-3 bg-rdgreen-default mb-3")
       }
     >
-    <div className="flex w-11/12 justify-center">
+    <div className="flex flex-grow justify-center">
       <ul className="flex items-center">
       <li className="px-2">
           <a
@@ -54,8 +54,7 @@ const Navbar = ():JSX.Element => {
       </li>  
 
       </ul>
-      </div>
-      <div className="flex items-center justify-end w-1/12">
+      <div className="absolute right-0 top-5">
       <button
                 className={
                   ("bg-white text-gray-800 active:bg-gray-100") +
@@ -66,6 +65,7 @@ const Navbar = ():JSX.Element => {
               >
                 <i className="fas fa-arrow-alt-circle-down"></i> Download
       </button>  
+      </div>
       </div>
     </nav>
   );
