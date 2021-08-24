@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AuthorsContainer from "./authorscontainers";
 import SpaceXApp from "./SpaceXApp";
 import FeaturesContainer from "./featurecontainer";
-
+import HypeContainer from "./hypecontainer";
 
 export const App:React.FC = () => {
   
@@ -15,7 +15,7 @@ export const App:React.FC = () => {
     <>
     <Navbar />
     <FeaturesContainer />
-      {/* <h1>TS test - before implementing TW Css</h1> */}
+    <HypeContainer />
     <AuthorsContainer/>
     <SpaceXApp />
     </>
