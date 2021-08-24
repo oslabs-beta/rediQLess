@@ -1,12 +1,12 @@
-const express = require("express");
-const dotenv = require("dotenv").config();
-const path = require("path");
-const app = express();
-const gqlHTTP = require("express-graphql");
-const PORT = process.env.PORT || 1500;
-const schema = require('./schema/schema');
-const RediQLCache = require('./RediQLCache/src/RediQL');
-const cors = require('cors');
+const express = require('express')
+const dotenv = require('dotenv').config()
+const path = require('path')
+const app = express()
+const gqlHTTP = require('express-graphql')
+const PORT = process.env.PORT || 1500
+const schema = require('./schema/schema')
+const RediQLCache = require('./RediQLCache/src/RediQL')
+const cors = require('cors')
 
 const cache = new RediQLCache()
 
@@ -19,37 +19,41 @@ const cache = new RediQLCache()
 //   console.log(err)
 // })
 
-app.use(cors());
+app.use(cors())
 
-app.use('/build', express.static(path.resolve(__dirname, '../build')));
+app.use('/build', express.static(path.resolve(__dirname, '../build')))
 
 app.get('/', (req, res) =>
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
-);
+)
 
 //redis caching will be done within this object
 // const rediQlCache = new RediQLCache(schema, redixPort, 3600)
 
-app.use(express.json());
+app.use(express.json())
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 
 // /**
 //  * @description
-//  * 
+//  *
 //  * gqlHTTP works as middleware
 // we tell our app to head to the directory ofgraphql
 // then it hands off thecontrol of the request to graphqlHTTP()
 // make sure to access it on the gqlHTTP object
 //  *
 //  */
-console.log(cache.query)
+
 app.use('/rediql', cache.query, (req, res) => {
-  console.log(res.locals);
-  res.json({data: res.locals})
+  // console.log('res.locals.query => ', res.locals.query);
+  res.send(res.locals.query)
 })
 
-app.use("/graphql", gqlHTTP.graphqlHTTP({ schema, graphiql: true }));
+app.use('/clearcache', cache.clearCache, (req, res) => {
+  res.send('cache cleared')
+})
+
+app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
 /*
 POTENTIAL IMPLEMENTATION:
@@ -85,5 +89,5 @@ app.use('/rediql', RediQL(redisClient, schema), async (req, res) => {
 
 //start server
 app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}/graphql`);
-});
+  console.log(`Server listening on port: ${PORT}/graphql`)
+})
