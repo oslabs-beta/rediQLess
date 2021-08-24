@@ -20,11 +20,12 @@
 body {
   /* background-color: #231444; */
   /* background-color: #182854; */
-  background: rgb(24, 40, 84);
+  background: rgb(41, 62, 86);
   background: radial-gradient(
     circle,
-    rgba(24, 40, 84, 1) 0%,
-    rgba(107, 114, 144, 1) 100%
+    rgba(41, 62, 86, 1) 73%,
+    rgba(118, 123, 156, 1) 100%
   );
-  color: #e3ad4d;
+  /* color: #e3ad4d; */
+  color: azure;
 }
