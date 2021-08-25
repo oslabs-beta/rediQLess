@@ -8,16 +8,34 @@ module.exports = {
         default: '#67A28D',
         dark: '#3d6154',
       },
+      white: {
+        default: '#ecf2e8',
+      },
+      sand: {
+        lighter: '#D9C97C',
+        default: '#cab345',
+      },
       deeppink: {
         default: '#ff1cc0',
+      },
+      khaki: {
+        lighter: '#f9ed92',
+        default: '#ffed4c',
+      },
+      gold: {
+        default: '#e3ad4d',
+      },
+      darkblue: {
+        lighter: '#767b9c',
+        default: '#293E56',
       },
     },
   },
   variants: {
     extend: {
-      animation: ['hover', 'group-hover'],
-      rotate: ['active', 'group-hover'], 
-    }
+      animation: ['hover', 'group-hover', 'motion-safe'],
+      rotate: ['active', 'group-hover'],
+    },
   },
   plugins: [],
 }
