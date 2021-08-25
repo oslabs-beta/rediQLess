@@ -8,11 +8,16 @@ const SpaceXApp = () => {
 const [spaceXData, setSpaceXData] = useState('');
 
 const request = async () => {
+    const sentRequest = Date.now()
    const {data} = await axios('http://localhost:1500/rediql')
    .then(data => data)
-//    console.log('spaceXApp request => ', data.data.launches[0].mission_name)
-console.log(data)
+   const response = Date.now()
+   console.log(`time elapsed = ${response - sentRequest}ms`)
+
+    //console.log('spaceXApp request => ', data.data.launches[0].mission_name)
+        console.log(data)
     setSpaceXData(JSON.stringify(data.launches))
+
     // console.log(typeof data)
    return data
 }
