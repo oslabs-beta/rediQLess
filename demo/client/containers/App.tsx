@@ -6,6 +6,7 @@ import AuthorsContainer from "./authorscontainers";
 import SpaceXApp from "./SpaceXApp";
 import FeaturesContainer from "./featurecontainer";
 import HypeContainer from "./hypecontainer";
+import DemoContainer from "./democontainer";
 
 export const App:React.FC = () => {
   
@@ -16,6 +17,7 @@ export const App:React.FC = () => {
     <Navbar />
     <FeaturesContainer />
     <HypeContainer />
+    <DemoContainer />
     <AuthorsContainer/>
     <SpaceXApp />
     </>
