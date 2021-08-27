@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Query = () => {
   const [spaceXData, setSpaceXData] = useState('')
-  const { time, changeTime } = useContext<any>(TimeContext)
+  const { time, changeTime, timeData, changeTimeData } = useContext<any>(TimeContext)
   const queryText = `
 SpaceX API GQL Query
 query { 
@@ -24,6 +24,8 @@ query {
     const response = Date.now()
     const timeElapsed = response - sentRequest
     changeTime(timeElapsed);
+    changeTimeData(timeElapsed)
+    console.log('time data ', timeData)
     console.log(`time elapsed = ${response - sentRequest}ms`)
     // console.log(data.launches[0])
     const dataArray = Object.entries(data.launches)

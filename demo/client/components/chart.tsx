@@ -4,14 +4,14 @@ import { Bar } from 'react-chartjs-2'
 import { TimeContext } from '../containers/App'
 
 const Chart = () => {
-  const { time, changeTime } = useContext<any>(TimeContext)
+  const { time, changeTime, timeData, changeTimeData } = useContext<any>(TimeContext)
 
   const data = {
     labels: ['1st Call', '2nd Call', '3rd Call', '4th Call'],
     datasets: [
       {
         label: '# of milliseconds',
-        data: [time, 70, 20, 5],
+        data: timeData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
