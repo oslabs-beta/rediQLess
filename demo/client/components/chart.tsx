@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from 'react'
 // import chartConfig from "../util/chartconfig";
+import { Bar } from 'react-chartjs-2'
+import { TimeContext } from '../containers/App'
 
-import { Bar } from 'react-chartjs-2';
+const Chart = () => {
+  const { time, changeTime } = useContext<any>(TimeContext)
 
-const data = {
+  const data = {
     labels: ['1st Call', '2nd Call', '3rd Call', '4th Call'],
     datasets: [
       {
         label: '# of milliseconds',
-        data: [200, 70, 20, 5],
+        data: [time, 70, 20, 5],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -28,8 +31,8 @@ const data = {
         borderWidth: 1,
       },
     ],
-  };
-  
+  }
+
   const options = {
     indexAxis: 'y',
     // Elements options apply to all of the options unless overridden in a dataset
@@ -49,17 +52,16 @@ const data = {
         text: 'RediQLess Response Time',
       },
     },
-  };
-
-const Chart = () => {
-
-
-    return (
-        <div className="flex-grow"> 
-        <img className="object-scale-down h-20 m-auto" src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"></img>
-        <Bar data={data} options={options} />
-        </div>
-    )
-};
+  }
+  return (
+    <div className="flex-grow">
+      <img
+        className="object-scale-down h-20 m-auto"
+        src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"
+      ></img>
+      <Bar data={data} options={options} />
+    </div>
+  )
+}
 
 export default Chart
