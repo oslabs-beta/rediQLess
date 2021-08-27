@@ -56,7 +56,7 @@ const Chart = () => {
 
     return (
         <div className="flex-grow"> 
-        <img className="object-scale-down h-20 m-auto" src="https://i.ibb.co/7R3RY9c/REDIQLESS-LOGOV1-5.png"></img>
+        <img className="object-scale-down h-20 m-auto" src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"></img>
         <Bar data={data} options={options} />
         </div>
     )

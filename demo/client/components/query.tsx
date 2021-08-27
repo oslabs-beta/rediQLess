@@ -23,10 +23,31 @@ const request = async () => {
    .then(data => data)
    const response = Date.now()
    const timeElapsed = response - sentRequest;
-   setResponseTime(timeElapsed);
+//    setResponseTime(timeElapsed);
    console.log(`time elapsed = ${response - sentRequest}ms`)
-        console.log(data)
-    setSpaceXData(JSON.stringify(data.launches))
+        // console.log(data.launches[0])
+    const dataArray = Object.entries(data.launches)
+    const dataObj = dataArray.map(x => Object.values(x[1]))
+
+    console.log(dataObj.forEach(el => {
+        console.log(el)
+    }))
+
+    const dataString = dataObj.map(x => {
+
+        return`Flight Number: ${x[0]}
+        Mission Name: ${x[1]}
+        Cost: ${x[2]}
+        Launch Success: ${x[3]}
+        
+        `
+    })
+    // console.log('dataString', dataString)
+    
+
+
+    // setSpaceXData(JSON.stringify(data.launches))
+    setSpaceXData(`${dataString}`)
    return data
 }
  

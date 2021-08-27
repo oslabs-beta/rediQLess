@@ -24,6 +24,7 @@ module.exports = {
       khaki: {
         lighter: '#f9ed92',
         default: '#ffed4c',
+        alt: '#fff148',
       },
       gold: {
         default: '#e3ad4d',
