@@ -55,6 +55,7 @@ class RediQLCache {
     this.cache = this.cache.bind(this)
     this.response = this.cache()
     this.clearCache = this.clearCache.bind(this)
+
   }
   cache() {
     /*
@@ -82,6 +83,7 @@ class RediQLCache {
   }
 
   async query(req, res, next) {
+
     if (this.response !== undefined) {
       console.log('found cached')
       res.locals.query = this.response
