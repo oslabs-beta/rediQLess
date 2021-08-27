@@ -7,7 +7,7 @@ const data = {
     labels: ['1st Call', '2nd Call', '3rd Call', '4th Call'],
     datasets: [
       {
-        label: '# of Votes',
+        label: '# of milliseconds',
         data: [200, 70, 20, 5],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -46,7 +46,7 @@ const data = {
       },
       title: {
         display: true,
-        text: 'Chart.js Horizontal Bar Chart',
+        text: 'RediQLess Response Time',
       },
     },
   };
@@ -55,8 +55,8 @@ const Chart = () => {
 
 
     return (
-        <div> 
-        <h1>here's a chart bro</h1>
+        <div className="flex-grow"> 
+        <img className="object-scale-down h-20 m-auto" src="https://i.ibb.co/7R3RY9c/REDIQLESS-LOGOV1-5.png"></img>
         <Bar data={data} options={options} />
         </div>
     )

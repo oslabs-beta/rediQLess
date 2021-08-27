@@ -1,8 +1,8 @@
 
-const  chartConfig = {
-    type: 'line',
-    data: data,
-    options: {}
-  };
+// const  chartConfig = {
+//     type: 'line',
+//     data: data,
+//     options: {}
+//   };
 
-  export default chartConfig;
+//   export default chartConfig;
