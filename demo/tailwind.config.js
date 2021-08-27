@@ -2,6 +2,9 @@ module.exports = {
   purge: ['./*.html', './client/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      WorkSans: ['"Work Sans"', 'sans-serif'],
+    },
     colors: {
       rdgreen: {
         lighter: '#76ab98',

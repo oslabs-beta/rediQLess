@@ -42,7 +42,7 @@ const data = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'right',
+        position: 'top',
       },
       title: {
         display: true,
