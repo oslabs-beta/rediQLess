@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      WorkSans: ['"Work Sans"', 'sans-serif'],
+      // WorkSans: ['"Work Sans"', 'sans-serif'],
+      sans: ['"Work Sans"', 'sans-serif'],
     },
     colors: {
       rdgreen: {

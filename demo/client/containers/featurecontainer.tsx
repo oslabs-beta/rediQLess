@@ -10,7 +10,7 @@ import Features from "../components/features";
 
 	return (
 		<div className="items-center px-16 mb-20">
-			<h1 className="text-center mt-10 mb-10 ">Not just caching, it's RediQLess.</h1>
+			<h1 className="text-center mt-10 mb-10 text-khaki-alt">Not just caching, it's RediQLess.</h1>
 			<Features />
 		</div>
 	)

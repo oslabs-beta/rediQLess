@@ -7,6 +7,7 @@ import SpaceXApp from './SpaceXApp'
 import FeaturesContainer from './featurecontainer'
 import HypeContainer from './hypecontainer'
 import DemoContainer from './democontainer'
+import StretchContainer from './stretchcontainer'
 
 export const TimeContext = React.createContext(null)
 
@@ -27,7 +28,7 @@ export const App: React.FC = () => {
       <TimeContext.Provider value={{ time, setTime, timeData, setTimeData, changeTime, changeTimeData }}>
         <DemoContainer />
       </TimeContext.Provider>
-
+      <StretchContainer/>
       <AuthorsContainer />
     </>
   )
