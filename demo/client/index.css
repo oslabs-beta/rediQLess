@@ -2,22 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+/* @layer components {
   .btn {
     @apply px-4 py-2 bg-blue-600 text-white rounded;
   }
-}
+} */
 
 @layer base {
   h1 {
     @apply text-5xl;
   }
   h2 {
-    @apply text-xl;
+    @apply text-2xl;
   }
 }
 
 body {
-  background-color: #231444;
-  color: white;
+  /* background-color: #231444; */
+  /* background-color: #182854; */
+  background: rgb(41, 62, 86);
+  background: radial-gradient(
+    circle,
+    rgba(41, 62, 86, 1) 73%,
+    rgba(118, 123, 156, 1) 100%
+  );
+  /* color: #e3ad4d; */
+  color: azure;
 }
