@@ -81,8 +81,10 @@ class RediQLCache {
 
   parser() {
     const parsedQuery = parse(this.QLQuery)
-    const expCache = new ExpCache(parsedQuery)
-    expCache.createObj()
+    const parsedResponse = JSON.parse(this.response)
+    const expCache = new ExpCache(parsedQuery, parsedResponse)
+    expCache.createQuery()
+    expCache.cacheResponse()
     // return parsedQuery.definitions[0].selectionSet
   }
 
