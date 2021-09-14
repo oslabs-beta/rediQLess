@@ -7,6 +7,8 @@ const { request, gql } = require('graphql-request')
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
+const ExpCache = require('./ExperimentalCache')
+
 // const redisClient = redis.createClient(REDIS_PORT)
 
 // redisClient.on("error", (err) => {
@@ -79,12 +81,13 @@ class RediQLCache {
 
   parser() {
     const parsedQuery = parse(this.QLQuery)
-    
-    return parsedQuery.definitions[0].selectionSet
+    const expCache = new ExpCache(parsedQuery)
+    expCache.createObj()
+    // return parsedQuery.definitions[0].selectionSet
   }
 
   async query(req, res, next) {
-
+    this.parser()
     if (this.response !== undefined) {
       console.log('found cached')
       res.locals.query = this.response
