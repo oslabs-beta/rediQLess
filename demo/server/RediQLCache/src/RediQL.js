@@ -79,6 +79,7 @@ class RediQLCache {
 
   parser() {
     const parsedQuery = parse(this.QLQuery)
+    
     return parsedQuery.definitions[0].selectionSet
   }
 
