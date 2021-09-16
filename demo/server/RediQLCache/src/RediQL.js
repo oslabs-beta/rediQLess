@@ -47,7 +47,6 @@ class RediQLCache {
           launches {
             flight_number
             mission_name
-            cost_per_launch
             launch_success
           }
         }`
@@ -89,23 +88,30 @@ class RediQLCache {
   }
 
   async query(req, res, next) {
-    this.parser()
+    // parses data and sends to expcache
+    // this.parser()
     if (this.response !== undefined) {
       console.log('found cached')
       res.locals.query = this.response
       return next()
     } else {
       // console.log(this.request, this.QLQuery)
+
+      // Response data is referring to the middleware - this is the request to GQL
       const responseData = await this.request(
         'http://localhost:1500/graphql',
         this.QLQuery
       )
       console.log('Novel query has been made!')
       // console.log('Here is your novel response data ', responseData)
+      
       this.response = responseData
-      this.client.setex(this.QLQuery, 3600, JSON.stringify(responseData))
-      res.locals.query = responseData
 
+      this.client.setex(this.QLQuery, 3600, JSON.stringify(responseData))
+      
+      res.locals.query = responseData
+      
+      this.response = this.cache()
       // console.log(responseData)
       // return responseData
       next()
