@@ -1,11 +1,18 @@
+/**
+ * @description Chart is a chart.js component that is a child of the demo container
+ */
+
 import React, { useContext } from 'react'
-// import chartConfig from "../util/chartconfig";
 import { Bar } from 'react-chartjs-2'
 import { TimeContext } from '../containers/App'
 
-const Chart = () => {
-  const { time, changeTime, timeData, changeTimeData } = useContext<any>(TimeContext)
 
+
+const Chart = () => {
+   // The Chart component is taking in the destructured data from the TimeContext via the useContext hook - See app.tsx, this is where createContext is defined
+  const { timeData } = useContext<any>(TimeContext)
+
+  // This is the chart info, including labels, the imported data (ln 21) from TimeContext, and styling options
   const data = {
     labels: ['1st Call', '2nd Call', '3rd Call', '4th Call'],
     datasets: [
@@ -33,6 +40,8 @@ const Chart = () => {
     ],
   }
 
+
+  // Chart Options for the chart (self explanitory)
   const options = {
     indexAxis: 'y',
     // Elements options apply to all of the options unless overridden in a dataset
@@ -59,6 +68,7 @@ const Chart = () => {
         className="object-scale-down h-20 m-auto"
         src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"
       ></img>
+      { /* Data and Options are passed into Bar (coming from react-chart-js) to populate our chart */}
       <Bar data={data} options={options} />
     </div>
   )

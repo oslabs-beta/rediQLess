@@ -11,6 +11,7 @@ import React from 'react';
 import AuthorProfile from '../components/authors';
 import authorData from '../util/authorinfo';
 
+//pulling in AuthorData and passing it as props to the Author components which will be typed via their interface defined in that component.
 const AuthorsContainer = () => {
 
 	return (

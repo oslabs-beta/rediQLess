@@ -1,3 +1,7 @@
+/**
+ * @description Author data is an array that contains objects which contains the author info that will be used to fill the author information for the author components.
+ */
+
 const authorData = [
 	{
 		name: "Charlie Malave",

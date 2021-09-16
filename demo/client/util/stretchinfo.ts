@@ -1,3 +1,5 @@
+//no comments needed plan to remove
+
 const stretchInfo = [
 	{
 		title: 'Calculate number of query touches.',
