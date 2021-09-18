@@ -1,4 +1,4 @@
-name: Demo FrontEnd CI
+name: Demo FrontEnd Continuous Integration
 
 on:
   pull_request:
@@ -10,6 +10,8 @@ jobs:
       runs-on: macos-latest
       steps:
         - uses: actions/checkout@v2
+          with: 
+            path: demo
         - uses: actions/setup-node@v1
           with:
             node-version: 15
