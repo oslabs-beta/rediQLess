@@ -10,8 +10,9 @@ jobs:
       runs-on: macos-latest
       steps:
         - uses: actions/checkout@v2
+          with: 
+            path: demo
         - uses: actions/setup-node@v1
           with:
             node-version: 15
-            path: demo
         - run: npm test
