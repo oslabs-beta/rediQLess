@@ -3,7 +3,7 @@ name: Demo FrontEnd CI
 on:
   pull_request:
     branches: 
-      - main
+      - dev5
 
 jobs:
     test_pull_request:
