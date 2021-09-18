@@ -1,4 +1,4 @@
-name: Demo FrontEnd Continuous Integration
+name: Node Continuous Integration
 
 on:
   pull_request:
@@ -13,7 +13,5 @@ jobs:
           with:
             node-version: 15
         - run: npm test
-            working-directory: demo
-
-
+          working-directory: demo
 
