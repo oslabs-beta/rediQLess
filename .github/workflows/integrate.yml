@@ -13,7 +13,7 @@ jobs:
         - uses: actions/setup-node@v1
           with:
             node-version: 15
-            path: demo
+        - run: cd demo
         - run: npm ci
         - run: npm test
         - run: npm run build
