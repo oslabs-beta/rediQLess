@@ -1,0 +1,19 @@
+name: Demo FrontEnd CI
+
+on:
+  pull_request:
+    branches: 
+      - Dev5
+
+jobs:
+    test_pull_request:
+      runs-on: macos-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 15
+            working-directory: ./demo
+        - run: npm ci
+        - run: npm test
+        - run: npm run build
