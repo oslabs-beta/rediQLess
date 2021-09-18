@@ -1,3 +1,7 @@
+/**
+ * @description Hype is a component in Hype container that explains the core features of RediQLess
+ */
+
 import React from 'react'
 
 const Hype = () => {

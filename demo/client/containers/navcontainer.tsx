@@ -21,13 +21,6 @@ const Navbar = (): JSX.Element => {
             <a href="">DEMO</a>
           </li>
           <li className="px-2">
-            {/* <i
-                  className={
-                    ("text-black") +
-                    " fab fa-github fa-3x text-xl leading-lg"
-                  }
-                /> */}
-            {/* <img className="object-scale-down h-12" src="https://i.ibb.co/6FSd7x0/REDIQLESS-LOGOV1-5-triangle-gold.png" /> */}
             <img
               className="object-scale-down h-12"
               src="https://i.ibb.co/ykt2gcX/REDIQLESS-LOGO-YELLOW-R.png"

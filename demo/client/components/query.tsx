@@ -1,10 +1,17 @@
+/**
+ * @description Query is a component that is a child of the Demo container.  It allows the user to demo a query to the GraphQL/Redis feature.
+ */
+
 import React, { Component, useState, useContext } from 'react'
 import { TimeContext } from '../containers/App'
 import axios from 'axios'
 
 const Query = () => {
+  //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
   const [spaceXData, setSpaceXData] = useState('')
-  const { time, changeTime, timeData, changeTimeData } = useContext<any>(TimeContext)
+  //useContext which is defined in the App.tsx is the state for time (time of the query) and 
+  const { timeData, changeTimeData } = useContext<any>(TimeContext)
+  //hardcoded Query to GraphQL - need to change to be dynamic
   const queryText = `
 SpaceX API GQL Query
 query { 
@@ -15,21 +22,28 @@ query {
 	}
   }
 `
-
+  //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
-    const sentRequest = Date.now()
+    // Establishing current time the request is sent
+    const timeSent = Date.now()
+    // data is requested from reqiql on the backend
     const { data } = await axios('http://localhost:1500/rediql').then(
       (data) => data
     )
-    const response = Date.now()
-    const timeElapsed = response - sentRequest
-    changeTime(timeElapsed);
+    // After the data comes back, and we recieve a response, we create a variable for the time the response came back
+    const timeReceived = Date.now()
+    // Establishing the time it took  from the time is was sent to the time it was received
+    const timeElapsed = timeReceived - timeSent;
+
+    //setting the context of timeData by passing the timeElapsed into changeTimeData
     changeTimeData(timeElapsed)
-    console.log('time data ', timeData)
-    console.log(`time elapsed = ${response - sentRequest}ms`)
-    // console.log(data.launches[0])
+
+    //NOTE: Will most likely return to the below to create a streamlined algo to get the data from the backend and turn into a readable string on the front
+    //creating a dataArray with Object.entries on data.launches
     const dataArray = Object.entries(data.launches)
+    //creating a dataObj by mapping over the dataArray and grabing the values at x[1]
     const dataObj = dataArray.map((x) => Object.values(x[1]))
+    //Setting the dataString from the dataObj, this will provide a readible string on the front end
     const dataString = dataObj.map((x) => {
       return `Flight Number: ${x[0]}
         Mission Name: ${x[1]}
@@ -38,6 +52,7 @@ query {
         
         `
     })
+    //set state of spaceXdata to be the GraphQL query response
     setSpaceXData(`${dataString}`)
     return data
   }

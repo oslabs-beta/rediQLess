@@ -1,9 +1,12 @@
 /**
  * @description This is a JSX container that imports authorinfo, strongly types the values through the Author interface then passes the information as props for it's parent components.
  */
+import React, { useState } from 'react';
 
- import React, { useState } from 'react';
 
+
+// Setting the interface for Author tells TS what kind of filetypes to expect when used as a parameter below
+// interface is the keyword used to do this (an object that creates all of your prop types)
 interface Author {
 	name: string,
 	image: string,
@@ -12,7 +15,11 @@ interface Author {
 	linkedin: string
 }
 
+/* AuthorProfile is a component that takes in props sent down from the Author container
+   name, image, info, github, linkedin come from the interface that types out the props 
+*/
 const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Element => {
+  //Show Modal is a true/false state that will display modal which will be another component 
   const [showModal, setShowModal] = useState(false)
 
 	return (
@@ -26,6 +33,7 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
           >
             About
       </button>
+      {/*   Using a ternary operator, if showModal is true, it populates the modal component and the  information */}
       {showModal ? (
         <>
           <div
@@ -86,7 +94,6 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
                 />
               </a>
       </div>
-		
 		</div>
 	)
 }
