@@ -9,7 +9,7 @@
     "format": "prettier --write \"./client/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint --fix \"./client/**/*.{js,jsx,ts,tsx,json}\"",
     "start": "nodemon ./demo/server/server.js",
-    "test": "npm run jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
