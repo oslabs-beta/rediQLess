@@ -3,9 +3,6 @@ name: Node Continuous Integration
 on:
   pull_request:
     branches: [ dev6 ]
-defaults:
-  run:
-    working-directory: demo
 jobs:
     test:
       name: Running Unit Tests
@@ -16,7 +13,7 @@ jobs:
           with:
             node-version: 15
         run: |
-        cd client
+        cd demo
         npm install
         npm test
 
