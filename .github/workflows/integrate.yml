@@ -9,12 +9,14 @@ defaults:
 jobs:
     test:
       name: Running Unit Tests
-      runs-on: ubuntu-latest
+      runs-on: macos-latest
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
           with:
             node-version: 15
+        - run: npm ci
         - run: npm test
+        - run: npm run build
 
 
