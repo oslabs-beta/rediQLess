@@ -15,8 +15,9 @@ jobs:
         - uses: actions/setup-node@v1
           with:
             node-version: 15
-        - run: npm ci
-        - run: npm test
-        - run: npm run build
+        run: |
+        cd client
+        npm install
+        npm test
 
 
