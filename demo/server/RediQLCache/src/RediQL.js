@@ -83,24 +83,25 @@ class RediQLCache {
     })
   }
 
-  parser() {
+  async parser() {
     // parser will send parsed response or query to expCache for deconstruction/reconstruction for caching and query reformation.
     const parsedQuery = parse(this.QLQuery)
     let parsedResponse = this.response
     if (typeof parsedResponse == 'string') parsedResponse = JSON.parse(this.response)
     const expCache = new ExpCache(parsedQuery, parsedResponse, this.redisClient)
-    expCache.createQuery()
-    expCache.cacheResponse()
+    await expCache.createQuery()
+    await expCache.cacheResponse()
     // return parsedQuery.definitions[0].selectionSet
   }
 
-  async query(req, res, next) {
-    if (this.response !== undefined) {
+  async query(req, res, next) { 
+    if (this.response !== undefined) { 
+      // THIS.PARSER USES PARSER METHOD ON LINE 86
       this.parser()
       console.log('found cached')
       res.locals.query = this.response  
       this.response = this.cache()
-      return next()
+      return next() 
     } else {
       // Response data is referring to the middleware - this is the request to GQL
       const responseData = await this.request(
@@ -112,6 +113,7 @@ class RediQLCache {
       this.redisClient.setex(this.QLQuery, 3600, JSON.stringify(responseData))
       res.locals.query = responseData
       this.response = responseData
+      // THIS.PARSER USES PARSER METHOD 
       this.parser() 
       next()
     }
