@@ -3,6 +3,9 @@ name: Node Continuous Integration
 on:
   pull_request:
     branches: [ Dev5 ]
+defaults:
+  run:
+    working-directory: ./demo
 jobs:
     test:
       name: Running Unit Tests
