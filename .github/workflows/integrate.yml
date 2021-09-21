@@ -2,9 +2,10 @@ name: Node Continuous Integration
 
 on:
   pull_request:
-    branches: [ dev6 ]
+    branches: 
+      - dev6 
 jobs:
-    test:
+    test_pull_request:
       name: Running Unit Tests
       runs-on: macos-latest
       steps:
@@ -16,5 +17,4 @@ jobs:
         cd demo
         npm install
         npm test
-
 
