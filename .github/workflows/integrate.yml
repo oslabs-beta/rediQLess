@@ -2,7 +2,7 @@ name: Node Continuous Integration
 
 on:
   pull_request:
-    branches: [ Dev5 ]
+    branches: [ dev6 ]
 defaults:
   run:
     working-directory: demo
