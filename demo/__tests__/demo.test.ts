@@ -10,7 +10,7 @@ describe('This is the fake test section', ()=> {
 	});
 	
 	test('basic again', () => {
-		expect(addTwo(0)).toBe(2)
+		expect(addTwo(4)).toBe(6)
 	})
 })
 

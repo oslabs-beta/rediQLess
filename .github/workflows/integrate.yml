@@ -2,21 +2,19 @@ name: Node Continuous Integration
 
 on:
   pull_request:
-    branches: [ Dev5 ]
-defaults:
-  run:
-    working-directory: demo
+    branches: 
+      - dev6 
 jobs:
-    test:
+    test_pull_request:
       name: Running Unit Tests
       runs-on: macos-latest
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
           with:
-            node-version: 15
-        - run: npm ci
+            node-version: 12
+        - run: npm install
+          working-directory: demo
         - run: npm test
-        - run: npm run build
-
+          working-directory: demo
 
