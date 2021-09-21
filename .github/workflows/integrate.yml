@@ -5,7 +5,7 @@ on:
     branches: [ Dev5 ]
 defaults:
   run:
-    working-directory: ./demo
+    working-directory: demo
 jobs:
     test:
       name: Running Unit Tests
