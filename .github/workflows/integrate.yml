@@ -15,6 +15,6 @@ jobs:
             node-version: 15
         - run: cd demo
         - run: npm i
-        - run: npm run test
+        - run: npm test
 
 
