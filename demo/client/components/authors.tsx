@@ -33,37 +33,18 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
           >
             About
       </button>
-      {/*   Using a ternary operator, if showModal is true, it populates the modal component and the  information */}
-      {showModal ? (
-        <>
-          <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      <div>
+        {showModal && <div className="flex flex-col"> 
+          {info}
+          <button 
+          className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-white-default font-bold uppercase text-sm px-6 py-3 rounded "
+          type="button"
+          onClick={() => setShowModal(false)}
           >
-            <div className="relative w-auto my-6 mx-auto max-w-sm">
-              {/*content*/}
-              <div className="border-2 border-deeppink-default  rounded-lg shadow-lg relative flex flex-col w-full bg-darkblue-default outline-none focus:outline-none">
-                {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    {info}
-                  </p>
-                </div>
-                {/*footer*/}
-                  <button
-                    className="bg-khaki-default text-deeppink-default font-bold uppercase px-6 py-2 text-sm rounded"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-
-              </div>
-            </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-			{/* <article>{info}</article> */}
+            Close
+        </button>
+          </div>}
+      </div>
       <div className="flex">
       <a
                 className={
@@ -97,5 +78,6 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
 		</div>
 	)
 }
+
 
 export default authorProfile;
