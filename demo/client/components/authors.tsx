@@ -34,16 +34,18 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
             About
       </button>
       <div>
-        {showModal && <div className="flex flex-col"> 
-          {info}
-          <button 
-          className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-white-default font-bold uppercase text-sm px-6 py-3 rounded "
-          type="button"
-          onClick={() => setShowModal(false)}
-          >
-            Close
-        </button>
-          </div>}
+        {showModal && 
+          <div className="flex flex-col"> 
+            {info}
+            <button 
+              className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-white-default font-bold uppercase text-sm px-6 py-3 rounded "
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+            X
+            </button>
+          </div>
+        }
       </div>
       <div className="flex">
       <a

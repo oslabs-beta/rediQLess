@@ -6,7 +6,7 @@ import AuthorsContainer from './authorscontainers'
 import FeaturesContainer from './featurecontainer'
 import HypeContainer from './hypecontainer'
 import DemoContainer from './democontainer'
-import StretchContainer from './stretchcontainer'
+
 
 
 // Exporting the TimeContext by way of createContext, passing in Null as an initial value
@@ -28,7 +28,6 @@ export const App: React.FC = () => {
       <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData }}>
         <DemoContainer />
       </TimeContext.Provider>
-      <StretchContainer/>
       <AuthorsContainer />
     </>
   )
