@@ -23,15 +23,18 @@ export const App: React.FC = () => {
 
   const [currentNav, changeCurrentNav] = useState<any>({
     features: false,
-    demo: false,
+    demo: true,
     team: false
   });
 
   return (
     <>
       <Navbar currentNavChange={changeCurrentNav}/>
-      {currentNav.features && 
-        <FeaturesContainer />
+      {currentNav.features &&
+        <div>
+          <FeaturesContainer />
+          <HypeContainer />
+        </div> 
       }
       {currentNav.demo && 
         <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData }}>
@@ -41,7 +44,7 @@ export const App: React.FC = () => {
       {currentNav.team && 
         <AuthorsContainer />
       }
-      <HypeContainer />
+      
       { /* setting up TimeContext provider  and passing it the values we want to pass into DemoContainer as props (query.tsx utilizes timeData and ChangeTimeData, chart.tsx utilizes timeData to poppulate graph with information) */ } 
     </>
   )
