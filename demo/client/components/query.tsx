@@ -10,7 +10,7 @@ const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
   const [spaceXData, setSpaceXData] = useState('')
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
-  const { timeData, changeTimeData } = useContext<any>(TimeContext)
+  const { changeTimeData } = useContext<any>(TimeContext)
   //hardcoded Query to GraphQL - need to change to be dynamic
   const queryText = `
 SpaceX API GQL Query

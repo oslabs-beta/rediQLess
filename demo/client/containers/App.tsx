@@ -6,12 +6,11 @@ import AuthorsContainer from './authorscontainers'
 import FeaturesContainer from './featurecontainer'
 import HypeContainer from './hypecontainer'
 import DemoContainer from './democontainer'
-import { faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons'
 
 
 
 // Exporting the TimeContext by way of createContext, passing in Null as an initial value
-export const TimeContext = React.createContext(null)
+export const TimeContext = React.createContext<any>(0)
 
 export const App: React.FC = () => {
   // setting up useState hook for timeData - initialized to an empty array
