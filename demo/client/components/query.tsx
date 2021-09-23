@@ -9,6 +9,8 @@ import axios from 'axios'
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
   const [spaceXData, setSpaceXData] = useState('')
+  // create state for the dropdown menu
+  const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
   const { timeData, changeTimeData } = useContext<any>(TimeContext)
   //hardcoded Query to GraphQL - need to change to be dynamic
@@ -66,6 +68,23 @@ query {
       <h2 className="text-center">See For Yourself!</h2>
       {/* <p className="text-center">some instructions here</p> */}
       <div className="h-4/5 p-3 mx-10">
+        <button className="block h-8 w-8" onClick={() => setIsOpen(true)}>
+          Select your example query
+        </button>
+        {isOpen ?
+        <div className="bg-white rounded-lg mt-2">
+        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+          Query 1
+        </a>
+        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+          Query 2
+        </a>
+        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+          Query 3
+        </a>
+        </div>
+        : null
+      }
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
           placeholder={spaceXData || queryText}
