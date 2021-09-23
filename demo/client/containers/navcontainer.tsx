@@ -5,7 +5,11 @@
 
 import React from 'react'
 
-const Navbar = (): JSX.Element => {
+interface Nav {
+	currentNavChange: React.Dispatch<any>,
+}
+
+const Navbar = ({currentNavChange}:Nav): JSX.Element => {
   return (
     <nav
       className={
@@ -15,10 +19,18 @@ const Navbar = (): JSX.Element => {
       <div className="flex flex-grow justify-center">
         <ul className="flex items-center">
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">FEATURES</a>
+            <button onClick={()=>{currentNavChange({
+              features: true,
+              demo: false,
+              team: false
+            })}}>FEATURES</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">DEMO</a>
+            <button onClick={()=>{currentNavChange({
+              features: false,
+              demo: true,
+              team: false
+            })}}>DEMO</button>
           </li>
           <li className="px-2">
             <img
@@ -27,7 +39,11 @@ const Navbar = (): JSX.Element => {
             />
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">TEAM</a>
+            <button onClick={()=>{currentNavChange({
+              features: false,
+              demo: false,
+              team: true
+            })}}>TEAM</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
             <a href="https://github.com/oslabs-beta/rediQLess" target="_blank">

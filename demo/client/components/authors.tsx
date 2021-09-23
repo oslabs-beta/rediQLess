@@ -40,13 +40,14 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
       <div>
         {showModal && 
           <div className="flex flex-col mx-auto text-center py-8">
-            <article>
+            <article className="py-2">
               {info}
             </article>
-            <button 
+            <button
+              
               type="button"
             >
-            <FontAwesomeIcon  onClick={() => setShowModal(false)} className="favoriteSelected" icon={faChevronUp} size="sm"/>
+            <FontAwesomeIcon  onClick={() => setShowModal(false)} className="favoriteSelected transform transition duration-500 hover:scale-150 hover:animate-pulse" icon={faChevronUp} size="sm"/>
             </button>
           </div>
         }
