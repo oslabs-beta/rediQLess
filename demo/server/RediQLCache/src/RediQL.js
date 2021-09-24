@@ -8,7 +8,7 @@ const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
 const ExpCache = require('./ExperimentalCache')
-
+const { rediResponse } = require('./ExperimentalCache')
 // const redisClient = redis.createClient(REDIS_PORT)
 
 // redisClient.on("error", (err) => {
@@ -45,32 +45,37 @@ class RediQLCache {
     // bind our parser function to the constructor function
     this.parser = this.parser.bind(this)
     // set up a boilerplate query to send to spaceX API
-    this.QLQuery = `
+    this.QLQuery = ` 
         { 
           launches {
-            flight_number
+            flight_number 
             mission_name
-            launch_success
-            launch_date_utc
+            launch_success 
+            launch_date_utc  
+            rocket {
+              rocket_id 
+              rocket_name
+            }
           }
-        }`
+        }
+        `   
     this.request = request
     this.query = this.query.bind(this)
     this.redisClient = redisClient
     this.cache = this.cache.bind(this)
     //this.response will return value from the cache, otherwise it will be assigned the response from graphql, than reassigned to this.cache()
-    this.response = this.cache()
+    this.response 
     this.clearCache = this.clearCache.bind(this)
-
-  } 
+    this.rediResponse = false
+  }
   cache() {
     /*
         Sends a get request to the redis cache, if the first argument exists as a key, 
         it will return that key's data. If not, it will return false.
         */
-    this.redisClient.get(this.QLQuery, (err, data) => { 
+    this.redisClient.get(this.QLQuery, (err, data) => {
       if (err) throw err
-      if (data !== null) {
+      if (data !== null) { 
         console.log('Query already exists in the cache!')
         this.response = data
         return data
@@ -82,41 +87,62 @@ class RediQLCache {
       }
     })
   }
-
-  async parser() {
+  //parser will be called with an argument of false if we are checking if a response can be formed from the cache
+  //if we are caching a new response than parser will be called with true
+  async parser(cacheResponse = true) {
     // parser will send parsed response or query to expCache for deconstruction/reconstruction for caching and query reformation.
     const parsedQuery = parse(this.QLQuery)
     let parsedResponse = this.response
-    if (typeof parsedResponse == 'string') parsedResponse = JSON.parse(this.response)
-    const expCache = new ExpCache(parsedQuery, parsedResponse, this.redisClient)
+    if (typeof parsedResponse == 'string')
+      parsedResponse = JSON.parse(this.response)
+    const expCache = new ExpCache(parsedQuery, this.redisClient, parsedResponse)
     await expCache.createQuery()
-    await expCache.cacheResponse()
+    if(cacheResponse) await expCache.cacheResponse()
+    this.rediResponse = expCache.rediResponse
+    console.log('expCache.rediResponse', expCache.rediResponse)
+    if(expCache.rediResponse) {
+      this.response = expCache.newResponse
+    }
+    
+    // expCache.returnQuery()
     // return parsedQuery.definitions[0].selectionSet
   }
 
-  async query(req, res, next) { 
-    if (this.response !== undefined) { 
+  async query(req, res, next) {
+    await this.parser(false)
+    if (this.rediResponse) {
       // THIS.PARSER USES PARSER METHOD ON LINE 86
-      this.parser()
+      // this.parser()
       console.log('found cached')
-      res.locals.query = this.response  
-      this.response = this.cache()
-      return next() 
+      res.locals.query = this.response
+      console.log('this.response')
+      
+     for(let i = 1; i < 3; i++) {
+       
+       console.log(this.response['launches'][i])
+     }
+      return next()
     } else {
       // Response data is referring to the middleware - this is the request to GQL
-      const responseData = await this.request(
-        'http://localhost:1500/graphql',
-        this.QLQuery
-      )
+      
+      let responseData
+      console.log('rediResponse', rediResponse)
+      if (this.rediResponse) responseData = this.response
+      else {
+        responseData = await this.request(
+          'http://localhost:1500/graphql',  
+          this.QLQuery
+        )
+      }
       console.log('Novel query has been made!')
       // console.log('Here is your novel response data ', responseData)
-      this.redisClient.setex(this.QLQuery, 3600, JSON.stringify(responseData))
+      // this.redisClient.setex(this.QLQuery, 3600, JSON.stringify(responseData))
       res.locals.query = responseData
-      this.response = responseData
-      // THIS.PARSER USES PARSER METHOD 
-      this.parser() 
+      this.response = responseData 
+      // THIS.PARSER USES PARSER METHOD
+      if(!this.rediResponse) await this.parser()
       next()
-    }
+    } 
   }
 
   clearCache(req, res, next) {
