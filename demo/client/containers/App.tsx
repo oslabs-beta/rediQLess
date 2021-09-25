@@ -8,6 +8,7 @@ import AuthorsContainer from './authorscontainers'
 import FeaturesContainer from './featurecontainer'
 import HypeContainer from './hypecontainer'
 import DemoContainer from './democontainer'
+import { faTruckMonster } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -23,15 +24,16 @@ export const App: React.FC = () => {
   }
 
   const [currentNav, changeCurrentNav] = useState<any>({
-    features: false,
-    demo: true,
+    features: true,
+    demo: false,
     team: false
   });
 
   const transitionStyle = {
-    from: {x: -100, y: 800, opacity: 0, delay: 500 },
-    enter: {x: 0, y: 0, opacity: 1, delay: 500 },
-    leave: {x: 100, y: 800, opacity: 0, delay: 0 }
+    from: {x: -500, y: 0, opacity: 0},
+    enter: {x: 0, y: 0, opacity: 1 },
+    leave: {x: 500, y: 0, opacity: 0},
+    trail: 1000
   }
 
   const featuresTransition = useTransition(currentNav.features, transitionStyle);
@@ -46,7 +48,6 @@ export const App: React.FC = () => {
       {featuresTransition((style, item) =>
           item ? <animated.div style={style} className="itemA">
                   <FeaturesContainer />
-                  <HypeContainer />
                 </animated.div> : ''
       )}
       {demoTransition((style, item) =>
