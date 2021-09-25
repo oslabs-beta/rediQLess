@@ -8,7 +8,14 @@ const schema = require('./schema/schema')
 const RediQLCache = require('./RediQLCache/src/RediQL')
 const cors = require('cors')
 
-const cache = new RediQLCache()
+const RediQL = new RediQLCache()
+
+const RediQLQuery = RediQL.query
+const RediQLClear = RediQL.clearCache
+
+// what i would our import to look like
+// import { RediQLess, ClearCache } from './RediQLCache/src/RediQL'
+
 
 // const redis = require('redis')
 // const REDIS_PORT = process.env.PORT || 6379
@@ -44,12 +51,13 @@ app.use(express.urlencoded({ extended: true }))
 //  *
 //  */
 
-app.use('/rediql', cache.query, (req, res) => {
+// iimplementing RediQL
+app.use('/rediql', RediQLQuery, (req, res) => {
   // console.log('res.locals.query => ', res.locals.query);
   res.send(res.locals.query)
 })
 
-app.use('/clearcache', cache.clearCache, (req, res) => {
+app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
 })
 
