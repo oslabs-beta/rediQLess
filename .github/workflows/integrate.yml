@@ -1,19 +1,20 @@
-name: Demo FrontEnd Continuous Integration
+name: Node Continuous Integration
 
 on:
   pull_request:
     branches: 
-      - Dev5
+      - dev6 
 jobs:
     test_pull_request:
+      name: Running Unit Tests
       runs-on: macos-latest
       steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
           with:
-            node-version: 15
+            node-version: 12
+        - run: npm install
+          working-directory: demo
         - run: npm test
-            working-directory: demo
-
-
+          working-directory: demo
 
