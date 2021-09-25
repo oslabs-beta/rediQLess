@@ -1,3 +1,4 @@
+
 class ExpCache {
   constructor(QLQueryObj, redisClient, QLResponse = {} ) {
     this.createQuery = this.createQuery.bind(this)
@@ -7,6 +8,7 @@ class ExpCache {
     this.createResponse = this.createResponse.bind(this)
     this.nestedQuery = this.nestedQuery.bind(this)
     this.nestedCreate = this.nestedCreate.bind(this)
+    this.indexStore = this.indexStore.bind(this)
     this.redisFields = []
     this.QLQueryObj = QLQueryObj
     this.nextType = []
@@ -14,8 +16,18 @@ class ExpCache {
     this.newResponse = {}
     this.redisClient = redisClient
     this.rediResponse = false
+    this.keyIndex = []
+    this.store = this.indexStore()
+    
   }
-  
+  indexStore() {
+    let arr;
+    function store() {
+      if(arr == undefined) arr = this.keyIndex
+      return arr
+    }
+    store
+  }
   async createQuery() {
     
     //create query will check what fields already exist in the cache and return a new query with only uncached information
@@ -80,6 +92,38 @@ class ExpCache {
    if(this.rediResponse) await this.createResponse()
   }
 
+  async createResponse(){
+    this.newResponse[`${this.QLQueryObj.types}`] = []
+    for (let j = 1; j < 50; j++) { 
+      this.newResponse[`${this.QLQueryObj.types}`][j] = {}
+      //loops through graphQL response, caching the values as "`${fieldname + id}` : value". In this case the id is flight_number.
+      for (let i = 1; i < this.QLQueryObj.fieldsArr.length; i++) {
+        if (this.QLQueryObj.fieldsArr[i] === this.nextType.types) {
+          this.newResponse[`${this.QLQueryObj.types}`][j][this.nextType.types] = {} 
+          await this.nestedCreate(j)
+        }
+        else {
+        const redisKey =
+          `${this.QLQueryObj.fieldsArr[i]}` +
+          ` ${j}` 
+         
+         
+          let redisResponse = await this.getFromRedis(redisKey)
+          //convert number string into number type
+          //isNaN checking to see if redisResponse is a number-string
+          if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse)
+          //convert boolean strings to booleans 
+          if (redisResponse === 'true') redisResponse = true
+          if (redisResponse === 'false') redisResponse = false
+
+          this.newResponse[`${this.QLQueryObj.types}`][j][
+            `${this.QLQueryObj.fieldsArr[i]}`
+          ] = redisResponse
+      }
+      // console.log(this.newResponse)
+    }
+  }
+}
   async nestedQuery(field) {
     const queryType =
     field.name.value
@@ -114,37 +158,7 @@ class ExpCache {
       }
       return QLQueryObj
   }
-  async createResponse(){
-    this.newResponse[`${this.QLQueryObj.types}`] = []
-    for (let j = 1; j < 50; j++) { 
-      this.newResponse[`${this.QLQueryObj.types}`][j] = {}
-      //loops through graphQL response, caching the values as "`${fieldname + id}` : value". In this case the id is flight_number.
-      for (let i = 0; i < this.QLQueryObj.fieldsArr.length; i++) {
-        if (this.QLQueryObj.fieldsArr[i] === this.nextType.types) {
-          this.newResponse[`${this.QLQueryObj.types}`][j][this.nextType.types] = {} 
-          await this.nestedCreate(j)
-        }
-        else {
-        const redisKey =
-          `${this.QLQueryObj.fieldsArr[i]}` +
-          ` ${j}`
-        
-          let redisResponse = await this.getFromRedis(redisKey)
-          //convert number string into number type
-          //isNaN checking to see if redisResponse is a number-string
-          if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse)
-          //convert boolean strings to booleans
-          if (redisResponse === 'true') redisResponse = true
-          if (redisResponse === 'false') redisResponse = false
-
-          this.newResponse[`${this.QLQueryObj.types}`][j][
-            `${this.QLQueryObj.fieldsArr[i]}`
-          ] = redisResponse
-      }
-      // console.log(this.newResponse)
-    }
-  }
-}
+  
   async nestedCreate(j){
     for (let i = 0; i < this.nextType.fieldsArr.length; i++) {
      
@@ -163,7 +177,7 @@ class ExpCache {
         this.newResponse[`${this.QLQueryObj.types}`][j][
           this.nextType.types][
             this.nextType.fieldsArr[i]] = redisResponse
-    }
+    } 
   }
   // CACHERESPONSE: TAKES DATE FROM THE API REPONSE (AFTER QUERY) AND SAVES TO REDIS
   async cacheResponse() {
@@ -181,15 +195,18 @@ class ExpCache {
     //given a unique value (in this example it is flight_number)
     //the corresponding values could be cached with that unique value concatenated for the key value.
     // console.log(this.QLResponse)
-    let newKeysCached = 0
-    let foundKeys = 0
     this.newResponse[`${this.QLQueryObj.types}`] = []
     //j will iterate through array of objects in response. In this case each launch.
     for (let j = 0; j < this.QLResponse[this.QLQueryObj.types].length; j++) {
+      //push key into array for later reference.
+      this.keyIndex.push(this.QLResponse[this.QLQueryObj.types][j][
+        this.QLQueryObj.fieldsArr[0]
+      ])
       this.newResponse[`${this.QLQueryObj.types}`][j] = {}
       //loops through graphQL response, caching the values as "`${fieldname + id}` : value". In this case the id is flight_number.
      
       for (let i = 0; i < this.QLQueryObj.fieldsArr.length; i++) {
+        
         // console.log('cache response', this.QLResponse[this.QLQueryObj.types][j])
         if(this.QLQueryObj.fieldsArr[i] === this.nextType.types) {
           
@@ -203,6 +220,7 @@ class ExpCache {
               this.QLQueryObj.fieldsArr[0]
             ]
           }`
+          
         const value = `${
           this.QLResponse[this.QLQueryObj.types][j][
             this.QLQueryObj.fieldsArr[i]
@@ -212,7 +230,6 @@ class ExpCache {
         keyExists = await this.checkRedis(redisKey)
         if (!keyExists) {
           this.redisClient.setex(redisKey, 3600, value)
-          newKeysCached++
         } else {
           let redisResponse = await this.getFromRedis(redisKey)
           //convert number string into number type
@@ -224,14 +241,11 @@ class ExpCache {
           this.newResponse[`${this.QLQueryObj.types}`][j][
             `${this.QLQueryObj.fieldsArr[i]}`
           ] = redisResponse
-          foundKeys++
         }
       }
+      
     }
-
-    console.log(
-      `${newKeysCached} new keys cached into redis. ${foundKeys} found in redis cache.`
-    )
+   
     let firstThree = []
 
     for (let i = 0; i < 3; i++) {
