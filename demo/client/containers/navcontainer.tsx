@@ -5,10 +5,11 @@
 import React from 'react'
 
 interface Nav {
+  currentNav: any,
 	currentNavChange: React.Dispatch<any>,
 }
 
-const Navbar = ({currentNavChange}:Nav): JSX.Element => {
+const Navbar = ({currentNav, currentNavChange}:Nav): JSX.Element => {
   return (
     <nav
       className={
@@ -18,14 +19,14 @@ const Navbar = ({currentNavChange}:Nav): JSX.Element => {
       <div className="flex flex-grow justify-center">
         <ul className="flex items-center">
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({
+            <button onClick={()=>{currentNavChange({ ...currentNav,
               features: true,
               demo: false,
               team: false
             })}}>FEATURES</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({
+            <button onClick={()=>{currentNavChange({ ...currentNav,
               features: false,
               demo: true,
               team: false
@@ -38,7 +39,7 @@ const Navbar = ({currentNavChange}:Nav): JSX.Element => {
             />
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({
+            <button onClick={()=>{currentNavChange({ ...currentNav,
               features: false,
               demo: false,
               team: true
