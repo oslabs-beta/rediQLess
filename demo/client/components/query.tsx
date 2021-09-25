@@ -5,6 +5,7 @@
 import React, { Component, useState, useContext } from 'react'
 import { TimeContext } from '../containers/App'
 import axios from 'axios'
+import QueryInfo from '../util/queryinfo';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
@@ -27,7 +28,8 @@ query {
 const [ queryPreview, setQueryPreview] = useState<any>({
   firstQuery: false,
   secondQuery: false,
-  thirdQuery: false
+  thirdQuery: false,
+  queryNum: 0
 })
 
 
@@ -37,7 +39,8 @@ const [ queryPreview, setQueryPreview] = useState<any>({
     // Establishing current time the request is sent
     const timeSent = Date.now()
     // data is requested from reqiql on the backend
-    const { data } = await axios('http://localhost:1500/rediql').then(
+    const { data } = await axios('http://localhost:1500/rediql')
+    .then(
       (data) => data
     )
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
@@ -67,39 +70,14 @@ const [ queryPreview, setQueryPreview] = useState<any>({
     return data
   }
 
-  const queryArray = [
-    `query { 
-    launches {
-      flight_number
-    }`,
-    `query { 
-      launches {
-        flight_number
-        mission_name
-        launch_success
-      }
-      }`,
-      `query { 
-        launches {
-          flight_number
-          mission_name
-          launch_success
-          rocket{
-            name
-          }
-        }
-        }`
-  
-  ]
-
   const clearCache = () => {
     axios('http://localhost:1500/clearCache')
   }
   const queryFill = () => {
 
-    return (queryPreview.firstQuery ? queryArray[0] : ''
-    || queryPreview.secondQuery ? queryArray[1] : ''
-    || queryPreview.thirdQuery ? queryArray[2] : '' )
+    return (queryPreview.firstQuery ? QueryInfo[0] : ''
+    || queryPreview.secondQuery ? QueryInfo[1] : ''
+    || queryPreview.thirdQuery ? QueryInfo[2] : '' )
     
   }
   return (
@@ -122,8 +100,10 @@ const [ queryPreview, setQueryPreview] = useState<any>({
           setQueryPreview({
             firstQuery: true,
             secondQuery: false,
-            thirdQuery: false  
+            thirdQuery: false,
+            queryNum: 1  
           })
+          console.log(queryPreview.queryNum)
         }
         }
         >
@@ -132,12 +112,15 @@ const [ queryPreview, setQueryPreview] = useState<any>({
         <span
         className="px-2 py-2 cursor-pointer hover:underline"
         onClick = { (e) => {
+          // queryNum: 1
           e.preventDefault()
           setQueryPreview({
             firstQuery: false,
             secondQuery: true,
-            thirdQuery: false  
+            thirdQuery: false,
+            queryNum: 2  
           })
+          console.log(queryPreview.queryNum)
         }
         }
         >
@@ -150,8 +133,10 @@ const [ queryPreview, setQueryPreview] = useState<any>({
           setQueryPreview({
             firstQuery: false,
             secondQuery: false,
-            thirdQuery: true  
+            thirdQuery: true,
+            queryNum: 3  
           })
+          console.log(queryPreview.queryNum)
         }
         }
         >
@@ -160,34 +145,6 @@ const [ queryPreview, setQueryPreview] = useState<any>({
       </div>
 
       }
-
-        {/* {isOpen &&
-        <div className="bg-white rounded-lg mt-2">
-
-        <span 
-        className="no-underline hover:text-blue px-2 py-2"
-        onClick = {(e) =>
-        e.preventDefault()
-        setQueryPreview({firstQuery: true }) }
-        >
-          Query 1
-        </span>
-
-        <a href="#" 
-        className="no-underline hover:text-blue px-2 py-2"
-    
-        >
-          Query 2
-        </a>
-
-        <span
-        className="no-underline hover:text-blue px-2 py-2"
-        >
-          Query 3
-        </span>
-
-        </div>
-      } */}
 
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
