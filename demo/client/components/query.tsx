@@ -24,6 +24,14 @@ query {
 	}
   }
 `
+const [ queryPreview, setQueryPreview] = useState<any>({
+  firstQuery: false,
+  secondQuery: false,
+  thirdQuery: false
+})
+
+
+
   //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
     // Establishing current time the request is sent
@@ -59,36 +67,133 @@ query {
     return data
   }
 
+  const queryArray = [
+    `query { 
+    launches {
+      flight_number
+    }`,
+    `query { 
+      launches {
+        flight_number
+        mission_name
+        launch_success
+      }
+      }`,
+      `query { 
+        launches {
+          flight_number
+          mission_name
+          launch_success
+          rocket{
+            name
+          }
+        }
+        }`
+  
+  ]
+
   const clearCache = () => {
     axios('http://localhost:1500/clearCache')
   }
+  const queryFill = () => {
 
+    return (queryPreview.firstQuery ? queryArray[0] : ''
+    || queryPreview.secondQuery ? queryArray[1] : ''
+    || queryPreview.thirdQuery ? queryArray[2] : '' )
+    
+  }
   return (
     <div className="w-3/6">
-      <h2 className="text-center">See For Yourself!</h2>
+      <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
-      <div className="h-4/5 p-3 mx-10">
-        <button className="block h-8 w-8" onClick={() => setIsOpen(true)}>
-          Select your example query
+      <div className="h-4/5 p-3 mx-10 text-center">
+        <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+          Click Here For Some RediQLess Sample Queries
         </button>
-        {isOpen ?
+
+
+      {isOpen &&
+      
+      <div className="bg-white rounded-lg mt-2 mb-2">
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: true,
+            secondQuery: false,
+            thirdQuery: false  
+          })
+        }
+        }
+        >
+          Try Query 1
+        </span>
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: false,
+            secondQuery: true,
+            thirdQuery: false  
+          })
+        }
+        }
+        >
+          Try Query 2
+        </span>
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: false,
+            secondQuery: false,
+            thirdQuery: true  
+          })
+        }
+        }
+        >
+          Try Query 3
+        </span>
+      </div>
+
+      }
+
+        {/* {isOpen &&
         <div className="bg-white rounded-lg mt-2">
-        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+
+        <span 
+        className="no-underline hover:text-blue px-2 py-2"
+        onClick = {(e) =>
+        e.preventDefault()
+        setQueryPreview({firstQuery: true }) }
+        >
           Query 1
-        </a>
-        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+        </span>
+
+        <a href="#" 
+        className="no-underline hover:text-blue px-2 py-2"
+    
+        >
           Query 2
         </a>
-        <a href="#" className="no-underline hover:text-blue px-2 py-2">
+
+        <span
+        className="no-underline hover:text-blue px-2 py-2"
+        >
           Query 3
-        </a>
+        </span>
+
         </div>
-        : null
-      }
+      } */}
+
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
-          placeholder={spaceXData || queryText}
-        ></textarea>
+          placeholder={spaceXData || queryFill()}
+        >
+        </textarea>
         <div className="flex flex-center">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
@@ -106,7 +211,8 @@ query {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    
   )
 }
 
