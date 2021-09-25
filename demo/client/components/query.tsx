@@ -5,10 +5,13 @@
 import React, { Component, useState, useContext } from 'react'
 import { TimeContext } from '../containers/App'
 import axios from 'axios'
+import QueryInfo from '../util/queryinfo';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
   const [spaceXData, setSpaceXData] = useState('')
+  // create state for the dropdown menu
+  const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
   const { timeData, changeTimeData } = useContext<any>(TimeContext)
   //hardcoded Query to GraphQL - need to change to be dynamic
@@ -22,12 +25,22 @@ query {
 	}
   }
 `
+const [ queryPreview, setQueryPreview] = useState<any>({
+  firstQuery: false,
+  secondQuery: false,
+  thirdQuery: false,
+  queryNum: 0
+})
+
+
+
   //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
     // Establishing current time the request is sent
     const timeSent = Date.now()
     // data is requested from reqiql on the backend
-    const { data } = await axios('http://localhost:1500/rediql').then(
+    const { data } = await axios('http://localhost:1500/rediql')
+    .then(
       (data) => data
     )
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
@@ -60,16 +73,84 @@ query {
   const clearCache = () => {
     axios('http://localhost:1500/clearCache')
   }
+  const queryFill = () => {
 
+    return (queryPreview.firstQuery ? QueryInfo[0] : ''
+    || queryPreview.secondQuery ? QueryInfo[1] : ''
+    || queryPreview.thirdQuery ? QueryInfo[2] : '' )
+    
+  }
   return (
     <div className="w-3/6">
-      <h2 className="text-center">See For Yourself!</h2>
+      <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
-      <div className="h-4/5 p-3 mx-10">
+      <div className="h-4/5 p-3 mx-10 text-center">
+        <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+          Click Here For Some RediQLess Sample Queries
+        </button>
+
+
+      {isOpen &&
+      
+      <div className="bg-white rounded-lg mt-2 mb-2">
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: true,
+            secondQuery: false,
+            thirdQuery: false,
+            queryNum: 1  
+          })
+          console.log(queryPreview.queryNum)
+        }
+        }
+        >
+          Try Query 1
+        </span>
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          // queryNum: 1
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: false,
+            secondQuery: true,
+            thirdQuery: false,
+            queryNum: 2  
+          })
+          console.log(queryPreview.queryNum)
+        }
+        }
+        >
+          Try Query 2
+        </span>
+        <span
+        className="px-2 py-2 cursor-pointer hover:underline"
+        onClick = { (e) => {
+          e.preventDefault()
+          setQueryPreview({
+            firstQuery: false,
+            secondQuery: false,
+            thirdQuery: true,
+            queryNum: 3  
+          })
+          console.log(queryPreview.queryNum)
+        }
+        }
+        >
+          Try Query 3
+        </span>
+      </div>
+
+      }
+
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
-          placeholder={spaceXData || queryText}
-        ></textarea>
+          placeholder={spaceXData || queryFill()}
+        >
+        </textarea>
         <div className="flex flex-center">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
@@ -87,7 +168,8 @@ query {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    
   )
 }
 
