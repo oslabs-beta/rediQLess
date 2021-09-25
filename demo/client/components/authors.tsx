@@ -2,6 +2,9 @@
  * @description This is a JSX container that imports authorinfo, strongly types the values through the Author interface then passes the information as props for it's parent components.
  */
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
+import {faChevronUp} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -26,23 +29,25 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
 		<div className="flex flex-col center items-center w-1/4 ">
 			<img className="w-3/4 rounded-full mb-4" src={image}></img>
       <h1 className="mb-4">{name}</h1>
-      <button 
-          className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-white-default font-bold uppercase text-sm px-6 py-3 rounded "
-          type="button"
-          onClick={() => setShowModal(true)}
-          >
-            About
-      </button>
+      {!showModal &&
+        <button 
+        className="hover:animate-bounce hover:scale-150 hover:bg-blue-500 bg-transparent text-white-default font-bold uppercase text-sm rounded "
+        type="button"
+        >
+        <FontAwesomeIcon  onClick={() => setShowModal(true)} className="favoriteSelected transform transition duration-500 hover:scale-150" icon={faInfoCircle} size="lg"/>
+        </button>
+      }
       <div>
         {showModal && 
-          <div className="flex flex-col"> 
-            {info}
-            <button 
-              className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-white-default font-bold uppercase text-sm px-6 py-3 rounded "
+          <div className="flex flex-col mx-auto text-center py-8">
+            <article className="py-2">
+              {info}
+            </article>
+            <button
+              
               type="button"
-              onClick={() => setShowModal(false)}
             >
-            X
+            <FontAwesomeIcon  onClick={() => setShowModal(false)} className="favoriteSelected transform transition duration-500 hover:scale-150 hover:animate-pulse" icon={faChevronUp} size="sm"/>
             </button>
           </div>
         }

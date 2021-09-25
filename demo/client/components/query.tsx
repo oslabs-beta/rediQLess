@@ -13,7 +13,7 @@ const Query = () => {
   // create state for the dropdown menu
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
-  const { timeData, changeTimeData } = useContext<any>(TimeContext)
+  const { changeTimeData } = useContext<any>(TimeContext)
   //hardcoded Query to GraphQL - need to change to be dynamic
   const queryText = `
 SpaceX API GQL Query
