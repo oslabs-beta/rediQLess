@@ -25,24 +25,34 @@ query {
 	}
   }
 `
-const [ queryPreview, setQueryPreview] = useState<any>({
-  firstQuery: false,
-  secondQuery: false,
-  thirdQuery: false,
-  queryNum: 0
-})
-
 
 
   //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
     // Establishing current time the request is sent
     const timeSent = Date.now()
-    // data is requested from reqiql on the backend
-    const { data } = await axios('http://localhost:1500/rediql')
-    .then(
-      (data) => data
-    )
+
+    // SENDS QUERY TO THE BACKEND BASED ON THE SELECTION MADE
+
+   const query = await axios.post('http://localhost:1500/rediql', {
+                data: {
+                  query: queryFill()
+                }
+              })
+              // .then((res) => {
+                
+              //   console.log('query sent to the back', res.data.query)
+                
+              // })
+
+    // const { data } = await axios.get('http://localhost:1500/rediql', {
+    //   params: {
+    //     query: queryFill()
+    //   }
+    // })
+    // .then(
+    //   (data) => data
+    // )
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
     const timeReceived = Date.now()
     // Establishing the time it took  from the time is was sent to the time it was received
@@ -53,22 +63,27 @@ const [ queryPreview, setQueryPreview] = useState<any>({
 
     //NOTE: Will most likely return to the below to create a streamlined algo to get the data from the backend and turn into a readable string on the front
     //creating a dataArray with Object.entries on data.launches
-    const dataArray = Object.entries(data.launches)
-    //creating a dataObj by mapping over the dataArray and grabing the values at x[1]
-    const dataObj = dataArray.map((x) => Object.values(x[1]))
-    //Setting the dataString from the dataObj, this will provide a readible string on the front end
-    const dataString = dataObj.map((x) => {
-      return `Flight Number: ${x[0]}
-        Mission Name: ${x[1]}
-        Cost: ${x[2]}
-        Launch Success: ${x[3]}
+    // const dataArray = Object.entries(data.launches)
+    // //creating a dataObj by mapping over the dataArray and grabing the values at x[1]
+    // const dataObj = dataArray.map((x) => Object.values(x[1]))
+    // //Setting the dataString from the dataObj, this will provide a readible string on the front end
+    // const dataString = dataObj.map((x) => {
+    //   return `Flight Number: ${x[0]}
+    //     Mission Name: ${x[1]}
+    //     Cost: ${x[2]}
+    //     Launch Success: ${x[3]}
         
-        `
-    })
-    //set state of spaceXdata to be the GraphQL query response
-    setSpaceXData(`${dataString}`)
-    return data
+    //     `
+    // })
+    // //set state of spaceXdata to be the GraphQL query response
+    // setSpaceXData(`${dataString}`)
+
+    // console.log('QUERY SENT', query)
+    //return data
   }
+
+
+
 
   const clearCache = () => {
     axios('http://localhost:1500/clearCache')
@@ -80,6 +95,16 @@ const [ queryPreview, setQueryPreview] = useState<any>({
     || queryPreview.thirdQuery ? QueryInfo[2] : '' )
     
   }
+
+  const [ queryPreview, setQueryPreview] = useState<any>({
+    firstQuery: false,
+    secondQuery: false,
+    thirdQuery: false,
+    queryNum: 0
+  })
+  
+  
+ 
   return (
     <div className="w-3/6">
       <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
