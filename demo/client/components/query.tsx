@@ -85,14 +85,14 @@ const [ queryPreview, setQueryPreview] = useState<any>({
       <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
       <div className="h-4/5 p-3 mx-10 text-center">
-        <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+        {!isOpen && <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
           Click Here For Some RediQLess Sample Queries
-        </button>
+        </button>}
 
 
       {isOpen &&
       
-      <div className="bg-white rounded-lg mt-2 mb-2">
+      <div className="bg-white rounded-lg mb-2">
         <span
         className="px-2 py-2 cursor-pointer hover:underline"
         onClick = { (e) => {
@@ -151,17 +151,17 @@ const [ queryPreview, setQueryPreview] = useState<any>({
           placeholder={spaceXData || queryFill()}
         >
         </textarea>
-        <div className="flex flex-center">
+        <div className="flex flex-center mt-2">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 lg:mr-auto lg:mb-5 ml-auto mb-3"
+                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => request()}
           >
             Query
           </button>
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 lg:mr-auto lg:mb-5 ml-auto mb-3"
+                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => clearCache()}
           >
             Clear Cache
