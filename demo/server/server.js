@@ -52,9 +52,12 @@ app.use(express.urlencoded({ extended: true }))
 //  */
 
 // iimplementing RediQL
-app.use('/rediql', RediQLQuery, (req, res) => {
+
+app.use('/rediql', RediQLQuery, (req, res) => { 
+
   // console.log('res.locals.query => ', res.locals.query);
-  res.send(res.locals.query)
+  // console.log('req.body.query =>', req.body.data.query)
+  res.send(res.locals.query) 
 })
 
 app.use('/clearcache', RediQLClear, (req, res) => {

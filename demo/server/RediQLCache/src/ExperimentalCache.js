@@ -19,7 +19,8 @@ class ExpCache {
   }
   
   async createQuery() {
-    
+    this.keyIndex = await this.getFromRedis('keyIndex')
+    this.keyIndex = JSON.parse(this.keyIndex)
     //create query will check what fields already exist in the cache and return a new query with only uncached information
     //cacheResponse will use this query to navigate the query and cache the response
 
@@ -64,7 +65,7 @@ class ExpCache {
     
     for (let i = 0; i < fieldsArr.length; i++) {
       if(fieldsArr[i] !== this.nextType.types){
-      let exists = await this.checkRedis(`${fieldsArr[i]} 1`)
+      let exists = await this.checkRedis(`${fieldsArr[i]} ${this.keyIndex[0]}`)
       if (!exists) {
         
         this.redisFields.push(fieldsArr[i])
@@ -87,7 +88,7 @@ class ExpCache {
     this.keyIndex = await this.getFromRedis('keyIndex')
     this.keyIndex = JSON.parse(this.keyIndex)
     this.newResponse[`${this.QLQueryObj.types}`] = []
-    for (let j = 1; j < this.keyIndex.length; j++) { 
+    for (let j = 0; j < this.keyIndex.length; j++) { 
       this.newResponse[`${this.QLQueryObj.types}`][j] = {}
       //loops through graphQL response, caching the values as "`${fieldname + id}` : value". In this case the id is flight_number.
       for (let i = 0; i < this.QLQueryObj.fieldsArr.length; i++) {

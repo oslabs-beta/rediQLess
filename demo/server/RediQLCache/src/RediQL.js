@@ -17,20 +17,9 @@ class RediQLCache {
     this.parser = this.parser.bind(this)
     // set up a boilerplate query to send to spaceX API 
     // ** THIS WILL BE PHASED OUT, QUERIES WILL BE COMING FROM THE FRONT
-    this.QLQuery = ` 
-        { 
-          launches {
-            flight_number 
-            mission_name
-            launch_success 
-            launch_date_utc  
-            rocket {
-              rocket_id 
-              rocket_name
-            }
-          }
-        }
-        `    
+    this.QLQuery = ''
+            
+
      // ESTABLISHES REQUEST FROM GQL QUERY --- DOUBLE CHECK
     this.request = request
 
@@ -49,7 +38,6 @@ class RediQLCache {
     // CHECK IF THE DATA IS IN THE CACHE, INIT AS FALSE, IF DATA IS IN CACHE REDIRESPONSE BECOMES TRUE
     this.rediResponse = false
     
- 
   }
 
   // PARSER METHOD WILL BE CALLED WITH AN ARG OF FALSE IF WE ARE CHECKING IF A RES CAN BE FORMED FROM THE CACHE
@@ -81,9 +69,10 @@ class RediQLCache {
   }
 
   async query(req, res, next) {
+    this.QLQuery = req.body.data.query
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false)
-
+    console.log('req.body within query method:', req.body)
     //IF REDIRESPONSE IS TRUE, THERE IS DATA IN THE CACHE, SAVE THE RESPONSE ON RES.LOCALS.QUERY
     if (this.rediResponse) {
       res.locals.query = this.response
@@ -93,7 +82,7 @@ class RediQLCache {
     for(let i = 1; i < 3; i++) {   
       console.log(this.response['launches'][i])
     }
-
+  
     // MOVE TO NEXT PIECE OF MW
       return next()
 
