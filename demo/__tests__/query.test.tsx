@@ -6,7 +6,7 @@
 import React from 'react';
 
 // import react-testing methods
-import {render, fireEvent, waitFor, screen} from '@testing-library/react';
+import {render,screen} from '@testing-library/react';
 
 // add custom jest matchers from jest-dom
 import '@testing-library/jest-dom'
@@ -15,13 +15,15 @@ import '@testing-library/jest-dom'
 import Query from '../client/components/query';
 
 
+describe('Query container', ()=> {
+	test('load query component and query button is clickable',  () => {
+		// Arrange
+		render(<Query />)
+		const linkElement = screen.getByText(/Query/i);
+		expect(linkElement).toBeInTheDocument();
+		// Act
 
-test('load query component and query button is clickable', async () => {
-	// Arrange
-	render(<Query />)
-	// Act
-	fireEvent.click(screen.getByText('Query'))
-
-	// Assert
-
-  })
+		// Assert
+		
+	  })
+})
