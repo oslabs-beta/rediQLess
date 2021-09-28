@@ -6,7 +6,7 @@
 import React from 'react';
 
 // import react-testing methods
-import {render,screen} from '@testing-library/react';
+import {render,screen, fireEvent} from '@testing-library/react';
 
 // add custom jest matchers from jest-dom
 import '@testing-library/jest-dom'
@@ -17,13 +17,8 @@ import Navbar from '../client/containers/navcontainer';
 
 describe('Testing the functionality of the Nav bar', ()=> {
 	test('When Features button is clicked the features component and it\'s children show up',  () => {
-		// Arrange
-		render(<Navbar/>)
+		render(<Navbar />)
 		const featuresButton = screen.getByText(/Features/i);
 		expect(featuresButton).toBeInTheDocument();
-		// Act
-
-		// Assert
-		
 	  })
 })

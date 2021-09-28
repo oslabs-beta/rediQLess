@@ -17,13 +17,8 @@ import Query from '../client/components/query';
 
 describe('Query container', ()=> {
 	test('load query component and query button is clickable',  () => {
-		// Arrange
 		render(<Query />)
 		const linkElement = screen.getByText(/Query/i);
 		expect(linkElement).toBeInTheDocument();
-		// Act
-
-		// Assert
-		
 	  })
 })
