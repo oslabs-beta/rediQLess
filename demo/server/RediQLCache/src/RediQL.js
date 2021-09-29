@@ -50,7 +50,7 @@ class RediQLCache {
     let parsedResponse = this.response
 
     // IF THE PARSED RESPONSE IS A STRING, THEN JSONPARSE THE RESPONSE
-    if (typeof parsedResponse == 'string') {
+    if (typeof parsedResponse == 'string' && cacheResponse == true) {
       parsedResponse = JSON.parse(this.response)
     }
     const expCache = new ExpCache(parsedQuery, this.redisClient, parsedResponse)
@@ -59,7 +59,7 @@ class RediQLCache {
 
     // IF CACHE RESPONSE IS TRUE, CACHE THE RESPONSE IN REDIS
     // CONTINUE REVIEW FROM HERE** 
-    if(cacheResponse) await expCache.cacheResponse()
+    if(cacheResponse) await expCache.cacheResponse() 
 
     this.rediResponse = expCache.rediResponse
     console.log('expCache.rediResponse', expCache.rediResponse)
@@ -72,14 +72,14 @@ class RediQLCache {
     this.QLQuery = req.body.data.query
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false)
-    console.log('req.body within query method:', req.body)
+    
     //IF REDIRESPONSE IS TRUE, THERE IS DATA IN THE CACHE, SAVE THE RESPONSE ON RES.LOCALS.QUERY
     if (this.rediResponse) {
       res.locals.query = this.response
 
     // THIS.RESPONSE TEST
     console.log('this.response test:')
-    for(let i = 1; i < 3; i++) {   
+    for(let i = 0; i < 2; i++) {   
       console.log(this.response['launches'][i])
     }
   

@@ -1,13 +1,13 @@
 
 class ExpCache {
   constructor(QLQueryObj, redisClient, QLResponse = {} ) {
-    this.createQuery = this.createQuery.bind(this)
-    this.cacheResponse = this.cacheResponse.bind(this)
-    this.checkRedis = this.checkRedis.bind(this)
-    this.getFromRedis = this.getFromRedis.bind(this)
-    this.createResponse = this.createResponse.bind(this)
-    this.nestedQuery = this.nestedQuery.bind(this)
-    this.nestedCreate = this.nestedCreate.bind(this)
+    // this.createQuery = this.createQuery.bind(this)
+    // this.cacheResponse = this.cacheResponse.bind(this)
+    // this.checkRedis = this.checkRedis.bind(this)
+    // this.getFromRedis = this.getFromRedis.bind(this)
+    // this.createResponse = this.createResponse.bind(this)
+    // this.nestedQuery = this.nestedQuery.bind(this)
+    // this.nestedCreate = this.nestedCreate.bind(this)
     this.redisFields = []
     this.QLQueryObj = QLQueryObj
     this.nextType = []
@@ -21,26 +21,14 @@ class ExpCache {
   async createQuery() {
     this.keyIndex = await this.getFromRedis('keyIndex')
     this.keyIndex = JSON.parse(this.keyIndex)
+    if (this.keyIndex == null) this.keyIndex = []
     //create query will check what fields already exist in the cache and return a new query with only uncached information
     //cacheResponse will use this query to navigate the query and cache the response
 
-    console.log(
-      'parsed query, drilled to first query type => ',
-      this.QLQueryObj['definitions'][0].selectionSet.selections[0].name.value
-    )
     //if a selection in a selection set does not have a "selectionSet" key,
     //it can be assumed to be a type, and not a field (i.e. Nested graphQL querys.)
 
     //a way of handling nested queries still needs to be addressed.
-
-    console.log(
-      'parsed query, drilled to first query field => ',
-      this.QLQueryObj['definitions'][0].selectionSet.selections[0].selectionSet
-        .selections[0].name.value
-    )
-    console.log('parsed query, drilled to nested query => ', this.QLQueryObj['definitions'][0].selectionSet.selections[0].selectionSet
-    .selections[4])
-    // console.log('fields length => ', this.QLQueryObj['definitions'][0].selectionSet.selections[0].selectionSet.selections.length)
 
     const queryTypes =
       this.QLQueryObj['definitions'][0].selectionSet.selections[0].name.value
@@ -50,29 +38,31 @@ class ExpCache {
         .selections
 
 
-    let nextType    
+    let nextType;    
     const fieldsArr = fieldsObj.map((field) => { 
       if(field.selectionSet !== undefined) {
         // this.nestedQuery(field)
-       nextType = field
-        return field.name.value
+       nextType = field;
+        return field.name.value;
       }
-      return field.name.value
+      return field.name.value;
     })
-    if(nextType !== undefined) this.nextType = await this.nestedQuery(nextType)
+    if(nextType !== undefined && this.keyIndex.length > 0) this.nextType = await this.nestedQuery(nextType);
     
     // redis fields will check the fields arr and return only fields that don't have existing keys in redis
     
     for (let i = 0; i < fieldsArr.length; i++) {
       if(fieldsArr[i] !== this.nextType.types){
+        if(this.keyIndex){
       let exists = await this.checkRedis(`${fieldsArr[i]} ${this.keyIndex[0]}`)
       if (!exists) {
         
-        this.redisFields.push(fieldsArr[i])
+        this.redisFields.push(fieldsArr[i]);
       }
     }
     }
-    if(this.redisFields.length == 0) this.rediResponse = true
+    }
+    if(this.redisFields.length == 0 && this.keyIndex) this.rediResponse = true;
 
     console.log('this.redisFields Array => ', this.redisFields)
     this.QLQueryObj = {
@@ -112,9 +102,9 @@ class ExpCache {
 
           this.newResponse[`${this.QLQueryObj.types}`][j][
             `${this.QLQueryObj.fieldsArr[i]}`
-          ] = redisResponse
+          ] = redisResponse 
       }
-      // console.log(this.newResponse)
+    
     }
   }
 }
@@ -126,7 +116,6 @@ class ExpCache {
     field.selectionSet.selections
  
     const fieldsArr = fieldsObj.map((field) => { 
-      console.log(field.name.value)
       if(field.selectionSet !== undefined) {
         // this.nestedQuery(field)
         this.nextType = this.nestedQuery(field)
@@ -140,12 +129,13 @@ class ExpCache {
     // redis fields will check the fields arr and return only fields that don't have existing keys in redis
     
     for (let i = 0; i < fieldsArr.length; i++) {
-      let exists = await this.checkRedis(`${fieldsArr[i]} 1`)
+      if(this.keyIndex){
+      let exists = await this.checkRedis(`${fieldsArr[i]} ${this.keyIndex[0]}`)
       if (!exists) {
         this.redisFields.push(fieldsArr[i])
       }
     }
-
+  }
       const QLQueryObj = {
         types: queryType,
         fieldsArr: fieldsArr,
@@ -175,6 +165,7 @@ class ExpCache {
   }
   // CACHERESPONSE: TAKES DATE FROM THE API REPONSE (AFTER QUERY) AND SAVES TO REDIS
   async cacheResponse() {
+    this.keyIndex = []
     //send request from createQuery
     //keyExists checks Redis for the given key
     let keyExists = false
