@@ -2,7 +2,7 @@
 <img src="https://rediqless.s3.us-east-2.amazonaws.com/REDIQLESS_LOGOV1.png" width="250" />
 </p>
 <h1 align ="center">RediQLess</h1>
-<p align="center">An easy-to-use, lightweight KafkaJS-to-Socket.io library for connecting and visualizing data in realtime.</p>
+<p align="center">One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs.</p>
 <p align="center">
 <a href="https://github.com/oslabs-beta/rediQLess//blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/rediQLess"></a>
 <img alt="npm" src="https://img.shields.io/npm/v/rediQLess">
