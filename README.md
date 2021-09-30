@@ -22,13 +22,11 @@
 
 <h2 href="#About">About</h2>
 
-Kafka Socks is an easy-to-use and lightweight framework that combines Kafka consumer functionality with WebSockets to pipe the Kafka messages directly to the frontend client, in realtime. Kafka Socks abstracts away much of the boilerplate and setup of this oft-used Kafka-Websocket architecture, providing developers with a simple and intuitive set of classes to achieve a powerful result on the client-side.
+One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs. Utilizing GraphQL’s efficient and elegant querying language and Redis’ lightweight caching, we've leveraged these two features to generate a cache of API results. Built for developers, by developers, to facilitate lightweight and performant applications.
 
-The typical use case for the Kafka Socks library is rendering realtime data on a frontend client, but Kafka Socks framework is unopinionated and flexible enough to process realtime data in whatever way the developer may see fit.
+Leveraging GraphQL’s declarative query language and strongly typed API with Redis’ inimitable caching mechanism, RediQLess caches unique calls to third-party APIs for ultimate comportability and maximum reusability. RediQLess’ cache functions as a replacement for the API, which can be memory-intensive on the client and server side.
 
-Without a WebSocket, the only way a web client could access data consumed by the Kafka consumer on the server side would be fetch requests. Not only are fetch requests notoriously slow, browsers also limit the number of responded fetch requests a client may have at any given time (most browers set this limit below 10). In short, fetch requests could get the data to the frontend, but doing so would mean that the frontend would lose the ability to access this data in realtime; in applications where frontend rendering in realtime is necessary, fetch requests simply won't work.
-
-Using the observer design pattern, WebSockets permit the server to pipe data in time because there is always an established and open link between the server and client. Kafka Socks did not invent this system design. In fact, it is a relatively common pattern to achieve realtime data processing on the frontend. Instead, Kafka Socks abstracts away the details of implementing this kafka-websocket design pattern, providing developers with an easy way to implement this pattern in a few lines of code.
+An optimization middleware that leverages the best features of GraphQL and Redis to give developers the most lightweight database possible, with average runtime speeds of under 10 milliseconds. All while avoiding an overabundance of calls to third-party APIs. More specific, more efficient, absolutely RediQLess.
 
 <h2 href="#Features">Features</h2>
 
