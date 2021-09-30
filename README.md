@@ -99,9 +99,9 @@ Kafka Socks is an open-source community project on Github. While the project is 
 <table align="center">
   <tr>
     <td valign="top"> <img src="https://rediqless.s3.us-east-2.amazonaws.com/profile.jpg" width="250"/></td>
-    <td valign="top"> <img src="./docs/charlieprofile.png" width="250"/></td>
-    <td valign="top"> <img src="./docs/cameronprofile.jpeg" width="250"/></td>
-    <td valign="top"> <img src="./docs/ianprofile.jpeg" width="250"/></td>
+    <td valign="top"> <img src="https://rediqless.s3.us-east-2.amazonaws.com/1629337049016.jpeg" width="250"/></td>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHYrToMqrX8_Q/profile-displayphoto-shrink_800_800/0/1618435070746?e=1635379200&v=beta&t=DeONQx4zzECVOTDOUFKjiAyFCyup0vPv2YDj863yGuE" width="250"/></td>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEOE2BopNqOmg/profile-displayphoto-shrink_800_800/0/1529432272197?e=1635379200&v=beta&t=CcNs7vSOXoStA_orsa2VazEHGbAwNPJMWmvxvYmQkok" width="250"/></td>
   </tr>
   <tr>
       <td valign="top"><h2 align="center">Eric Saldivar</h2></td>
