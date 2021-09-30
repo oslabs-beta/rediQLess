@@ -98,7 +98,7 @@ Kafka Socks is an open-source community project on Github. While the project is 
 
 <table align="center">
   <tr>
-    <td valign="top"> <img src="./docs/ericprofile.jpeg" width="250"/></td>
+    <td valign="top"> <img src="https://rediqless.s3.us-east-2.amazonaws.com/profile.jpg" width="250"/></td>
     <td valign="top"> <img src="./docs/charlieprofile.png" width="250"/></td>
     <td valign="top"> <img src="./docs/cameronprofile.jpeg" width="250"/></td>
     <td valign="top"> <img src="./docs/ianprofile.jpeg" width="250"/></td>
@@ -110,7 +110,7 @@ Kafka Socks is an open-source community project on Github. While the project is 
       <td valign="top"><h2 align="center">Ian Judd</h2></td>
   </tr>
    <tr>
-      <td align="center"><a href="https://github.com/esaldivar" target="_blank" align="center"> <img src="https://rediqless.s3.us-east-2.amazonaws.com/profile.jpg" alt="ericGitHub" width="50" height="50"/></a></td>
+      <td align="center"><a href="https://github.com/esaldivar" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="ericGitHub" width="50" height="50"/></a></td>
       <td align="center"><a href="https://github.com/cmalave13" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="charlieGitHub" width="50" height="50"/></a></td>
       <td align="center"><a href="https://github.com/TravisWoolston" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="travisGitHub" width="50" height="50"/></a></td>
       <td align="center"><a href="https://github.com/ikjudd" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="IanGitHub" width="50" height="50"/></a></td>
