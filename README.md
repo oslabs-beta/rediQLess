@@ -96,13 +96,26 @@ const kafkaSocksSubject = new Subject(io, 'websocket-namespace-ID')
 
 Kafka Socks is an open-source community project on Github. While the project is maintained by a small group of dedicated engineers (below), we are grateful to the community for bug fixes, feature development and other contributions.
 
-[Allison Jacobs @allisonIsCoding](https://github.com/allisonIsCoding)
-
-[Jason Fricano @jfricano](https://github.com/jfricano)
-
-[Jenessa Chapalamadugu @jenessachap](https://github.com/jenessachap)
-
-[Vinit Patel @v-za](https://github.com/v-za)
+<table align="center">
+  <tr>
+    <td valign="top"> <img src="./docs/ericprofile.jpeg" width="250"/></td>
+    <td valign="top"> <img src="./docs/charlieprofile.png" width="250"/></td>
+    <td valign="top"> <img src="./docs/cameronprofile.jpeg" width="250"/></td>
+    <td valign="top"> <img src="./docs/ianprofile.jpeg" width="250"/></td>
+  </tr>
+  <tr>
+      <td valign="top"><h2 align="center">Eric Saldivar</h2></td>
+      <td valign="top"><h2 align="center">Charles Malave</h2></td>
+      <td valign="top"><h2 align="center">Travis Woolston</h2></td>
+      <td valign="top"><h2 align="center">Ian Judd</h2></td>
+  </tr>
+   <tr>
+      <td align="center"><a href="https://github.com/esaldivar" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="ericGitHub" width="50" height="50"/></a></td>
+      <td align="center"><a href="https://github.com/cmalave13" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="charlieGitHub" width="50" height="50"/></a></td>
+      <td align="center"><a href="https://github.com/cwalls45" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="travisGitHub" width="50" height="50"/></a></td>
+      <td align="center"><a href="https://github.com/ikjudd" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="IanGitHub" width="50" height="50"/></a></td>
+  </tr>
+</table>
 
 We welcome contributions to Kafka Socks, but we also would love to see a thriving third-party ecosystem. If you are interest in creating an open-source project that builds on top of Kafka Socks, please don't hesitate to reach out, and we'd be happy to provide feedback and support.
 
