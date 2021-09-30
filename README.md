@@ -38,7 +38,7 @@ Install RediQLess as an npm module and save it to your package.json as a depende
 
 Once installed, you can now require the modules necessary to implement RediQLess:
 
-`import { Confluent, Consumer, Subject } from 'kafka-socks';`
+import { Query, Cache, Return } from 'rediqless'
 
 <h2 href="#Example">How to Use</h2>
 
