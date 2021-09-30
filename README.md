@@ -1,13 +1,13 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/76595505/120492529-2645a880-c388-11eb-8533-779b6770b243.png" width="250" />
 </p>
-<h1 align ="center">RediQLess/</h1>
+<h1 align ="center">RediQLess</h1>
 <p align="center">An easy-to-use, lightweight KafkaJS-to-Socket.io library for connecting and visualizing data in realtime.</p>
 <p align="center">
 <a href="https://github.com/oslabs-beta/rediQLess//blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/rediQLess"></a>
 <img alt="npm" src="https://img.shields.io/npm/v/rediQLess">
 <a href="https://github.com/oslabs-beta/rediQLess/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/oslabs-beta/rediQLess"></a>
-<a href="https://github.com/oslabs-beta/Kafkasocks/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/rediQLess></a>
+<a href="https://github.com/oslabs-beta/rediQLess/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/rediQLess></a>
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/rediQLess">
 
 </p>
