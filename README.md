@@ -1,7 +1,11 @@
+
+
 RediQLess
 An easy-to-use, lightweight KafkaJS-to-Socket.io library for connecting and visualizing data in realtime.
 
-GitHub license npm GitHub stars GitHub issues GitHub last commit Kafka Socks - An easy-to-use, lightweight KafkaJS to Socket.io library | Product Hunt
+GitHub license npm GitHub stars GitHub issues GitHub last commit
+
+Kafka Socks - An easy-to-use, lightweight KafkaJS to Socket.io library | Product Hunt
 
 Table of Contents
 About
