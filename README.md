@@ -36,11 +36,11 @@ An optimization middleware that leverages the best features of GraphQL and Redis
 
 <h2>Getting Started</h2>
 
-Install Kafka Socks as an npm module and save it to your package.json as a dependency.
+Install RediQLess as an npm module and save it to your package.json as a dependency.
 
-`npm install kafka-socks`
+`npm install rediqless`
 
-Once installed, you can now require the modules necessary to implement Kafka Socks:
+Once installed, you can now require the modules necessary to implement RediQLess:
 
 `import { Confluent, Consumer, Subject } from 'kafka-socks';`
 
@@ -49,50 +49,13 @@ Once installed, you can now require the modules necessary to implement Kafka Soc
 1. Import the library classes needed:
 
 ```javascript
-import { Confluent, Consumer, Subject } from 'kafka-socks';
+import { Query, Cache, Return } from 'rediqless';
 ```
 
-2. Instantiate a websocket server.  (Done here using socket.io to wrap around an express server):
-
-```javascript
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
-
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
-
-```
-
-3. Instantiate the Kafka Cluster object using the Kafka Socks Confluent class:
-
-```javascript
-const kafka = new Confluent(
-    API_KEY,
-    API_SECRET,
-    KAFKA_BOOTSTRAP_SERVER
-  )
-  .create("client-id");
-
-```
-
-4. Instantiate Kafka Socks Consumer object - you can create as many as you need:
- ```javascript
- const kafkaConsumer = kafka.consumer({ groupId: 'your-groupId-here' });
- const kafkaSocksConsumer = new Consumer(kafkaConsumer, 'kafka-topic', 'websocket-event-ID')
- ```
-
-5. Link the Kafkasocks Consumers with websocket namespaces for the front end:
-```javascript
-const kafkaSocksSubject = new Subject(io, 'websocket-namespace-ID')
-```
-
-6. Then simply set up your WebSocket listener on the front end using your favorite WebSockets framework!
 
 <h2 href="#Contributors">Contributors</h2>
 
-Kafka Socks is an open-source community project on Github. While the project is maintained by a small group of dedicated engineers (below), we are grateful to the community for bug fixes, feature development and other contributions.
+RediQLess is an open-source community project on Github. While the project is maintained by a small group of dedicated engineers (below), we are grateful to the community for bug fixes, feature development and other contributions.
 
 <table align="center">
   <tr>
