@@ -16,7 +16,7 @@ const RediQLClear = RediQL.clearCache
 // what i would our import to look like
 // import { RediQLess, ClearCache } from './RediQLCache/src/RediQL'
 
-
+ 
 // const redis = require('redis')
 // const REDIS_PORT = process.env.PORT || 6379
 
