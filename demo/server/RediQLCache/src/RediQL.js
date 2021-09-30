@@ -8,7 +8,7 @@ const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
 const ExpCache = require('./ExperimentalCache')
-const { rediResponse } = require('./ExperimentalCache')
+
 
 class RediQLCache {
   // establish our props
@@ -102,7 +102,10 @@ class RediQLCache {
 
       // SAVING THE RESPONSE DATA FROM GQL TO THIS.RESPONSE
       this.response = responseData 
-      
+      console.log('this.response test:')
+      for(let i = 0; i < 2; i++) {   
+        console.log(this.response['launches'][i])
+      }
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if(!this.rediResponse) await this.parser()
