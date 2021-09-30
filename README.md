@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://rediqless.s3.us-east-2.amazonaws.com/REDIQLESS_LOGOV1.png" width="250" />
+<img src="https://rediqless.s3.us-east-2.amazonaws.com/REDIQLESS-LOGO-CLEAN+(2).png" width="250" />
 </p>
 <h1 align ="center">RediQLess</h1>
 <p align="center">One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs.</p>
