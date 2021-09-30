@@ -30,10 +30,6 @@ An optimization middleware that leverages the best features of GraphQL and Redis
 
 <h2 href="#Features">Features</h2>
 
-- Confluent : A singleton class used to instantiate a Kafka Cluster object using cluster hosted by Confluent.io</br></br>
-- Consumer: A wrapper around a kafkaJS Consumer object, instantiate as many (or as few) consumers as needed</br></br>
-- Subject: Used to create a new Kafka Socks Subject, which pipes the messages consumed by the Kafka consumers to the specified websocket namespace
-
 <h2>Getting Started</h2>
 
 Install RediQLess as an npm module and save it to your package.json as a dependency.
