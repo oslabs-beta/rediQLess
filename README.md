@@ -112,17 +112,17 @@ Kafka Socks is an open-source community project on Github. While the project is 
    <tr>
       <td align="center"><a href="https://github.com/esaldivar" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="ericGitHub" width="50" height="50"/></a></td>
       <td align="center"><a href="https://github.com/cmalave13" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="charlieGitHub" width="50" height="50"/></a></td>
-      <td align="center"><a href="https://github.com/cwalls45" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="travisGitHub" width="50" height="50"/></a></td>
+      <td align="center"><a href="https://github.com/TravisWoolston" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="travisGitHub" width="50" height="50"/></a></td>
       <td align="center"><a href="https://github.com/ikjudd" target="_blank" align="center"> <img src="./docs/githubIcon.png" alt="IanGitHub" width="50" height="50"/></a></td>
   </tr>
 </table>
 
-We welcome contributions to Kafka Socks, but we also would love to see a thriving third-party ecosystem. If you are interest in creating an open-source project that builds on top of Kafka Socks, please don't hesitate to reach out, and we'd be happy to provide feedback and support.
+We welcome contributions to RediQLess, but we also would love to see a thriving third-party ecosystem. If you are interest in creating an open-source project that builds on top of RediQLess, please don't hesitate to reach out, and we'd be happy to provide feedback and support.
 
 <h2 href="#License">License</h2>
 
 This product is licensed under the MIT License - see the LICENSE.md file for details.
 
-This is an open source product. We are not affiliated nor endorsed by either the Apache Software Foundation or KafkaJS.
+This is an open source product.
 
 This product is accelerated by [OS Labs](https://opensourcelabs.io/).
