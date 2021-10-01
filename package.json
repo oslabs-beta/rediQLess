@@ -50,6 +50,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.1",
     "graphql-playground": "^1.3.17",
+    "graphql-request": "^3.5.0",
     "graphql-tag": "^2.12.5",
     "graphql-tools": "^8.1.0",
     "lodash": "^4.17.21",
