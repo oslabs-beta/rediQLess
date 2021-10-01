@@ -34,7 +34,7 @@ query {
 
     // SENDS QUERY TO THE BACKEND BASED ON THE SELECTION MADE
 
-   const query = await axios.post('http://localhost:1500/rediql', {
+   const query = await axios.post('/rediql', {
                 data: {
                   query: queryFill()
                 }
@@ -86,7 +86,7 @@ query {
 
 
   const clearCache = () => {
-    axios('http://localhost:1500/clearCache')
+    axios('/clearcache')
   }
   const queryFill = () => {
 
