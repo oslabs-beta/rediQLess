@@ -32,23 +32,16 @@ make sure to access it on the gqlHTTP object
 *
 */
 
-// implementing RediQL
-
 app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
-app.use('/rediql', (req, res) => { 
+// implementing RediQL
+
+app.use('/rediql', RediQLQuery, (req, res) => { 
 
   // console.log('res.locals.query => ', res.locals.query);
-  console.log('req.body.query =>', req.body.data.query)
-  res.send('rediql route reached') 
+  // console.log('req.body.query =>', req.body.data.query)
+  res.send(res.locals.query) 
 })
-
-// app.use('/rediql', RediQLQuery, (req, res) => { 
-
-//   // console.log('res.locals.query => ', res.locals.query);
-//   // console.log('req.body.query =>', req.body.data.query)
-//   res.send('rediql route reached') 
-// })
 
 app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
