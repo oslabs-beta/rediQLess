@@ -10,7 +10,14 @@ const {
   GraphQLID
 } = require("graphql");
 
-// Launch Type
+// Launch Type 
+/* POTENTIAL ADDITION/REMOVAL
+ ADD: LAUNCH SITE{
+    SITE_NAME
+}
+
+ADD: DETAILS (LAUNCH INFO)
+*/
 const LaunchType = new GraphQLObjectType({
   name: "Launch",
   fields: () => ({
@@ -18,8 +25,10 @@ const LaunchType = new GraphQLObjectType({
     mission_name: { type: GraphQLString },
     launch_date_utc: { type: GraphQLString },
     launch_success: { type: GraphQLBoolean },
-    cost_per_launch: { type: GraphQLInt },
+    cost_per_launch: { type: GraphQLInt }, // we can remove
+    // launch_site: { type: SiteType },
     // rocket: { type: GraphQLString},
+    
     rocket: { type: RocketType }
     // rocket: {
     //   // type: RocketType,
@@ -34,6 +43,9 @@ const LaunchType = new GraphQLObjectType({
 });
 
 // Rocket Type
+
+// POTENTIAL ADDITIONS AND REMOVAL
+
 const RocketType = new GraphQLObjectType({
     name: "Rocket",
     fields: () => ({
@@ -44,6 +56,15 @@ const RocketType = new GraphQLObjectType({
       boosters: { type: GraphQLInt }
     }),
   });
+
+// const SiteType = new GraphQLObjectType({
+//   name: "launch_site",
+//   fields: () => ({
+//     site_id: { type: GraphQLString },
+//     site_name: { type: GraphQLString },
+//     site_name_long: { type: GraphQLString }
+//   }),
+// });
 
 // Root Query
 const RootQuery = new GraphQLObjectType({
@@ -60,7 +81,7 @@ const RootQuery = new GraphQLObjectType({
         launch: {
             type: LaunchType,
             args: {
-                flight_number: { type: GraphQLInt }
+                flight_number: { type: GraphQLInt } 
             },
             resolve(parent, args) {
               

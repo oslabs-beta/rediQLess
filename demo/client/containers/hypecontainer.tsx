@@ -1,3 +1,7 @@
+/**
+ * @description The Hype container contains the hype component which informs the user the core features of RediQLess
+ */
+
 import React from "react";
 import Hype from "../components/hype";
 

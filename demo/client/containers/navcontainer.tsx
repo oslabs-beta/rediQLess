@@ -1,11 +1,15 @@
 /**
  * This is a JSX container that contains the navbar information which includes the features, demo, team member information, the github link for the documentation to the product, and the download button for the NPM package
- * @module ReactScroll helps to link to the parts of the SPA and smoothly transition to that area of the application.
  */
 
 import React from 'react'
 
-const Navbar = (): JSX.Element => {
+interface Nav {
+  currentNav: any,
+	currentNavChange: React.Dispatch<any>,
+}
+
+const Navbar = ({currentNav, currentNavChange}:Nav): JSX.Element => {
   return (
     <nav
       className={
@@ -15,26 +19,32 @@ const Navbar = (): JSX.Element => {
       <div className="flex flex-grow justify-center">
         <ul className="flex items-center">
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">FEATURES</a>
+            <button onClick={()=>{currentNavChange({ ...currentNav,
+              features: true,
+              demo: false,
+              team: false
+            })}}>FEATURES</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">DEMO</a>
+            <button onClick={()=>{currentNavChange({ ...currentNav,
+              features: false,
+              demo: true,
+              team: false
+            })}}>DEMO</button>
           </li>
           <li className="px-2">
-            {/* <i
-                  className={
-                    ("text-black") +
-                    " fab fa-github fa-3x text-xl leading-lg"
-                  }
-                /> */}
-            {/* <img className="object-scale-down h-12" src="https://i.ibb.co/6FSd7x0/REDIQLESS-LOGOV1-5-triangle-gold.png" /> */}
             <img
               className="object-scale-down h-12"
               src="https://i.ibb.co/ykt2gcX/REDIQLESS-LOGO-YELLOW-R.png"
+              /* ^^^ the image for the navbar */
             />
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="">TEAM</a>
+            <button onClick={()=>{currentNavChange({ ...currentNav,
+              features: false,
+              demo: false,
+              team: true
+            })}}>TEAM</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
             <a href="https://github.com/oslabs-beta/rediQLess" target="_blank">
