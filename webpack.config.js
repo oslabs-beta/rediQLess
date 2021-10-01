@@ -51,6 +51,9 @@ module.exports = {
       '/graphql': {
         target: 'http://localhost:1500',
       },
+      '/rediql': {
+        target: 'http://localhost:1500',
+      },
     },
   },
 }
