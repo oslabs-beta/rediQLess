@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development concurrently \"nodemon ./server/server.js\" \"webpack serve --open --hot\"",
     "format": "prettier --write \"./client/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint --fix \"./client/**/*.{js,jsx,ts,tsx,json}\"",
-    "start": "nodemon ./demo/server/server.js",
+    "start": "nodemon ./server/server.js",
     "test": "jest --verbose"
   },
   "repository": {
