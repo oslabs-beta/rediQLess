@@ -5,7 +5,7 @@ const axios = require('axios')
 const { request} = require('graphql-request')
 const redis = require('redis')
 const REDIS_URL = process.env.REDIS_URL || 6379
-const redisClient = redis.createClient(process.env.REDIS_URL, {
+const redisClient = redis.createClient(REDIS_URL, {
   tls: {
       rejectUnauthorized: false
   }
