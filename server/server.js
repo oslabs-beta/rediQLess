@@ -28,12 +28,6 @@ const cors = require('cors')
 
 app.use(cors())
 
-app.use('/build', express.static(path.resolve(__dirname, '../build')))
-
-app.get('/', (req, res) =>
-  res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
-)
-
 //redis caching will be done within this object
 // const rediQlCache = new RediQLCache(schema, redixPort, 3600)
 
@@ -82,19 +76,23 @@ app.use('/rediql', RediQL(redisClient, schema), async (req, res) => {
 
 */
 
-// // Default Error Handler
-// app.use((err, req, res, next) => {
-//   const defaultErr = {
-//     log: "Express error handler caught an unknown error",
-//     status: 400,
-//     message: { err: "Oops! An error occured!" },
-//   };
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
-//   const errorObj = Object.assign({}, defaultErr, err);
-//   console.log(errorObj.log);
-//   return res.status(errorObj.status).json(errObj.message);
-// });
-
+// statically serve everything in the build folder on the route '/build'
+app.use('/build', express.static(path.join(__dirname, '../build')));
+// serve index.html on the route '/'
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../index.html'));
+});
 // // Catch all unknown routes(404)
 // app.use((req, res) => res.status(404).send("Page not found!"));
 
