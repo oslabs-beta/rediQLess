@@ -34,6 +34,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@playlyfe/gql": "^2.6.2",
+    "@types/chartjs": "0.0.31",
     "apollo-client": "^2.6.10",
     "apollo-datasource-rest": "^3.1.1",
     "apollo-link-http": "^1.5.17",

@@ -17,6 +17,7 @@ const Chart = () => {
     labels: ['1st Call', '2nd Call', '3rd Call', '4th Call'],
     datasets: [
       {
+        axis: 'y',
         label: '# of milliseconds',
         data: timeData,
         backgroundColor: [
@@ -42,26 +43,7 @@ const Chart = () => {
 
 
   // Chart Options for the chart (self explanitory)
-  const options = {
-    indexAxis: 'y',
-    // Elements options apply to all of the options unless overridden in a dataset
-    // In this case, we are setting the border of each horizontal bar to be 2px wide
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'RediQLess Response Time',
-      },
-    },
-  }
+  
   return (
     <div className="flex-grow">
       <img
@@ -69,7 +51,7 @@ const Chart = () => {
         src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"
       ></img>
       { /* Data and Options are passed into Bar (coming from react-chart-js) to populate our chart */}
-      <Bar data={data} options={options} />
+      <Bar data={data} />
     </div>
   )
 }
