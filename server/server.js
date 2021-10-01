@@ -5,76 +5,59 @@ const app = express()
 const gqlHTTP = require('express-graphql')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
-// const RediQLCache = require('./RediQLCache/src/RediQL')
+const RediQLCache = require('./RediQLCache/src/RediQL')
 const cors = require('cors')
 
-// const RediQL = new RediQLCache()
+const RediQL = new RediQLCache()
 
-// const RediQLQuery = RediQL.query
-// const RediQLClear = RediQL.clearCache
+const RediQLQuery = RediQL.query
+const RediQLClear = RediQL.clearCache
 
-// what i would our import to look like
-// import { RediQLess, ClearCache } from './RediQLCache/src/RediQL'
-
- 
-// const redis = require('redis')
-// const REDIS_PORT = process.env.PORT || 6379
-
-// const client = redis.createClient(REDIS_PORT)
-
-// client.on("error", (err) => {
-//   console.log(err)
-// })
 
 app.use(cors())
 
-//redis caching will be done within this object
-// const rediQlCache = new RediQLCache(schema, redixPort, 3600)
+
 
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: true }))
 
-// /**
-//  * @description
-//  *
-//  * gqlHTTP works as middleware
-// we tell our app to head to the directory ofgraphql
-// then it hands off thecontrol of the request to graphqlHTTP()
-// make sure to access it on the gqlHTTP object
-//  *
-//  */
+/**
+* @description
+*
+* gqlHTTP works as middleware
+we tell our app to head to the directory ofgraphql
+then it hands off thecontrol of the request to graphqlHTTP()
+make sure to access it on the gqlHTTP object
+*
+*/
 
-// iimplementing RediQL
+// implementing RediQL
 
-// app.use('/rediql', RediQLQuery, (req, res) => { 
+app.use('/rediql', RediQLQuery, (req, res) => { 
 
-//   // console.log('res.locals.query => ', res.locals.query);
-//   // console.log('req.body.query =>', req.body.data.query)
-//   res.send(res.locals.query) 
-// })
+  // console.log('res.locals.query => ', res.locals.query);
+  // console.log('req.body.query =>', req.body.data.query)
+  res.send(res.locals.query) 
+})
 
-// app.use('/clearcache', RediQLClear, (req, res) => {
-//   res.send('cache cleared')
-// })
+app.use('/clearcache', RediQLClear, (req, res) => {
+  res.send('cache cleared')
+})
 
 app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
-/*
-POTENTIAL IMPLEMENTATION:
-app.use 
-1st arg:/graphql
-2nd: rediql middleware 
-3rd: async function taking in req/res and setting the date to res.locals called graphQLResponse
 
-I think our response time would be the res.locals.dif
 
-app.use('/rediql', RediQL(redisClient, schema), async (req, res) => {
-  console.log('dif is: ', res.locals.dif);
-  return res.status(202).json({data: res.locals.graphQlResponse, responseTime: res.locals.dif})
-})
 
-*/
+// statically serve everything in the build folder on the route '/build'
+app.use('/build', express.static(path.join(__dirname, '../build')));
+// serve index.html on the route '/'
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../index.html'));
+});
+// // Catch all unknown routes(404)
+
 
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -86,15 +69,6 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
-// statically serve everything in the build folder on the route '/build'
-app.use('/build', express.static(path.join(__dirname, '../build')));
-// serve index.html on the route '/'
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, '../index.html'));
-});
-// // Catch all unknown routes(404)
-// app.use((req, res) => res.status(404).send("Page not found!"));
 
 //start server
 app.listen(PORT, () => {
