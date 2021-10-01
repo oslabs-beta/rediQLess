@@ -5,13 +5,13 @@ const app = express()
 const gqlHTTP = require('express-graphql')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
-const RediQLCache = require('./RediQLCache/src/RediQL')
+// const RediQLCache = require('./RediQLCache/src/RediQL')
 const cors = require('cors')
 
-const RediQL = new RediQLCache()
+// const RediQL = new RediQLCache()
 
-const RediQLQuery = RediQL.query
-const RediQLClear = RediQL.clearCache
+// const RediQLQuery = RediQL.query
+// const RediQLClear = RediQL.clearCache
 
 // what i would our import to look like
 // import { RediQLess, ClearCache } from './RediQLCache/src/RediQL'
