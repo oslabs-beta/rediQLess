@@ -53,16 +53,16 @@ app.use(express.urlencoded({ extended: true }))
 
 // iimplementing RediQL
 
-app.use('/rediql', RediQLQuery, (req, res) => { 
+// app.use('/rediql', RediQLQuery, (req, res) => { 
 
-  // console.log('res.locals.query => ', res.locals.query);
-  // console.log('req.body.query =>', req.body.data.query)
-  res.send(res.locals.query) 
-})
+//   // console.log('res.locals.query => ', res.locals.query);
+//   // console.log('req.body.query =>', req.body.data.query)
+//   res.send(res.locals.query) 
+// })
 
-app.use('/clearcache', RediQLClear, (req, res) => {
-  res.send('cache cleared')
-})
+// app.use('/clearcache', RediQLClear, (req, res) => {
+//   res.send('cache cleared')
+// })
 
 app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
