@@ -38,7 +38,7 @@ app.use('/rediql', RediQLQuery, (req, res) => {
 
   // console.log('res.locals.query => ', res.locals.query);
   // console.log('req.body.query =>', req.body.data.query)
-  res.send(res.locals.query) 
+  res.send('rediql route reached') 
 })
 
 app.use('/clearcache', RediQLClear, (req, res) => {
