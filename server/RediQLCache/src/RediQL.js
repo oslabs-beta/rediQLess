@@ -1,5 +1,8 @@
 const { parse } = require('graphql/language/parser')
-const { request } = require('graphql-request')
+const { visit, BREAK } = require('graphql/language/visitor')
+const { graphql } = require('graphql')
+const axios = require('axios')
+const { request, gql } = require('graphql-request')
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
