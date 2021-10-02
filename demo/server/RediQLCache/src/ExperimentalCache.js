@@ -1,85 +1,154 @@
-class ExpCache {
+/*
+
+add a description here with regards to the below class object
+
+*/
+const { visit, BREAK } = require('graphql/language/visitor')
+
+class RediCache {
   constructor(QLQueryObj, redisClient, QLResponse = {}) {
-    // this.createQuery = this.createQuery.bind(this)
-    // this.cacheResponse = this.cacheResponse.bind(this)
-    // this.checkRedis = this.checkRedis.bind(this)
-    // this.getFromRedis = this.getFromRedis.bind(this)
-    // this.createResponse = this.createResponse.bind(this)
-    // this.nestedQuery = this.nestedQuery.bind(this)
-    // this.nestedCreate = this.nestedCreate.bind(this)
+    // REQUESTED FIELDS THAT ARE NOT FOUND IN THE CACHE ARE PUSHED INTO THIS ARRAY
     this.redisFields = []
+
+    // INITIALLY THE RAW QUERY BEING MADE, THEN IT WILL BE REDEFINED AS AN OBJECT OF FIELDS/TYPES
     this.QLQueryObj = QLQueryObj
+
+    // WILL STORE THE NEXT NESTED QUERY TO RECURSIVELY TAKE PLACE OF QLQUERY OBJ
     this.nextType = []
+
+    // THE RESPONSE RECEIVED FROM GQL REQUEST
     this.QLResponse = QLResponse
+
+    // IF REDISFIELDS IS EMPTY, WE FORM A NEW RESPONSE FROM CACHE
     this.newResponse = {}
+
+    // THE ACTUAL REDIS CLIENT
     this.redisClient = redisClient
+
+    // INITIALIZED AS FALSE, IF FALSE, THE INFORMATION DOES NOT EXIST YET IN THE CACHE
     this.rediResponse = false
-    this.keyIndex = []
+
+    // AN ARRAY OF THE UNIQUE ID'S BASED ON FIELD 1 OF EACH TYPE
+    this.keyIndex
   }
 
+
+  /// ASYNCRONOUS METHOD WHICH CHECKS TO SEE IF A KEYINDEX EXISTS
   async createQuery() {
-    this.keyIndex = await this.getFromRedis('keyIndex')
-    this.keyIndex = JSON.parse(this.keyIndex)
-    if (this.keyIndex == null) this.keyIndex = []
-    //create query will check what fields already exist in the cache and return a new query with only uncached information
-    //cacheResponse will use this query to navigate the query and cache the response
+    let argsId;
+    let args;
+    // USING REDIS FUNCTION TO SEE IF KEYINDEX EXISTS -   IF IT DOESNT, ASSIGNE TO AN EMPTY ARRAY
+    this.keyIndex = (JSON.parse(await this.getFromRedis('keyIndex')) || [])
 
-    //if a selection in a selection set does not have a "selectionSet" key,
-    //it can be assumed to be a type, and not a field (i.e. Nested graphQL querys.)
-
-    //a way of handling nested queries still needs to be addressed.
-
-    const queryTypes =
+    // QUERY TYPES IS LOCATING THE FIRST TYPE IN THE QUERY
+    const types =
       this.QLQueryObj['definitions'][0].selectionSet.selections[0].name.value
-
-    const fieldsObj =
+    
+    // ESTABLISHES AN ARRAY OF FIELD OBJECTS
+    const fields =
       this.QLQueryObj['definitions'][0].selectionSet.selections[0].selectionSet
         .selections
-
+        if( this.QLQueryObj['definitions'][0].selectionSet.selections[0].arguments[0]!== undefined){
+    argsId = this.QLQueryObj['definitions'][0].selectionSet.selections[0].arguments[0].name.value
+    console.log('arguments id', argsId)
+    args = this.QLQueryObj['definitions'][0].selectionSet.selections[0].arguments[0].value.value
+    console.log('arguments', args)
+}
+ 
+    
+  
+   
+    // INSTANTIATE NEXTTYPE
     let nextType
-    const fieldsArr = fieldsObj.map((field) => {
-      if (field.selectionSet !== undefined) {
-        // this.nestedQuery(field)
-        nextType = field
-        return field.name.value
-      }
+    
+    // CHECKS TO SEE IF THE NEXTTYPE IN THE QUERY IS NESTED (OR IF IT EXISTS)
+    const fieldsArr = fields.map((field) => {
+      // CHECKS TO SEE IF SELECTIONSET IS UNDEFINED (ARRAY OF FIELDS) IF IT IS, NEXTTYPE GETS REASSIGNED TO THE FILED OF FIELDSOBK
+      if (field.selectionSet !== undefined) nextType = field
+      //RETURN FIELD.NAME.VALUE
       return field.name.value
     })
-    if (nextType !== undefined) this.nextType = await this.nestedQuery(nextType)
+
+    // IF WE DISCOVERED A NESTED TYPE, THEN THIS.NEXTTYPE GETS PASED INTO NEXTED QUERY
+    if (nextType) this.nextType = await this.nestedQuery(nextType)
 
     // redis fields will check the fields arr and return only fields that don't have existing keys in redis
+    // REDIS FIELDS WILL  CHECK
 
+    // THIS IS GOING TO THE FIELDS ARRAY AND CHECKING REDIS WITH THE FIELDS-ID
+    if(this.keyIndex){
     for (let i = 0; i < fieldsArr.length; i++) {
+      // IF FIELDSARR[i] IS NOT EQUAL TO NEXTTYPE, THEN WE CHECK FOR IT IN REDIS
       if (fieldsArr[i] !== this.nextType.types) {
-        if (this.keyIndex) {
-          let exists = await this.checkRedis(
-            `${fieldsArr[i]} ${this.keyIndex[0]}`
-          )
+        let exists
+        if(args) {
+           exists =  await this.checkRedis(`${fieldsArr[i]} ${args}`)
+        }
+        else {
+           exists = await this.checkRedis(
+            // **POTENTIAL OPTIMIZATION POINT [0]
+            `${fieldsArr[i]} ${this.keyIndex[0]}`)
+            // IF IT DOESNT EXIST IN THE CACHE, PUSH IT TO THE FIELDSARR AND THE INDEX
+          }
           if (!exists) {
             this.redisFields.push(fieldsArr[i])
-          }
-        }
+            break
+        } 
       }
     }
+  }
+
+  // ********* we here fam ******* //
     if (this.redisFields.length == 0 && this.keyIndex) this.rediResponse = true
 
-    console.log('this.redisFields Array => ', this.redisFields)
+    let argsAndId = null
+    if(args !== undefined) argsAndId = [argsId, args]
     this.QLQueryObj = {
-      types: [queryTypes],
+      types: [types],
       fieldsArr: fieldsArr,
+      arguments: argsAndId
     }
     console.log('this.QLQueryObj =>', this.QLQueryObj)
 
     if (typeof this.nextType == 'object')
-      this.redisClient.setex('nextType', 3600, JSON.stringify(this.nextType))
+      this.redisClient.setex('nextType', 3600, JSON.stringify(this.nextType)) 
     if (this.rediResponse) await this.createResponse()
   }
 
   async createResponse() {
+    this.newResponse[`${this.QLQueryObj.types}`] = []
+    //IF A RESPONSE BY ID IS REQUESTED
+    if(this.QLQueryObj.arguments){
+      this.newResponse[`${this.QLQueryObj.types}`][0] = {}
+      for (let i = 0; i < this.QLQueryObj.fieldsArr.length; i++) {
+        if (this.QLQueryObj.fieldsArr[i] === this.nextType.types) {
+          this.newResponse[`${this.QLQueryObj.types}`][0][this.nextType.types] =
+            {}
+          await this.nestedCreate(0)
+        }
+        else{
+          const redisKey =
+            `${this.QLQueryObj.fieldsArr[i]}` + ` ${this.QLQueryObj.arguments[1]}`
+
+          let redisResponse = await this.getFromRedis(redisKey)
+          //convert number string into number type
+          //isNaN checking to see if redisResponse is a number-string
+          if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse)
+          //convert boolean strings to booleans
+          if (redisResponse === 'true') redisResponse = true
+          if (redisResponse === 'false') redisResponse = false
+
+          this.newResponse[`${this.QLQueryObj.types}`][0][
+            `${this.QLQueryObj.fieldsArr[i]}`
+          ] = redisResponse
+        }
+      }
+    }
+    else{
     //An array of ids is stored in redis with the key of keyIndex in cacheResponse.
     this.keyIndex = await this.getFromRedis('keyIndex')
     this.keyIndex = JSON.parse(this.keyIndex)
-    this.newResponse[`${this.QLQueryObj.types}`] = []
+ 
     for (let j = 0; j < this.keyIndex.length; j++) {
       this.newResponse[`${this.QLQueryObj.types}`][j] = {}
       //loops through graphQL response, caching the values as "`${fieldname + id}` : value". In this case the id is flight_number.
@@ -106,13 +175,21 @@ class ExpCache {
         }
       }
     }
+    }
+    let firstThree = []
+
+    for (let i = 0; i < 3; i++) {
+      //COMING FROM REDIS CACHE - TESTING HOW DATA GETS RETURNED
+      firstThree.push(this.newResponse[this.QLQueryObj.types][i])
+    }
+    console.log('new response from values from cache(first 3)', firstThree)
   }
   async nestedQuery(field) {
     const queryType = field.name.value
 
-    const fieldsObj = field.selectionSet.selections
+    const fields = field.selectionSet.selections
 
-    const fieldsArr = fieldsObj.map((field) => {
+    const fieldsArr = fields.map((field) => {
       if (field.selectionSet !== undefined) {
         // this.nestedQuery(field)
         this.nextType = this.nestedQuery(field)
@@ -166,7 +243,7 @@ class ExpCache {
     //keyExists checks Redis for the given key
     let keyExists = false
     console.log('this.nextType', this.nextType)
-    console.log('reconstructed query from createQuery => ', this.QLQueryObj)
+
 
     //given a unique value (in this example it is flight_number)
     //the corresponding values could be cached with that unique value concatenated for the key value.
@@ -208,33 +285,13 @@ class ExpCache {
           ]
         }`
 
-        keyExists = await this.checkRedis(redisKey)
-        if (!keyExists) {
           this.redisClient.setex(redisKey, 3600, value)
-        } else {
-          let redisResponse = await this.getFromRedis(redisKey)
-          //convert number string into number type
-          if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse)
-          //convert boolean strings to booleans
-          if (redisResponse === 'true') redisResponse = true
-          if (redisResponse === 'false') redisResponse = false
-
-          this.newResponse[`${this.QLQueryObj.types}`][j][
-            `${this.QLQueryObj.fieldsArr[i]}`
-          ] = redisResponse
-        }
+       
       }
       //save keyIndex array into redis
       this.redisClient.setex('keyIndex', 3600, JSON.stringify(this.keyIndex))
     }
 
-    let firstThree = []
-
-    for (let i = 0; i < 3; i++) {
-      //COMING FROM REDIS CACHE - TESTING HOW DATA GETS RETURNED
-      firstThree.push(this.newResponse[this.QLQueryObj.types][i])
-    }
-    console.log('new response from values from cache(first 3)', firstThree)
   }
   // if cacheResponse finds nested object nestedResponse caches those nested values
   async nestedResponse(nestedResponse, j, h) {
@@ -275,4 +332,4 @@ class ExpCache {
   }
 }
 
-module.exports = ExpCache
+module.exports = RediCache

@@ -7,7 +7,7 @@ const { request, gql } = require('graphql-request')
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
-const ExpCache = require('./ExperimentalCache')
+const RediCache = require('./ExperimentalCache')
 
 
 class RediQLCache {
@@ -15,8 +15,8 @@ class RediQLCache {
   constructor() {
     // bind our parser function to the constructor function
     this.parser = this.parser.bind(this)
-    // set up a boilerplate query to send to spaceX API 
-    // ** THIS WILL BE PHASED OUT, QUERIES WILL BE COMING FROM THE FRONT
+    
+    // QLQuery is initialized as an empty string
     this.QLQuery = ''
             
 
@@ -53,23 +53,33 @@ class RediQLCache {
     if (typeof parsedResponse == 'string' && cacheResponse == true) {
       parsedResponse = JSON.parse(this.response)
     }
-    const expCache = new ExpCache(parsedQuery, this.redisClient, parsedResponse)
+    const rediCache = new RediCache(parsedQuery, this.redisClient, parsedResponse)
     //CREATE QUERY CHECKS THE CACHE AND ASSIGNS A NEW RESPONSE TO EXPCACHE.NEWRESPONSE IF AVAILABLE
-    await expCache.createQuery()
+    await rediCache.createQuery()
 
     // IF CACHE RESPONSE IS TRUE, CACHE THE RESPONSE IN REDIS
     // CONTINUE REVIEW FROM HERE** 
-    if(cacheResponse) await expCache.cacheResponse() 
+    if(cacheResponse) await rediCache.cacheResponse() 
 
-    this.rediResponse = expCache.rediResponse
-    console.log('expCache.rediResponse', expCache.rediResponse)
-    if(expCache.rediResponse) {
-      this.response = expCache.newResponse
+    this.rediResponse = rediCache.rediResponse
+    console.log('rediCache.rediResponse', rediCache.rediResponse)
+    if(rediCache.rediResponse) { 
+      this.response = rediCache.newResponse
     }
   }
 
   async query(req, res, next) {
-    this.QLQuery = req.body.data.query
+    // this.QLQuery = req.body.data.query 
+    this.QLQuery =req.body.data.query ||  `
+    {
+      launch(flight_number: 5) {
+        flight_number
+        mission_name
+        rocket {
+          rocket_id
+        }
+      } 
+    }`
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false)
     
@@ -77,11 +87,12 @@ class RediQLCache {
     if (this.rediResponse) {
       res.locals.query = this.response
 
-    // THIS.RESPONSE TEST
-    console.log('this.response test:')
-    for(let i = 0; i < 2; i++) {   
-      console.log(this.response['launches'][i])
-    }
+    // THIS.RESPONSE TEST 
+    // console.log('this.response test:')
+
+    // for(let i = 0; i < 2; i++) {   
+    //   console.log(this.response['launches'][i])
+    // }
   
     // MOVE TO NEXT PIECE OF MW
       return next()
@@ -103,9 +114,10 @@ class RediQLCache {
       // SAVING THE RESPONSE DATA FROM GQL TO THIS.RESPONSE
       this.response = responseData 
       console.log('this.response test:')
-      for(let i = 0; i < 2; i++) {   
-        console.log(this.response['launches'][i])
-      }
+      // for(let i = 0; i < 2; i++) {   
+      //   console.log(this.response['launches'][i])
+      // }
+        console.log(this.response)
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if(!this.rediResponse) await this.parser()

@@ -54,6 +54,7 @@
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.2.0",
     "nodemon": "^2.0.12",
+    "perf_hooks": "0.0.1",
     "postcss-loader": "^6.1.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.4",
