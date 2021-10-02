@@ -2,6 +2,12 @@ module.exports = {
   purge: ['./*.html', './client/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    screens: {
+      'sm': '480px',
+      'md':{'min': '480px', 'max': '1310px'},
+      'lg':'1024px',
+      'xl':'1280px'
+    },
     fontFamily: {
       // WorkSans: ['"Work Sans"', 'sans-serif'],
       sans: ['"Work Sans"', 'sans-serif'],

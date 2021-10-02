@@ -7,7 +7,7 @@ import React from 'react'
 const Hype = () => {
   return (
     <div>
-      <div className="flex justify-evenly py-12 mx-10 ">
+      <div className="flex justify-evenly py-12 mx-10 md:flex-col">
         <div className="transform transition duration-500 hover:scale-110 text-center mx-20 text-white-default bg-deeppink-default shadow-2xl rounded-lg border-darkblue-default border-2">
           <h1 className="p-2">What is GraphQL?</h1>
           <article className="p-2">
@@ -20,11 +20,11 @@ const Hype = () => {
           </article>
         </div>
         <img
-          className="w-2/6 transition ease-out duration-700 rounded-lg"
+          className="w-2/6 transition ease-out duration-700 rounded-lg md:flex-col"
           src="https://s3.amazonaws.com/ckl-website-static/wp-content/uploads/2017/11/Bannerposter-1280x680.png"
         />
       </div>
-      <div className="flex justify-evenly py-12 mx-10">
+      <div className="flex justify-evenly py-12 mx-10 md:flex-col">
         <img
           className="w-2/6 h-2/6 rounded-lg"
           src="https://ps.w.org/redis-cache/assets/icon-256x256.gif?rev=2568513"
