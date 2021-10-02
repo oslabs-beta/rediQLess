@@ -54,6 +54,9 @@ module.exports = {
       '/rediql': {
         target: 'http://localhost:1500',
       },
+      '/clearcache': {
+        target: 'http://localhost:1500',
+      },
     },
   },
 }
