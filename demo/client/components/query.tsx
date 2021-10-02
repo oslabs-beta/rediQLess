@@ -28,6 +28,7 @@ const Query = () => {
 
     // let time = performance.now()
 
+   let data: any
    const query = await axios.post('/rediql', {
                 data: {
                   query: queryFill()
@@ -36,7 +37,7 @@ const Query = () => {
               .then((res) => {
                 
                 console.log('Response recieved from the back: ', res.data)
-                // setSpaceXData(JSON.stringify(res.data))
+                data = res.data
 
 
               })
@@ -44,17 +45,11 @@ const Query = () => {
 
   
     
+console.log('gettoh data: ', data.launches)
 
-    const { data } = await axios.get('/rediql', {
-      params: {
-        query: queryFill()
-      }
-    })
-    .then(
-      (data) => data
-    )
+setSpaceXData(JSON.stringify(data.launches))
 
-    console.log('data.launches is: ', data)
+// spaceXData(utilFunc(data.launches))
     // console.log('spaceXData is', spaceXData)
     
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
@@ -134,6 +129,7 @@ const Query = () => {
             thirdQuery: false,
             queryNum: 1  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -151,6 +147,7 @@ const Query = () => {
             thirdQuery: false,
             queryNum: 2  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -167,6 +164,7 @@ const Query = () => {
             thirdQuery: true,
             queryNum: 3  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -180,6 +178,7 @@ const Query = () => {
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
           placeholder={spaceXData || queryFill()}
+          readOnly
         >
         </textarea>
         <div className="flex flex-center mt-2">

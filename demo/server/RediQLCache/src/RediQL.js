@@ -70,7 +70,7 @@ class RediQLCache {
 
   async query(req, res, next) {
     // this.QLQuery = req.body.data.query 
-    this.QLQuery =req.body.data.query ||  `
+    this.QLQuery = req.body.data.query ||  `
     {
       launch(flight_number: 5) {
         flight_number
