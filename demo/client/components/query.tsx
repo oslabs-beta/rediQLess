@@ -6,6 +6,7 @@ import React, { Component, useState, useContext } from 'react'
 import { TimeContext } from '../containers/App'
 import axios from 'axios'
 import QueryInfo from '../util/queryinfo';
+// import { performance } from 'perf_hooks';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
@@ -14,36 +15,33 @@ const Query = () => {
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
   const { changeTimeData } = useContext<any>(TimeContext)
-  //hardcoded Query to GraphQL - need to change to be dynamic
-  const queryText = `
-SpaceX API GQL Query
-query { 
-	launches {
-	  flight_number
-	  mission_name
-	  launch_success
-	}
-  }
-`
 
 
   //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
+
     // Establishing current time the request is sent
+    
     const timeSent = Date.now()
 
     // SENDS QUERY TO THE BACKEND BASED ON THE SELECTION MADE
+
+    // let time = performance.now()
 
    const query = await axios.post('http://localhost:1500/rediql', {
                 data: {
                   query: queryFill()
                 }
               })
-              // .then((res) => {
+              .then((res) => {
                 
-              //   console.log('query sent to the back', res.data.query)
-                
-              // })
+                console.log('query sent to the back', res.data)
+                // console.log(`${(performance.now() - time) / 1000}`)
+              })
+              .catch(err => console.log(`some shit broke fam: ${err}`))
+
+  
+    
 
     // const { data } = await axios.get('http://localhost:1500/rediql', {
     //   params: {
