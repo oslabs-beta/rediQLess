@@ -34,6 +34,12 @@ module.exports = {
         lighter: '#767b9c',
         default: '#293E56',
       },
+      yellow: {
+        newYellow: '#fcf148',
+      },
+      black: {
+        midnight: '#021220',
+      },
     },
   },
   variants: {

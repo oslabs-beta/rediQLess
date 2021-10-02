@@ -17,16 +17,43 @@
   }
 }
 
+html {
+  background-image: url('https://i.ibb.co/jv6BxYF/rediqlbg.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #f9ed92;
+}
+
 body {
   /* background-color: #231444; */
   /* background-color: #182854; */
-  background: rgb(41, 62, 86);
-  /* background: radial-gradient(
-    circle,
-    rgba(41, 62, 86, 1) 73%,
-    rgba(118, 123, 156, 1) 100%
-  ); */
-  background: rgba(118, 123, 156, 1);
-  /* color: #e3ad4d; */
+  /* background: rgb(41, 62, 86); */
+
   color: azure;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  color: #fe1bbf;
+}
+
+.hover-underline-animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fe1bbf;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
