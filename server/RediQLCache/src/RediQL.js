@@ -9,6 +9,11 @@ const redisClient = redis.createClient(REDIS_PORT);
 const ExpCache = require('./ExperimentalCache')
 
 
+redisClient.on('connect', function(){
+  console.log('Redis Connected!')
+}
+)
+
 class RediQLCache {
   // establish our props
   constructor() {
