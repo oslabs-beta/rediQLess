@@ -10,18 +10,6 @@ const REDIS_PORT = process.env.PORT || 6379;
 
 const redisClient = redis.createClient(REDIS_PORT);
 
-redisClient.on('error', err => {
-  console.log('Error ' + err);
-});
-
-redisClient.on('ready', () => {
-  console.log('Redis is Ready!');
-});
-
-redisClient.on('connect', () => {
-  console.log('Connected to Redis!');
-});
-
 class RediQLCache {
   // establish our props
   constructor() {
