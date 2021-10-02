@@ -7,7 +7,7 @@ const { request, gql } = require('graphql-request')
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
-const RediCache = require('./ExperimentalCache')
+const RediCache = require('./RediCache')
 
 
 class RediQLCache {
@@ -70,7 +70,7 @@ class RediQLCache {
 
   async query(req, res, next) {
     // this.QLQuery = req.body.data.query 
-    this.QLQuery =req.body.data.query ||  `
+    this.QLQuery = req.body.data.query ||  `
     {
       launch(flight_number: 5) {
         flight_number
@@ -117,7 +117,7 @@ class RediQLCache {
       // for(let i = 0; i < 2; i++) {   
       //   console.log(this.response['launches'][i])
       // }
-        console.log(this.response)
+        // console.log(this.response)
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if(!this.rediResponse) await this.parser()

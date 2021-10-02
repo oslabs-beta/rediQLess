@@ -12,6 +12,7 @@ const Features = () => {
 					<h1 className="text-center font-medium mb-4 italic text-xl md:text-lg">Complex Caching...</h1>
 					<article className="md:text-base">One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs. Utilizing GraphQL’s efficient and elegant querying language and Redis’ lightweight caching, we've leveraged these two features to generate a cache of API results. Built for developers, by developers, to facilitate lightweight and performant applications.</article>
 				</div>
+
 				<div className="flex items-center justify-center w-1/5 md:flex-col">
 				<img className="h-4/5 transform transition duration-500 hover:animate-pulse max-w-{277px}" src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-LOGO-CLEAN.png"></img>
 				</div>

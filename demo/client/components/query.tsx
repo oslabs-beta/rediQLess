@@ -10,7 +10,7 @@ import QueryInfo from '../util/queryinfo';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
-  const [spaceXData, setSpaceXData] = useState('')
+  const [spaceXData, setSpaceXData] = useState('Please select a query.')
   // create state for the dropdown menu
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
@@ -28,29 +28,30 @@ const Query = () => {
 
     // let time = performance.now()
 
-   const query = await axios.post('http://localhost:1500/rediql', {
+   let data: any
+   const query = await axios.post('/rediql', {
                 data: {
                   query: queryFill()
                 }
               })
               .then((res) => {
                 
-                console.log('query sent to the back', res.data)
-                // console.log(`${(performance.now() - time) / 1000}`)
+                console.log('Response recieved from the back: ', res.data)
+                data = res.data
+
+
               })
               .catch(err => console.log(`some shit broke fam: ${err}`))
 
   
     
+console.log('gettoh data: ', data.launches)
 
-    // const { data } = await axios.get('http://localhost:1500/rediql', {
-    //   params: {
-    //     query: queryFill()
-    //   }
-    // })
-    // .then(
-    //   (data) => data
-    // )
+setSpaceXData(JSON.stringify(data.launches))
+
+// spaceXData(utilFunc(data.launches))
+    // console.log('spaceXData is', spaceXData)
+    
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
     const timeReceived = Date.now()
     // Establishing the time it took  from the time is was sent to the time it was received
@@ -86,6 +87,7 @@ const Query = () => {
   const clearCache = async () => {
     await axios('http://localhost:1500/clearCache')
     .then(resetTimeData())
+    setSpaceXData('Please select a query.')
     
   }
   const queryFill = () => {
@@ -128,6 +130,7 @@ const Query = () => {
             thirdQuery: false,
             queryNum: 1  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -145,6 +148,7 @@ const Query = () => {
             thirdQuery: false,
             queryNum: 2  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -161,6 +165,7 @@ const Query = () => {
             thirdQuery: true,
             queryNum: 3  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -177,16 +182,16 @@ const Query = () => {
           readOnly
         >
         </textarea>
-        <div className="flex flex-center mt-2">
+        <div className="flex flex-center mt-2 mb-8">
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
                   text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => request()}
           >
             Query
           </button>
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
                   text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => clearCache()}
           >
