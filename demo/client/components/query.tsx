@@ -174,6 +174,7 @@ const Query = () => {
         <textarea
           className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
           placeholder={spaceXData || queryFill()}
+          readOnly
         >
         </textarea>
         <div className="flex flex-center mt-2">
