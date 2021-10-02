@@ -4,11 +4,9 @@ import '../index.css'
 import Navbar from './navcontainer'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import AuthorsContainer from './authorscontainers'
-
 import FeaturesContainer from './featurecontainer'
-import HypeContainer from './hypecontainer'
 import DemoContainer from './democontainer'
-import { faTruckMonster } from '@fortawesome/free-solid-svg-icons'
+
 
 
 
@@ -21,6 +19,11 @@ export const App: React.FC = () => {
   // changeTimeData takes in timeData (a number) and passes the prevState as a callback to state into setTimeData
   const changeTimeData = (timeData: number) => {
     setTimeData(prevState => [...prevState, timeData])
+  }
+
+  const resetTimeData = () => {
+    setTimeData([])
+    console.log('timeData has been reset ', timeData)
   }
 
   const [currentNav, changeCurrentNav] = useState<any>({
@@ -53,7 +56,7 @@ export const App: React.FC = () => {
       {demoTransition((style, item) =>
         item ? <animated.div style={style} className="itemB">
            { /* setting up TimeContext provider  and passing it the values we want to pass into DemoContainer as props (query.tsx utilizes timeData and ChangeTimeData, chart.tsx utilizes timeData to poppulate graph with information) */ } 
-                <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData }}>
+                <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData, resetTimeData }}>
                     <DemoContainer />
                 </TimeContext.Provider>
               </animated.div> : ''

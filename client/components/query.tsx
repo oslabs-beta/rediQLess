@@ -13,7 +13,7 @@ const Query = () => {
   // create state for the dropdown menu
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
-  const { changeTimeData } = useContext<any>(TimeContext)
+  const { changeTimeData, timeData, setTimeData, resetTimeData } = useContext<any>(TimeContext)
   //hardcoded Query to GraphQL - need to change to be dynamic
   const queryText = `
 SpaceX API GQL Query
@@ -91,8 +91,10 @@ query {
 
 
 
-  const clearCache = () => {
-    axios('/clearcache')
+  const clearCache = async () => {
+    await axios('http://localhost:1500/clearCache')
+    .then(resetTimeData())
+    
   }
   const queryFill = () => {
 
