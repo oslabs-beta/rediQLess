@@ -69,7 +69,7 @@ const Chart = () => {
         src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"
       ></img>
       { /* Data and Options are passed into Bar (coming from react-chart-js) to populate our chart */}
-      <Bar data={data} options={options} />
+      <Bar data={data} />
     </div>
   )
 }
