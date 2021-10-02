@@ -42,7 +42,7 @@
  
  
    // Chart Options for the chart (self explanitory)
-   const options = {
+   const options:any = {
      indexAxis: 'y',
      // Elements options apply to all of the options unless overridden in a dataset
      // In this case, we are setting the border of each horizontal bar to be 2px wide
@@ -69,7 +69,7 @@
          src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-LOGO-CLEAN.png"
        ></img>
        { /* Data and Options are passed into Bar (coming from react-chart-js) to populate our chart */}
-       <Bar data={data} />
+       <Bar data={data} options={options}/>
      </div>
    )
  }
