@@ -23,7 +23,8 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-color: #f9ed92;
+  /* background-color: #f9ed92; */
+  background-color: #021220;
 }
 
 body {
