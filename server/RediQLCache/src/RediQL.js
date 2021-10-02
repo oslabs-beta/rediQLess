@@ -12,7 +12,11 @@ const ExpCache = require('./ExperimentalCache')
 redisClient.on('connect', function(){
   console.log('Redis Connected!')
 }
-)
+);
+
+redisClient.on("error", function (err) {
+  console.log("Error " + err);
+});
 
 class RediQLCache {
   // establish our props
