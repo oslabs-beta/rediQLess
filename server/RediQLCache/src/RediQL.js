@@ -4,13 +4,17 @@ const { graphql } = require('graphql')
 const axios = require('axios')
 const { request} = require('graphql-request')
 const redis = require('redis')
-const REDIS_PORT = process.env.PORT || 6379
-const redisClient = redis.createClient(process.env.REDIS_PORT);
 const ExpCache = require('./ExperimentalCache')
+const REDIS_PORT = 6379;
 
 
-redisClient.on("error", function(error) {
-  console.error(error);
+const redisClient = redis.createClient({
+  host: '127.0.0.1',
+  port: REDIS_PORT,
+});
+
+client.on('error', err => {
+  console.log('Error ' + err);
 });
 
 class RediQLCache {
