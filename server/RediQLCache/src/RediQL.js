@@ -5,7 +5,7 @@ const axios = require('axios')
 const { request} = require('graphql-request')
 const redis = require('redis')
 const ExpCache = require('./ExperimentalCache')
-const REDIS_PORT = 6379;
+const REDIS_PORT = process.env.PORT || 6379;
 
 
 const redisClient = redis.createClient({
