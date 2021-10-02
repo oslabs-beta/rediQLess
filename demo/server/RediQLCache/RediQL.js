@@ -117,7 +117,7 @@ class RediQLCache {
       // for(let i = 0; i < 2; i++) {   
       //   console.log(this.response['launches'][i])
       // }
-        console.log(this.response)
+        // console.log(this.response)
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if(!this.rediResponse) await this.parser()
