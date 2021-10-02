@@ -4,12 +4,8 @@ const { graphql } = require('graphql')
 const axios = require('axios')
 const { request} = require('graphql-request')
 const redis = require('redis')
-const REDIS_URL = process.env.REDIS_URL || 6379
-const redisClient = redis.createClient(REDIS_URL, {
-  tls: {
-      rejectUnauthorized: false
-  }
-});
+const REDIS_PORT = process.env.PORT || 6379
+const redisClient = redis.createClient(REDIS_PORT);
 const ExpCache = require('./ExperimentalCache')
 
 
