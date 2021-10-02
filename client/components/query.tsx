@@ -39,11 +39,11 @@ query {
                   query: queryFill()
                 }
               })
-              // .then((res) => {
+              .then((res) => {
                 
-              //   console.log('query sent to the back', res.data.query)
+                console.log('query sent to the back', res.data.query)
                 
-              // })
+              })
 
     // const { data } = await axios.get('http://localhost:1500/rediql', {
     //   params: {
@@ -52,7 +52,9 @@ query {
     // })
     // .then(
     //   (data) => data
-    // )
+    // ).catch((err) => {
+    //   console.log(err);
+    // })
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
     const timeReceived = Date.now()
     // Establishing the time it took  from the time is was sent to the time it was received
@@ -128,7 +130,7 @@ query {
             thirdQuery: false,
             queryNum: 1  
           })
-          console.log(queryPreview.queryNum)
+          
         }
         }
         >
@@ -145,7 +147,7 @@ query {
             thirdQuery: false,
             queryNum: 2  
           })
-          console.log(queryPreview.queryNum)
+         
         }
         }
         >
@@ -161,7 +163,7 @@ query {
             thirdQuery: true,
             queryNum: 3  
           })
-          console.log(queryPreview.queryNum)
+          
         }
         }
         >
