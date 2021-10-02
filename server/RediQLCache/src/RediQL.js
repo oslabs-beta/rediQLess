@@ -8,10 +8,7 @@ const ExpCache = require('./ExperimentalCache')
 const REDIS_PORT = process.env.PORT || 6379;
 
 
-const redisClient = redis.createClient({
-  host: '127.0.0.1',
-  port: REDIS_PORT,
-});
+const redisClient = redis.createClient(REDIS_PORT);
 
 redisClient.on('error', err => {
   console.log('Error ' + err);

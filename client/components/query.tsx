@@ -28,13 +28,13 @@ query {
 
 
   //GraphQL request which is an async request to the GraphQL Api
-  const request =  () => {
+  const request =   async () => {
     // Establishing current time the request is sent
     const timeSent = Date.now()
 
     // SENDS QUERY TO THE BACKEND BASED ON THE SELECTION MADE
 
-   const query =  axios.post('/rediql', {
+   const query =  await axios.post('/rediql', {
                 data: {
                   query: queryFill()
                 }
@@ -46,6 +46,8 @@ query {
               }).catch((err) => {
                   console.log(err);
                 })
+
+    
 
     // const { data } = await axios.get('http://localhost:1500/rediql', {
     //   params: {
