@@ -35,7 +35,7 @@ const Navbar = ({currentNav, currentNavChange}:Nav): JSX.Element => {
           <li className="px-2">
             <img
               className="object-scale-down h-12"
-              src="https://i.ibb.co/ykt2gcX/REDIQLESS-LOGO-YELLOW-R.png"
+              src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-R+LOGO.png"
               /* ^^^ the image for the navbar */
             />
           </li>

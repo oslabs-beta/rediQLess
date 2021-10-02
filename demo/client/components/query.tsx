@@ -10,7 +10,7 @@ import QueryInfo from '../util/queryinfo';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
-  const [spaceXData, setSpaceXData] = useState('')
+  const [spaceXData, setSpaceXData] = useState('Please select a query.')
   // create state for the dropdown menu
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
@@ -87,6 +87,7 @@ setSpaceXData(JSON.stringify(data.launches))
   const clearCache = async () => {
     await axios('http://localhost:1500/clearCache')
     .then(resetTimeData())
+    setSpaceXData('Please select a query.')
     
   }
   const queryFill = () => {
@@ -181,16 +182,16 @@ setSpaceXData(JSON.stringify(data.launches))
           readOnly
         >
         </textarea>
-        <div className="flex flex-center mt-2">
+        <div className="flex flex-center mt-2 mb-8">
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
                   text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => request()}
           >
             Query
           </button>
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
                   text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
             onClick={() => clearCache()}
           >

@@ -13,7 +13,7 @@ const Features = () => {
 					<article>One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs. Utilizing GraphQL’s efficient and elegant querying language and Redis’ lightweight caching, we've leveraged these two features to generate a cache of API results. Built for developers, by developers, to facilitate lightweight and performant applications.</article>
 				</div>
 				<div className="flex items-center justify-center w-1/5">
-				<img className="h-4/5 transform transition duration-500 hover:animate-pulse " src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"></img>
+				<img className="h-4/5 transform transition duration-500 hover:animate-pulse " src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-LOGO-CLEAN.png"></img>
 				</div>
 				
 				<div className="transform transition duration-500 hover:scale-110 text-darkblue-default  w-2/5 px-8 py-6 bg-white-default border-2 border-yellow-newYellow  shadow-2xl rounded-lg">
