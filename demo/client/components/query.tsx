@@ -28,29 +28,35 @@ const Query = () => {
 
     // let time = performance.now()
 
-   const query = await axios.post('http://localhost:1500/rediql', {
+   const query = await axios.post('/rediql', {
                 data: {
                   query: queryFill()
                 }
               })
               .then((res) => {
                 
-                console.log('query sent to the back', res.data)
-                // console.log(`${(performance.now() - time) / 1000}`)
+                console.log('Response recieved from the back: ', res.data)
+                // setSpaceXData(JSON.stringify(res.data))
+
+
               })
               .catch(err => console.log(`some shit broke fam: ${err}`))
 
   
     
 
-    // const { data } = await axios.get('http://localhost:1500/rediql', {
-    //   params: {
-    //     query: queryFill()
-    //   }
-    // })
-    // .then(
-    //   (data) => data
-    // )
+    const { data } = await axios.get('/rediql', {
+      params: {
+        query: queryFill()
+      }
+    })
+    .then(
+      (data) => data
+    )
+
+    console.log('data.launches is: ', data)
+    // console.log('spaceXData is', spaceXData)
+    
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
     const timeReceived = Date.now()
     // Establishing the time it took  from the time is was sent to the time it was received

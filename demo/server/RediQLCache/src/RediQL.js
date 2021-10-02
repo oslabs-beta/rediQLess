@@ -7,7 +7,7 @@ const { request, gql } = require('graphql-request')
 const redis = require('redis')
 const REDIS_PORT = process.env.PORT || 6379
 const redisClient = redis.createClient(REDIS_PORT)
-const RediCache = require('./ExperimentalCache')
+const RediCache = require('./RediCache')
 
 
 class RediQLCache {
