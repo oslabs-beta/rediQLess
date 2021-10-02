@@ -13,7 +13,7 @@ const redisClient = redis.createClient({
   port: REDIS_PORT,
 });
 
-client.on('error', err => {
+redisClient.on('error', err => {
   console.log('Error ' + err);
 });
 
