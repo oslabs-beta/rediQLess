@@ -5,22 +5,11 @@ const axios = require('axios')
 const { request} = require('graphql-request')
 const redis = require('redis')
 const ExpCache = require('./ExperimentalCache')
-const REDIS_PORT = process.env.PORT || 6379;
+const REDIS_URL = process.env.REDIS_URL || 6379;
 
 
-const redisClient = redis.createClient(REDIS_PORT);
+const redisClient = redis.createClient(REDIS_URL);
 
-redisClient.on('error', err => {
-  console.log('Error ' + err);
-});
-
-redisClient.on('ready', () => {
-  console.log('Redis is Ready!');
-});
-
-redisClient.on('connect', () => {
-  console.log('Connected to Redis!');
-});
 
 class RediQLCache {
   // establish our props

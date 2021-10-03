@@ -32,6 +32,8 @@ make sure to access it on the gqlHTTP object
 *
 */
 
+app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
+
 app.use('/rediql', RediQLQuery, (req, res) => { 
 
   // console.log('res.locals.query => ', res.locals.query);
@@ -43,7 +45,7 @@ app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
 })
 
-app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
+
 
 
 

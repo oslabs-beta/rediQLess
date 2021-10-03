@@ -35,7 +35,7 @@ export const App: React.FC = () => {
   const transitionStyle = {
     from: {x: 0, y: 1000, opacity: 0},
     enter: {x: 0, y: 0, opacity: 1 },
-    leave: {x: 0, y: 0, opacity: 0},
+    leave: {x: 0, y: -1000, opacity: 0},
     trail: 1000
   }
 
