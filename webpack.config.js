@@ -52,7 +52,7 @@ module.exports = {
         target: 'http://www.rediqless.com',
       },
       '/rediql': {
-        target: 'hhttp://www.rediqless.com',
+        target: 'http://www.rediqless.com',
       },
       '/clearcache': {
         target: 'http://www.rediqless.com',
