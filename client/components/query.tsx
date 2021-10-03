@@ -85,7 +85,7 @@
  
  
    const clearCache = async () => {
-     await axios('http://localhost:1500/clearCache')
+     await axios('/clearcache')
      .then(resetTimeData())
      setSpaceXData('Please select a query.')
      

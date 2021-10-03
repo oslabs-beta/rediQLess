@@ -49,13 +49,13 @@ module.exports = {
     hot: true,
     proxy: {
       '/graphql': {
-        target: 'http://localhost:1500',
+        target: 'http://www.rediqless.com',
       },
       '/rediql': {
-        target: 'http://localhost:1500',
+        target: 'hhttp://www.rediqless.com',
       },
       '/clearcache': {
-        target: 'http://localhost:1500',
+        target: 'http://www.rediqless.com',
       },
     },
   },
