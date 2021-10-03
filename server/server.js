@@ -2,7 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const path = require('path')
 const app = express()
-const gqlHTTP = require('express-graphql')
+const {graphqlHTTP} = require('express-graphql')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
 const RediQLCache = require('./RediQLCache/src/RediQL')
@@ -32,7 +32,7 @@ make sure to access it on the gqlHTTP object
 *
 */
 
-app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
+app.use(`/graphql`, graphqlHTTP({ schema, graphiql: true }))
 
 app.use('/rediql', RediQLQuery, (req, res) => { 
 

@@ -8,6 +8,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   devtool: 'inline-source-map',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -49,13 +50,13 @@ module.exports = {
     hot: true,
     proxy: {
       '/graphql': {
-        target: 'http://www.rediqless.com',
+        target: 'http://localhost:1500'
       },
       '/rediql': {
-        target: 'http://www.rediqless.com',
+        target: 'http://localhost:1500'
       },
       '/clearcache': {
-        target: 'http://www.rediqless.com',
+        target: 'http://localhost:1500'
       },
     },
   },

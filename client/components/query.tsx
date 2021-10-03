@@ -193,7 +193,7 @@
            <button
              className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
                    text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
-             onClick={() => clearCache()}
+             onClick={clearCache}
            >
              Clear Cache
            </button>
