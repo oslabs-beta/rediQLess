@@ -28,13 +28,12 @@ make sure to access it on the gqlHTTP object
 *
 */
 
-app.post(
-  '/rediql',RediQLQuery,(req, res, next) => {
+app.use(
+  '/rediql',RediQLQuery,(req, res) => {
     // console.log('res.locals.query => ', res.locals.query);
     // console.log('req.body.query =>', req.body.data.query)
     console.log('exiting rediql endpoint', res.locals.query)
     res.send(res.locals.query);
-    next();
   }
 )
 

@@ -92,7 +92,7 @@ class RediQLCache {
       let responseData
       // MAKING A REQUEST TO GQL, ON 1500/GQL, WITH THE QUERY FROM THE FRONT END
       responseData = await this.request(
-        '/graphql',
+        'https://rediqless.herokuapp.com/graphql',
         this.QLQuery
       )
 
