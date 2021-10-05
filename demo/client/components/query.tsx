@@ -108,7 +108,7 @@ setSpaceXData(JSON.stringify(data.launches))
   
  
   return (
-    <div className="w-3/6">
+    <div className="w-3/6 md:flex-col">
       <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
       <div className="h-4/5 p-3 mx-10 text-center">
