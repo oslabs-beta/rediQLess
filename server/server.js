@@ -34,7 +34,7 @@ make sure to access it on the gqlHTTP object
 
 
 
-app.use('/rediql', RediQLQuery, (req, res) => { 
+app.get('/rediql', RediQLQuery, (req, res) => { 
 
   // console.log('res.locals.query => ', res.locals.query);
   // console.log('req.body.query =>', req.body.data.query)
