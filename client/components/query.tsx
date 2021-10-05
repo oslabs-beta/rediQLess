@@ -43,8 +43,8 @@
      // let time = performance.now()
  
     let data: any
-    
-    axios.post('/rediql', {
+
+    await axios.post('/rediql', {
                  data: {
                    query: queryFill()
                  }
@@ -102,7 +102,9 @@
    const clearCache = async () => {
      await axios('/clearcache')
      .then(resetTimeData())
+     .catch((err) => { console.log(err)});
      setSpaceXData('Please select a query.')
+     
      
    }
   
