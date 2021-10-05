@@ -11,6 +11,7 @@ const REDIS_URL = process.env.REDIS_URL || 6379;
 const redisClient = redis.createClient(REDIS_URL);
 
 
+
 class RediQLCache {
   // establish our props
   constructor() {

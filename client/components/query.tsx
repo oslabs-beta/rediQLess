@@ -15,7 +15,21 @@
    const [isOpen, setIsOpen] = useState(false)
    //useContext which is defined in the App.tsx is the state for time (time of the query) and 
    const { changeTimeData, timeData, setTimeData, resetTimeData } = useContext<any>(TimeContext)
- 
+   
+   const [ queryPreview, setQueryPreview] = useState<any>({
+    firstQuery: false,
+    secondQuery: false,
+    thirdQuery: false,
+    queryNum: 0
+  })
+  
+  const queryFill = () => {
+
+   return (queryPreview.firstQuery ? QueryInfo[0] : ''
+   || queryPreview.secondQuery ? QueryInfo[1] : ''
+   || queryPreview.thirdQuery ? QueryInfo[2] : '' )
+   
+ }
  
    //GraphQL request which is an async request to the GraphQL Api
    const request = async () => {
@@ -29,7 +43,8 @@
      // let time = performance.now()
  
     let data: any
-    const query = await axios.post('/rediql', {
+    
+    axios.post('/rediql', {
                  data: {
                    query: queryFill()
                  }
@@ -90,20 +105,8 @@
      setSpaceXData('Please select a query.')
      
    }
-   const queryFill = () => {
+  
  
-     return (queryPreview.firstQuery ? QueryInfo[0] : ''
-     || queryPreview.secondQuery ? QueryInfo[1] : ''
-     || queryPreview.thirdQuery ? QueryInfo[2] : '' )
-     
-   }
- 
-   const [ queryPreview, setQueryPreview] = useState<any>({
-     firstQuery: false,
-     secondQuery: false,
-     thirdQuery: false,
-     queryNum: 0
-   })
    
    
   
