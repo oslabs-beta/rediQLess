@@ -117,7 +117,8 @@ setSpaceXData(JSON.stringify(data.launches))
         text-center 
         mb-2 
         hover:underline
-        md:w-auto" 
+        md:w-auto
+        md:text-sm" 
         onClick={() => setIsOpen(true)}>
           Click Here For Some RediQLess Sample Queries
         </button>}
@@ -191,14 +192,14 @@ setSpaceXData(JSON.stringify(data.launches))
         <div className="flex flex-center mt-2 mb-8">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3 md:p-1 md:text-base"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => request()}
           >
-            Query
+            Send Query
           </button>
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3 md:p-1 md:text-base"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => clearCache()}
           >
             Clear Cache

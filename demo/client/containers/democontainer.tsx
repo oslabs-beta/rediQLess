@@ -25,7 +25,8 @@ const DemoContainer = () => {
 	md:p-0 
 	md:max-w-md">
 		<div className="p-0 m-0">
-			<h1 className="text-center p-2 mb-2">RediQLess Speeds...</h1>
+			<h1 className="text-center p-2 mb-1 mt-1 font-semibold
+			md:text-2xl md:font-bold">RediQLess Speeds</h1>
 		</div>
 		<div className="flex justify-evenly 
 		md:flex-col 

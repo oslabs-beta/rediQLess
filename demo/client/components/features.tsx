@@ -7,7 +7,11 @@ import React from "react";
 //Features is a component in the features container that houses the two small articles and RediQLess logo that the user sees right under the nav bar
 const Features = () => {
 	return (
-		<div className="flex md:flex-col md:items-center md:justify-center">
+		<div className="flex 
+		md:flex-col 
+		md:items-center 
+		md:justify-center
+		md:max-w-2xl">
 				<div className="transform transition duration-500 hover:scale-110 text-darkblue-default w-2/5 px-8 py-6 border-2 bg-white-default border-yellow-newYellow  shadow-2xl rounded-lg md:flex-col">
 					<h1 className="text-center font-medium mb-4 italic text-xl md:text-lg">Complex Caching...</h1>
 					<article className="md:text-base">One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs. Utilizing GraphQL’s efficient and elegant querying language and Redis’ lightweight caching, we've leveraged these two features to generate a cache of API results. Built for developers, by developers, to facilitate lightweight and performant applications.</article>
