@@ -9,8 +9,7 @@ module.exports = {
       'xl':'1280px'
     },
     fontFamily: {
-      // WorkSans: ['"Work Sans"', 'sans-serif'],
-      sans: ['"Work Sans"', 'sans-serif'],
+      sans: ['Jost', 'sans-serif'],
     },
     colors: {
       rdgreen: {
