@@ -2,17 +2,16 @@ const { parse } = require('graphql/language/parser')
 const { visit, BREAK } = require('graphql/language/visitor')
 const { graphql } = require('graphql')
 
-const axios = require('axios')
 const { request, gql } = require('graphql-request')
-const redis = require('redis')
-const REDIS_PORT = process.env.PORT || 6379
-const redisClient = redis.createClient(REDIS_PORT)
+
+
+
 const RediCache = require('./RediCache')
 
 
 class RediQLCache {
   // establish our props
-  constructor() {
+  constructor(redisClient) {
     // bind our parser function to the constructor function
     this.parser = this.parser.bind(this)
     
@@ -70,16 +69,7 @@ class RediQLCache {
 
   async query(req, res, next) {
     // this.QLQuery = req.body.data.query 
-    this.QLQuery = req.body.data.query ||  `
-    {
-      launch(flight_number: 5) {
-        flight_number
-        mission_name
-        rocket {
-          rocket_id
-        }
-      } 
-    }`
+    this.QLQuery = req.body.data.query
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false)
     
@@ -104,7 +94,7 @@ class RediQLCache {
       let responseData;
         // MAKING A REQUEST TO GQL, ON 1500/GQL, WITH THE QUERY FROM THE FRONT END
         responseData = await this.request(
-          'http://localhost:1500/graphql',  
+          '/graphql',  
           this.QLQuery
         )
         
