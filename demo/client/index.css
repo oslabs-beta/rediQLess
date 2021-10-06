@@ -25,6 +25,7 @@ html {
   background-size: cover;
   /* background-color: #f9ed92; */
   background-color: #021220;
+  background-attachment: fixed;
 }
 
 body {
