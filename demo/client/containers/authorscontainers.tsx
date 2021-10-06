@@ -15,7 +15,7 @@ import authorData from '../util/authorinfo';
 const AuthorsContainer = () => {
 
 	return (
-		<div className="border-2 border-deeppink-default flex flex-wrap items-center text-center m-10 px-4 py-6 bg-darkblue-lighter shadow-2xl rounded-lg">
+		<div className="border-2 border-deeppink-default flex flex-wrap items-center text-center m-10 px-4 py-6 bg-darkblue-lighter shadow-2xl rounded-lg md:flex-col md:m-30 md:py-3 md:px-3">
 			{authorData.map((el, index:number) => {
 			return <AuthorProfile key={index} name={el.name} image={el.image} info={el.info} github={el.github} linkedin={el.linkedin}/>
 		})}	

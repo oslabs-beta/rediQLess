@@ -7,10 +7,11 @@ import React from 'react'
 const Hype = () => {
   return (
     <div>
-      <div className="flex justify-evenly py-12 mx-10 md:flex-col">
+      <div className="flex justify-evenly py-12 mx-10 md:flex-col md:items-center">
         <div className="transform transition duration-500 hover:scale-110 text-center mx-20 text-white-default bg-deeppink-default shadow-2xl rounded-lg border-darkblue-default border-2">
           <h1 className="p-2">What is GraphQL?</h1>
-          <article className="p-2">
+          <article className="p-2 text-lg
+					md:text-base">
             Graph Query Language. A spec that describes a declarative query
             language that clients can use to ask an API for the exact data that
             they want. This is achieved by creating a strongly typed Schema for
@@ -31,7 +32,8 @@ const Hype = () => {
         />
         <div className="transform transition duration-500 hover:scale-110 text-center mx-20 text-darkblue-default bg-white-default shadow-2xl rounded-lg border-darkblue-default border-2">
           <h1 className="p-2">What Is Redis?</h1>
-          <article className="p-2">
+          <article className="p-2 text-lg
+					md:text-base">
             Remote Dictionary Service. An in-memory database with latency that
             can be less than 1 millisecond. Redis stores an object of key-value
             pairs onto your RAM, which then becomes available to your
@@ -39,10 +41,11 @@ const Hype = () => {
           </article>
         </div>
       </div>
-      <div className="flex justify-evenly py-12 mx-10 ">
+      <div className="flex justify-evenly py-12 mx-10 md:flex-col ">
         <div className="transform transition duration-500 hover:scale-110 text-center mx-20 text-deeppink-default bg-khaki-alt shadow-2xl rounded-lg border-darkblue-default border-2">
           <h1 className="p-2">So what is RediQLess?</h1>
-          <article className="p-2">
+          <article className=" p-2 text-lg
+					md:text-base">
           An optimization middleware that leverages the best features of GraphQL and Redis to
             give developers the most lightweight database possible, with average
             runtime speeds of under 10 milliseconds. All while avoiding an

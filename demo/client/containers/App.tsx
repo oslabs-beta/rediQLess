@@ -53,6 +53,7 @@ export const App: React.FC = () => {
       {featuresTransition((style, item) =>
           item ? <animated.div style={style} className="itemA">
                   <FeaturesContainer />
+                  <HypeContainer />
                 </animated.div> : ''
       )}
       {demoTransition((style, item) =>

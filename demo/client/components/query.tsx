@@ -108,11 +108,18 @@ setSpaceXData(JSON.stringify(data.launches))
   
  
   return (
-    <div className="w-3/6">
-      <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
+    <div className="w-3/6 md:flex-col md:w-auto">
+      <h2 className="text-center animate-bounce mt-1 md:hidden">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
-      <div className="h-4/5 p-3 mx-10 text-center">
-        {!isOpen && <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+      <div className="h-4/5 p-3 mx-10 text-center
+      md:w-auto">
+        {!isOpen && <button className="bg-white 
+        text-center 
+        mb-2 
+        hover:underline
+        md:w-auto
+        md:text-sm" 
+        onClick={() => setIsOpen(true)}>
           Click Here For Some RediQLess Sample Queries
         </button>}
 
@@ -121,7 +128,7 @@ setSpaceXData(JSON.stringify(data.launches))
       
       <div className="bg-white rounded-lg mb-2">
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -138,7 +145,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 1
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           // queryNum: 1
           e.preventDefault()
@@ -156,7 +163,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 2
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -177,7 +184,7 @@ setSpaceXData(JSON.stringify(data.launches))
       }
 
         <textarea
-          className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
+          className="rounded-lg p-5 py-0.5 resize-none w-full h-full md:pb-20"
           placeholder={spaceXData || queryFill()}
           readOnly
         >
@@ -185,14 +192,14 @@ setSpaceXData(JSON.stringify(data.launches))
         <div className="flex flex-center mt-2 mb-8">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => request()}
           >
-            Query
+            Send Query
           </button>
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => clearCache()}
           >
             Clear Cache
