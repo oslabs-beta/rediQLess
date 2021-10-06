@@ -56,12 +56,13 @@
          }
        </div>
        <div className="flex">
-       <a
+       <a 
                  className={
                    ("lg:text-white lg:hover:text-gray-300 text-gray-800") +
                    " px-3 py-4 lg:py-2"
                  }
                  href={github}
+                 target="_blank"
                >
                  <i
                    className={
@@ -76,6 +77,7 @@
                    " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                  }
                  href={linkedin}
+                 target="_blank"
                >
                  <i
                    className={
