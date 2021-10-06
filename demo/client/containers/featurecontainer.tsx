@@ -9,7 +9,7 @@ import Features from "../components/features";
  const FeaturesContainer = () => {
 
 	return (
-		<div className="items-center px-16 mb-20">
+		<div className="items-center px-16 mb-20 font-bold">
 			<h1 className="text-center mt-10 mb-10 text-khaki-alt">Not just caching, it's RediQLess.</h1>
 			<Features />
 		</div>

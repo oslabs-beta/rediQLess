@@ -26,7 +26,10 @@ const authorProfile = ({name, image, info, github, linkedin}: Author):JSX.Elemen
   const [showModal, setShowModal] = useState(false)
 
 	return (
-		<div className="flex flex-col center items-center w-1/4 md:w-3/4 md:mt-2">
+		<div className="
+    flex flex-col center items-center 
+    w-1/4 
+    md:w-auto md:mt-2">
 			<img className="w-3/4 rounded-full mb-4" src={image}></img>
       <h1 className="mb-4">{name}</h1>
       {!showModal &&
