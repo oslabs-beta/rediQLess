@@ -61,8 +61,9 @@
              type="button"
              style={{ transition: 'all .15s ease' }}
            >
-             <i className="fas fa-arrow-alt-circle-down"></i> <a href="https://www.npmjs.com/package/rediqless" target="_blank">Download</a>
-           </button>
+            <a target="_blank" href="https://www.npmjs.com/package/rediqless">
+            <i className="fas fa-arrow-alt-circle-down"></i> <a className="md:hidden">Download</a>
+            </a>
          </div>
        </div>
      </nav>
