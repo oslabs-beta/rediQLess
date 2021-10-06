@@ -23,6 +23,11 @@ export const App: React.FC = () => {
     setTimeData(prevState => [...prevState, timeData])
   }
 
+  const resetTimeData = () => {
+    setTimeData([])
+    console.log('timeData has been reset ', timeData)
+  }
+
   const [currentNav, changeCurrentNav] = useState<any>({
     features: true,
     demo: false,
@@ -48,12 +53,13 @@ export const App: React.FC = () => {
       {featuresTransition((style, item) =>
           item ? <animated.div style={style} className="itemA">
                   <FeaturesContainer />
+                  <HypeContainer />
                 </animated.div> : ''
       )}
       {demoTransition((style, item) =>
         item ? <animated.div style={style} className="itemB">
            { /* setting up TimeContext provider  and passing it the values we want to pass into DemoContainer as props (query.tsx utilizes timeData and ChangeTimeData, chart.tsx utilizes timeData to poppulate graph with information) */ } 
-                <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData }}>
+                <TimeContext.Provider value={{  timeData, setTimeData, changeTimeData, resetTimeData }}>
                     <DemoContainer />
                 </TimeContext.Provider>
               </animated.div> : ''

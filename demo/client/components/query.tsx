@@ -6,53 +6,52 @@ import React, { Component, useState, useContext } from 'react'
 import { TimeContext } from '../containers/App'
 import axios from 'axios'
 import QueryInfo from '../util/queryinfo';
+// import { performance } from 'perf_hooks';
 
 const Query = () => {
   //spaceXData is the state for the query to the SpaceXAPi.  The state changes once GraphQL and Redis have sent back the request.
-  const [spaceXData, setSpaceXData] = useState('')
+  const [spaceXData, setSpaceXData] = useState('Please select a query.')
   // create state for the dropdown menu
   const [isOpen, setIsOpen] = useState(false)
   //useContext which is defined in the App.tsx is the state for time (time of the query) and 
-  const { changeTimeData } = useContext<any>(TimeContext)
-  //hardcoded Query to GraphQL - need to change to be dynamic
-  const queryText = `
-SpaceX API GQL Query
-query { 
-	launches {
-	  flight_number
-	  mission_name
-	  launch_success
-	}
-  }
-`
+  const { changeTimeData, timeData, setTimeData, resetTimeData } = useContext<any>(TimeContext)
 
 
   //GraphQL request which is an async request to the GraphQL Api
   const request = async () => {
+
     // Establishing current time the request is sent
+    
     const timeSent = Date.now()
 
     // SENDS QUERY TO THE BACKEND BASED ON THE SELECTION MADE
 
-   const query = await axios.post('http://localhost:1500/rediql', {
+    // let time = performance.now()
+
+   let data: any
+   const query = await axios.post('/rediql', {
                 data: {
                   query: queryFill()
                 }
               })
-              // .then((res) => {
+              .then((res) => {
                 
-              //   console.log('query sent to the back', res.data.query)
-                
-              // })
+                console.log('Response recieved from the back: ', res.data)
+                data = res.data
 
-    // const { data } = await axios.get('http://localhost:1500/rediql', {
-    //   params: {
-    //     query: queryFill()
-    //   }
-    // })
-    // .then(
-    //   (data) => data
-    // )
+
+              })
+              .catch(err => console.log(`some shit broke fam: ${err}`))
+
+  
+    
+console.log('gettoh data: ', data.launches)
+
+setSpaceXData(JSON.stringify(data.launches))
+
+// spaceXData(utilFunc(data.launches))
+    // console.log('spaceXData is', spaceXData)
+    
     // After the data comes back, and we recieve a response, we create a variable for the time the response came back
     const timeReceived = Date.now()
     // Establishing the time it took  from the time is was sent to the time it was received
@@ -85,8 +84,11 @@ query {
 
 
 
-  const clearCache = () => {
-    axios('http://localhost:1500/clearCache')
+  const clearCache = async () => {
+    await axios('http://localhost:1500/clearCache')
+    .then(resetTimeData())
+    setSpaceXData('Please select a query.')
+    
   }
   const queryFill = () => {
 
@@ -106,11 +108,18 @@ query {
   
  
   return (
-    <div className="w-3/6">
-      <h2 className="text-center animate-bounce mt-1">↓ Seeing Is Believing ↓</h2>
+    <div className="w-3/6 md:flex-col md:w-auto">
+      <h2 className="text-center animate-bounce mt-1 md:hidden">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
-      <div className="h-4/5 p-3 mx-10 text-center">
-        {!isOpen && <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+      <div className="h-4/5 p-3 mx-10 text-center
+      md:w-auto">
+        {!isOpen && <button className="bg-white 
+        text-center 
+        mb-2 
+        hover:underline
+        md:w-auto
+        md:text-sm" 
+        onClick={() => setIsOpen(true)}>
           Click Here For Some RediQLess Sample Queries
         </button>}
 
@@ -119,7 +128,7 @@ query {
       
       <div className="bg-white rounded-lg mb-2">
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -128,6 +137,7 @@ query {
             thirdQuery: false,
             queryNum: 1  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -135,7 +145,7 @@ query {
           Try Query 1
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           // queryNum: 1
           e.preventDefault()
@@ -145,6 +155,7 @@ query {
             thirdQuery: false,
             queryNum: 2  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -152,7 +163,7 @@ query {
           Try Query 2
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -161,6 +172,7 @@ query {
             thirdQuery: true,
             queryNum: 3  
           })
+          setSpaceXData('')
           console.log(queryPreview.queryNum)
         }
         }
@@ -172,21 +184,22 @@ query {
       }
 
         <textarea
-          className="rounded-lg p-5 py-0.5 resize-none w-full h-full"
+          className="rounded-lg p-5 py-0.5 resize-none w-full h-full md:pb-20"
           placeholder={spaceXData || queryFill()}
+          readOnly
         >
         </textarea>
-        <div className="flex flex-center mt-2">
+        <div className="flex flex-center mt-2 mb-8">
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => request()}
           >
-            Query
+            Send Query
           </button>
           <button
-            className="transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 lg:mr-auto lg:mb-5 ml-auto mb-3"
+            className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
             onClick={() => clearCache()}
           >
             Clear Cache

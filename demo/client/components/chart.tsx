@@ -65,8 +65,8 @@ const Chart = () => {
   return (
     <div className="flex-grow">
       <img
-        className="object-scale-down h-20 m-auto"
-        src="https://i.ibb.co/0f1hmdb/REDIQLESS-LOGO-CLEAN.png"
+        className="object-scale-down h-20 m-auto "
+        src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-LOGO-CLEAN.png"
       ></img>
       { /* Data and Options are passed into Bar (coming from react-chart-js) to populate our chart */}
       <Bar data={data} options={options} />

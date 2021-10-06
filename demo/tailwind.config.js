@@ -2,9 +2,15 @@ module.exports = {
   purge: ['./*.html', './client/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    screens: {
+      'sm': '480px',
+      'md':{'min': '480px', 'max': '1310px'},
+      'lg':'1024px',
+      'xl':'1280px'
+    },
     fontFamily: {
       // WorkSans: ['"Work Sans"', 'sans-serif'],
-      sans: ['"Work Sans"', 'sans-serif'],
+      sans: ['Jost', 'sans-serif'],
     },
     colors: {
       rdgreen: {
@@ -33,6 +39,12 @@ module.exports = {
       darkblue: {
         lighter: '#767b9c',
         default: '#293E56',
+      },
+      yellow: {
+        newYellow: '#fcf148',
+      },
+      black: {
+        midnight: '#021220',
       },
     },
   },

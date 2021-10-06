@@ -19,14 +19,14 @@ const Navbar = ({currentNav, currentNavChange}:Nav): JSX.Element => {
       <div className="flex flex-grow justify-center">
         <ul className="flex items-center">
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({ ...currentNav,
+            <button className="hover-underline-animation" onClick={()=>{currentNavChange({ ...currentNav,
               features: true,
               demo: false,
               team: false
             })}}>FEATURES</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({ ...currentNav,
+            <button className="hover-underline-animation"  onClick={()=>{currentNavChange({ ...currentNav,
               features: false,
               demo: true,
               team: false
@@ -35,33 +35,35 @@ const Navbar = ({currentNav, currentNavChange}:Nav): JSX.Element => {
           <li className="px-2">
             <img
               className="object-scale-down h-12"
-              src="https://i.ibb.co/ykt2gcX/REDIQLESS-LOGO-YELLOW-R.png"
+              src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-R+LOGO.png"
               /* ^^^ the image for the navbar */
             />
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <button onClick={()=>{currentNavChange({ ...currentNav,
+            <button className="hover-underline-animation"  onClick={()=>{currentNavChange({ ...currentNav,
               features: false,
               demo: false,
               team: true
             })}}>TEAM</button>
           </li>
           <li className="px-2 transform transition duration-500 hover:scale-110">
-            <a href="https://github.com/oslabs-beta/rediQLess" target="_blank">
+            <a className="hover-underline-animation"  href="https://github.com/oslabs-beta/rediQLess" target="_blank">
               GITHUB
             </a>
           </li>
         </ul>
-        <div className="absolute right-0 top-5">
+        <div className="absolute right-3 top-5">
           <button
             className={
-              'transform transition duration-500 hover:scale-110 bg-darkblue-lighter text-khaki-alt active:bg-gray-100' +
-              ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 lg:mr-1 lg:mb-0 ml-3 mb-3'
+              'transform transition duration-500 hover:scale-110 bg-black-midnight text-khaki-alt active:bg-gray-100' +
+              ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:ring-4 focus-ring-green-500 lg:mr-1 lg:mb-0 ml-3 mb-3'
             }
             type="button"
             style={{ transition: 'all .15s ease' }}
           >
-            <i className="fas fa-arrow-alt-circle-down"></i> Download
+            <a target="_blank" href="https://www.npmjs.com/package/rediqless">
+            <i className="fas fa-arrow-alt-circle-down"></i> <a className="md:hidden">Download</a>
+            </a>
           </button>
         </div>
       </div>
