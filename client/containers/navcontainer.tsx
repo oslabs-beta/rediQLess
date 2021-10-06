@@ -55,13 +55,13 @@
          <div className="absolute right-10 top-5">
            <button
              className={
-               'transform transition duration-500 hover:scale-110 bg-black-midnight text-khaki-alt active:bg-gray-100' +
+               'object-scale-down transform transition duration-500 hover:scale-110 bg-black-midnight text-khaki-alt active:bg-gray-100' +
                ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:ring-4 focus-ring-green-500 lg:mr-1 lg:mb-0 ml-3 mb-3'
              }
              type="button"
              style={{ transition: 'all .15s ease' }}
            >
-             <i className="fas fa-arrow-alt-circle-down"></i> Download
+             <i className="fas fa-arrow-alt-circle-down"></i> <a href="https://www.npmjs.com/package/rediqless" target="_blank">Download</a>
            </button>
          </div>
        </div>
