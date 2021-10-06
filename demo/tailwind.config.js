@@ -10,7 +10,7 @@ module.exports = {
     },
     fontFamily: {
       // WorkSans: ['"Work Sans"', 'sans-serif'],
-      sans: ['"Work Sans"', 'sans-serif'],
+      sans: ['Jost', 'sans-serif'],
     },
     colors: {
       rdgreen: {
