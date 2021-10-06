@@ -47,7 +47,9 @@ Once installed, you can now require the modules necessary to implement RediQLess
 ```javascript
 import { Query, Cache, Return } from 'rediqless';
 ```
-
+```javascript
+const apple = 'apple'
+```
 
 <h2 href="#Contributors">Contributors</h2>
 
