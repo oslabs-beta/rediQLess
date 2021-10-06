@@ -108,11 +108,17 @@ setSpaceXData(JSON.stringify(data.launches))
   
  
   return (
-    <div className="w-3/6 md:flex-col">
+    <div className="w-3/6 md:flex-col md:w-auto">
       <h2 className="text-center animate-bounce mt-1 md:hidden">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
-      <div className="h-4/5 p-3 mx-10 text-center">
-        {!isOpen && <button className="bg-white text-center mb-2 hover:underline" onClick={() => setIsOpen(true)}>
+      <div className="h-4/5 p-3 mx-10 text-center
+      md:w-auto">
+        {!isOpen && <button className="bg-white 
+        text-center 
+        mb-2 
+        hover:underline
+        md:w-auto" 
+        onClick={() => setIsOpen(true)}>
           Click Here For Some RediQLess Sample Queries
         </button>}
 
@@ -121,7 +127,7 @@ setSpaceXData(JSON.stringify(data.launches))
       
       <div className="bg-white rounded-lg mb-2">
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -138,7 +144,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 1
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           // queryNum: 1
           e.preventDefault()
@@ -156,7 +162,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 2
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline"
+        className="px-2 py-2 cursor-pointer hover:underline "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
