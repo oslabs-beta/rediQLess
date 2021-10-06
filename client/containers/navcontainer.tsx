@@ -52,7 +52,7 @@
              </a>
            </li>
          </ul>
-         {/* <div className="absolute right-10 top-5">
+         <div className="absolute right-10 top-5">
            <button
              className={
                'transform transition duration-500 hover:scale-110 bg-black-midnight text-khaki-alt active:bg-gray-100' +
@@ -63,7 +63,7 @@
            >
              <i className="fas fa-arrow-alt-circle-down"></i> Download
            </button>
-         </div> */}
+         </div>
        </div>
      </nav>
    )

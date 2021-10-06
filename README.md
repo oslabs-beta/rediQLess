@@ -15,7 +15,7 @@
 
 - [About](https://github.com/oslabs-beta/rediQLess/#About)
 - [Features](https://github.com/oslabs-beta/rediQLess/#Features)
-- [Getting Started](https://github.com/oslabs-beta/rediQLess/#Getting-Started])
+- [Getting Started](https://github.com/oslabs-beta/rediQLess/#Getting-Started)
 - [Example](https://github.com/oslabs-beta/rediQLess/#Example)
 - [Contributors](https://github.com/oslabs-beta/rediQLess/#Contributors)
 - [License](https://github.com/oslabs-beta/rediQLess/#License)
