@@ -35,7 +35,7 @@
            <li className="px-2">
              <img
                className="object-scale-down h-12"
-               src="https://i.ibb.co/ykt2gcX/REDIQLESS-LOGO-YELLOW-R.png"
+               src="https://rediqlessprod.s3.us-east-2.amazonaws.com/REDIQLESS-R+LOGO.png"
                /* ^^^ the image for the navbar */
              />
            </li>
@@ -52,7 +52,7 @@
              </a>
            </li>
          </ul>
-         <div className="absolute right-10 top-5">
+         {/* <div className="absolute right-10 top-5">
            <button
              className={
                'transform transition duration-500 hover:scale-110 bg-black-midnight text-khaki-alt active:bg-gray-100' +
@@ -63,7 +63,7 @@
            >
              <i className="fas fa-arrow-alt-circle-down"></i> Download
            </button>
-         </div>
+         </div> */}
        </div>
      </nav>
    )
