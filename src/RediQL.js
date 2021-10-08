@@ -6,7 +6,7 @@ const RediCache = require("./RediCache");
 
 const PORT = process.env.PORT;
 
-const URL = process.env.URL || `https://localhost:${PORT}`;
+const URL = process.env.URL || `http://localhost:${PORT}`;
 
 class RediQLCache {
   // establish our props
