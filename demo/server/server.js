@@ -5,26 +5,21 @@ const app = express()
 const gqlHTTP = require('express-graphql')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
-const RediQLCache = require('./RediQLCache/RediQL')
+// const RediQLCache = require('./RediQLCache/RediQL')
+
+const redis = require('redis')
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+})
+
+const { RediQLess } = require('rediqless')
 const cors = require('cors')
 
-const RediQL = new RediQLCache()
+const RediQL = new RediQLess(redisClient)
 
 const RediQLQuery = RediQL.query
 const RediQLClear = RediQL.clearCache
-
-// what i would our import to look like
-// import { RediQLess, ClearCache } from './RediQLCache/src/RediQL'
-
- 
-// const redis = require('redis')
-// const REDIS_PORT = process.env.PORT || 6379
-
-// const client = redis.createClient(REDIS_PORT)
-
-// client.on("error", (err) => {
-//   console.log(err)
-// })
 
 app.use(cors())
 
@@ -53,11 +48,10 @@ app.use(express.urlencoded({ extended: true }))
 
 // iimplementing RediQL
 
-app.use('/rediql', RediQLQuery, (req, res) => { 
-
+app.use('/rediql', RediQLQuery, (req, res) => {
   // console.log('res.locals.query => ', res.locals.query);
   // console.log('req.body.query =>', req.body.data.query)
-  res.send(res.locals.query) 
+  res.send(res.locals.query)
 })
 
 app.use('/clearcache', RediQLClear, (req, res) => {
