@@ -1,6 +1,6 @@
 {
   "name": "rediqless",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool to cache graphQL responses by leveraging Redis.",
   "main": "index.js",
   "scripts": {
