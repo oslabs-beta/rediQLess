@@ -1,10 +1,7 @@
-import { gql } from 'graphql-request';
-import RediQLess from './src/RediQL';
-import RediCache from './src/RediCache'
+const RediQLess = require("./RediQLRediQL");
+const RediCache = require("./RediCache");
 
-
-export {
-RediQLess,
-RediCache,
-  gql,
+module.exports = {
+  RediQLess,
+  RediCache,
 };
