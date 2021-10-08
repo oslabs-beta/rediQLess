@@ -4,6 +4,10 @@ const { request } = require("graphql-request");
 
 const RediCache = require("./RediCache");
 
+const PORT = process.env.PORT;
+
+const URL = process.env.URL || `https://localhost:${PORT}`;
+
 class RediQLCache {
   // establish our props
   constructor(redisClient) {
@@ -88,7 +92,7 @@ class RediQLCache {
       // RESPONSE DATA IS INITIALIZED
       let responseData;
       // MAKING A REQUEST TO GQL, ON 1500/GQL, WITH THE QUERY FROM THE FRONT END
-      responseData = await this.request("/graphql", this.QLQuery);
+      responseData = await this.request(`${URL}/graphql`, this.QLQuery);
 
       // SENDING THE RESPONSE DATA FROM GQL TO THE FRONT
       res.locals.query = responseData;
