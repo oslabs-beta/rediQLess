@@ -32,22 +32,116 @@ An optimization middleware that leverages the best features of GraphQL and Redis
 
 <h2>Getting Started</h2>
 
-Install RediQLess as an npm module and save it to your package.json as a dependency.
 
-`npm install rediqless --save-dev`
 
 Once installed, you can now require the modules necessary to implement RediQLess:
 
 `import { Query, Cache, Return } from 'rediqless'`
 
+## Getting Started
+
 <h2 href="#Example">How to Use</h2>
 
-1. Import the library classes needed:
+### 1. Installing and Connecting to a Redis Server
 
+This package is meant to work in conjunction with redis. To install redis:
+
+- Mac-HomeBrew:
+  - At the terminal, `brew install redis`
+  - Start redis server with `redis-server`
+
+- Linux or Window:
+  - Download appropriate version of Redis from [redis.io/download](redis.io/download)
+  - Once installation is completed, start redis server with `redis-server`
+
+Once Redis is installed, your server should reflect the below:
+  - Note: The default port is `6379`
+  
 ```javascript
-import { Query, Cache, Return } from 'rediqless';
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+})
 ```
 
+
+### 2. Installing RediQLess
+Install RediQLess as an npm module and save it to your package.json as a dependency.
+
+`npm install rediqless --save-dev`
+
+### 3. Setting up your Server Port
+Create a .env file, to create your PORT which will be leveraged by the RediQLess middleware
+
+Your Server file should reflect the below:
+```javascript
+const dotenv = require('dotenv').config();
+const PORT = process.env.PORT;
+```
+
+## 4. Require GraphQL and Schema
+The Express GraphQL Server is leveraged by RediQLess 
+
+```javascript
+const graphqlHTTP  = require('express-graphql');
+const schema = require('./schema/schema');
+```
+
+## 5. Implementing RediQLess for Queries and Caching
+
+```javascript
+const { RediQLess } = require ('rediqless');
+const RediQL = new RediQLess(redisClient);
+const RediQLQuery = RediQL.query;
+const RediQLClear = RediQL.clearCache;
+```
+
+## How to Use RediQLess
+Below is a typical Express Server set up utilizing RediQLess:
+
+```javascript
+// Require in Express and app
+const express = require('express');
+const app = express();
+
+// Require/Config dotenv for access to your PORT
+const dotenv = require('dotenv').config();
+const PORT = process.env.PORT;
+
+// Require GraphQL and Schema
+const graphql  = require('express-graphql');
+const schema = require('./schema/schema');
+
+// Initialize up Redis Client
+const redis = require('redis');
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+});
+
+// Require in RediQLess middleware
+const { RediQLess } = require('rediqless');
+// Pass redisClient into RediqLess Constructor
+const RediQL = new RediQLess(redisClient);
+// Implement RediQLess' query capability
+const RediQLQuery = RediQL.query;
+// Implement RediqLess' cache clearing capability
+const RediQLClear = RediQL.clearCache;
+
+// Leverage RediQLess Queries
+// ** Assign queries on the front-end to 'req.body.data.query'
+app.use('/rediql', RediQLQuery, (req, res) => {
+  return res.status(202).send(res.locals.query))
+});
+
+// Leverage RediQLess Cache Clearing
+app.use('/clearcache', RediQLClear, (req, res) => {
+  return res.status(202).send('Cache Cleared')
+});
+
+// RediQLess query will forward request to this Middleware if information is not yet cached
+app.use('/graphql', graphqlHTTP.graphqlHTTP({ schema, graphiql: true }));
+```
 
 <h2 href="#Contributors">Contributors</h2>
 
