@@ -26,7 +26,7 @@ One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs. U
 
 Leveraging GraphQL’s declarative query language and strongly typed API with Redis’ inimitable caching mechanism, RediQLess caches unique calls to third-party APIs for ultimate comportability and maximum reusability. RediQLess’ cache functions as a replacement for the API, which can be memory-intensive on the client and server side.
 
-An optimization middleware that leverages the best features of GraphQL and Redis to give developers the most lightweight database possible, with average runtime speeds of under 10 milliseconds. All while avoiding an overabundance of calls to third-party APIs. More specific, more efficient, absolutely RediQLess.
+An optimization middleware that leverages the best features of GraphQL and Redis to give developers the most lightweight database possible, with runtime speeds that average to around eighty to ninety percent faster than standard calls to an API. All while avoiding an overabundance of calls to third-party APIs. More specific, more efficient, absolutely RediQLess.
 
 <h2 href="#Features">Features</h2>
 
@@ -34,7 +34,7 @@ An optimization middleware that leverages the best features of GraphQL and Redis
 
 Install RediQLess as an npm module and save it to your package.json as a dependency.
 
-`npm install rediqless`
+`npm install rediqless --save-dev`
 
 Once installed, you can now require the modules necessary to implement RediQLess:
 
