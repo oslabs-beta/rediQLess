@@ -29,7 +29,7 @@
      <div className="
      flex flex-col center items-center 
      w-1/4 
-     md:w-auto md:mt-2">
+     md:w-auto md:mt-2 xs:w-3/4">
        <img className="w-1/2 rounded-full mb-4" src={image}></img>
        <h1 className="mb-4">{name}</h1>
        {!showModal &&
