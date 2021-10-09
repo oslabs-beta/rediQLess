@@ -29,9 +29,9 @@
      <div className="
      flex flex-col center items-center 
      w-1/4 
-     md:w-auto md:mt-2">
-       <img className="w-1/2 rounded-full mb-4" src={image}></img>
-       <h1 className="mb-4">{name}</h1>
+     md:w-auto md:mt-2 xs:w-full">
+       <img className="w-3/4 rounded-full mb-4" src={image}></img>
+       <h1 className="mb-4 text-khaki-alt xs:text-1x">{name}</h1>
        {!showModal &&
          <button 
          className="hover:animate-bounce hover:scale-150 hover:bg-blue-500 bg-transparent text-white-default font-bold uppercase text-sm rounded "

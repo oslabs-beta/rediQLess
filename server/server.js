@@ -1,9 +1,11 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const graphqlHTTP = require('express-graphql')
+
+const graphqlHTTP  = require('express-graphql')
 const dotenv = require('dotenv').config()
-const PORT = process.env.PORT //|| 1500
+const PORT = process.env.PORT
+
 const schema = require('./schema/schema')
 const cors = require('cors')
 const redis = require('redis')
