@@ -1,14 +1,21 @@
 const express = require('express')
-const dotenv = require('dotenv').config()
 const path = require('path')
 const app = express()
-const { graphqlHTTP } = require('express-graphql')
+const graphqlHTTP  = require('express-graphql')
+const dotenv = require('dotenv')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
-const RediQLCache = require('./RediQLCache/src/RediQL')
 const cors = require('cors')
+const redis = require('redis');
+const { RediQLess } = require('rediqless')
+const redisClient = redis.createClient()
 
-const RediQL = new RediQLCache()
+// --> REQUIRE REDIQL MW
+
+
+
+
+const RediQL = new RediQLess(redisClient)
 const RediQLQuery = RediQL.query
 const RediQLClear = RediQL.clearCache
 
@@ -41,7 +48,7 @@ app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
 })
 
-app.use(`/graphql`, graphqlHTTP({ schema, graphiql: true }))
+app.use(`/graphql`, graphqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')))
