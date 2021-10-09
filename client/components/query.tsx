@@ -107,19 +107,25 @@ setSpaceXData(JSON.stringify(data.launches))
   }
   
   return (
-    <div className="w-3/6 md:flex-col md:w-auto xs:flex-col sm:flex-col xs:w-auto sm:w-auto">
+    <div className="w-3/6 pb-8 xs:pb-0 md:flex-col md:w-auto xs:flex-col sm:flex-col xs:w-96 sm:w-96">
       <h2 className="text-center animate-bounce mt-1 md:hidden sm:hidden xs:hidden">↓ Seeing Is Believing ↓</h2>
       {/* <p className="text-center">some instructions here</p> */}
       <div className="h-4/5 p-3 mx-10 text-center
+      xs:w-auto
+      sm:w-auto
       md:w-auto">
         {!isOpen && <button className="bg-white 
         text-center 
         mb-2 
         hover:underline
+        xs:w-auto
+        sm:w-auto
+        xs:text-sm
+        sm:text-sm
         md:w-auto
         md:text-sm" 
         onClick={() => setIsOpen(true)}>
-          Click Here For Some RediQLess Sample Queries
+          Click Here For Some Sample Queries
         </button>}
 
 
@@ -127,7 +133,7 @@ setSpaceXData(JSON.stringify(data.launches))
       
       <div className="bg-white rounded-lg mb-2">
         <span
-        className="px-2 py-2 cursor-pointer hover:underline "
+        className="px-2 py-2 cursor-pointer hover:underline xs:text-xs sm:text-xs "
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -144,7 +150,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 1
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline "
+        className="px-2 py-2 cursor-pointer hover:underline xs:text-xs sm:text-xs"
         onClick = { (e) => {
           // queryNum: 1
           e.preventDefault()
@@ -162,7 +168,7 @@ setSpaceXData(JSON.stringify(data.launches))
           Try Query 2
         </span>
         <span
-        className="px-2 py-2 cursor-pointer hover:underline "
+        className="px-2 py-2 cursor-pointer hover:underline xs:text-xs sm:text-xs"
         onClick = { (e) => {
           e.preventDefault()
           setQueryPreview({
@@ -188,17 +194,17 @@ setSpaceXData(JSON.stringify(data.launches))
           readOnly
         >
         </textarea>
-        <div className="flex flex-center mt-2 mb-8">
+        <div className="flex flex-center mt-2 mb-8 xs:mb-0 sm:mb-0 md:mb-0">
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 xs:p-2 xs:text-sm md:p-2 md:text-base"
             onClick={() => request()}
           >
             Send Query
           </button>
           <button
             className="transform transition duration-500 hover:scale-110 bg-darkblue-default text-khaki-alt active:bg-gray-100 
-                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 md:p-2 md:text-base"
+                  text-xl font-bold uppercase px-2 py-2 rounded shadow hover:shadow-lg hover:bg-green-500 outline-none focus:ring-4 focus-ring-green-500 mb-5 mr-auto lg:mb-5 ml-auto mb-3 xs:p-2 xs:text-sm md:p-2 md:text-base"
             onClick={() => clearCache()}
           >
             Clear Cache

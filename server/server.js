@@ -1,19 +1,19 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const graphqlHTTP  = require('express-graphql')
-const dotenv = require('dotenv')
-const PORT = process.env.PORT || 1500
+const graphqlHTTP = require('express-graphql')
+const dotenv = require('dotenv').config()
+const PORT = process.env.PORT //|| 1500
 const schema = require('./schema/schema')
 const cors = require('cors')
-const redis = require('redis');
+const redis = require('redis')
 const { RediQLess } = require('rediqless')
-const redisClient = redis.createClient()
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+})
 
 // --> REQUIRE REDIQL MW
-
-
-
 
 const RediQL = new RediQLess(redisClient)
 const RediQLQuery = RediQL.query
@@ -35,14 +35,12 @@ make sure to access it on the gqlHTTP object
 *
 */
 
-app.use(
-  '/rediql',RediQLQuery,(req, res) => {
-    // console.log('res.locals.query => ', res.locals.query);
-    // console.log('req.body.query =>', req.body.data.query)
-    console.log('exiting rediql endpoint', res.locals.query)
-    res.send(res.locals.query);
-  }
-)
+app.use('/rediql', RediQLQuery, (req, res) => {
+  // console.log('res.locals.query => ', res.locals.query);
+  // console.log('req.body.query =>', req.body.data.query)
+  console.log('exiting rediql endpoint', res.locals.query)
+  res.send(res.locals.query)
+})
 
 app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
