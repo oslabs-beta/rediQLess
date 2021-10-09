@@ -18,6 +18,16 @@ const {
 
 ADD: DETAILS (LAUNCH INFO)
 */
+const CoreType = new GraphQLObjectType({
+  name: "Core",
+  fields: () => ({
+    core_serial: { type: GraphQLString },
+    block: { type: GraphQLInt },
+    status: {type: GraphQLString },
+    mission: {type: GraphQLString}
+  })
+})
+
 const LaunchType = new GraphQLObjectType({
   name: "Launch",
   fields: () => ({
@@ -28,7 +38,7 @@ const LaunchType = new GraphQLObjectType({
     cost_per_launch: { type: GraphQLInt }, // we can remove
     // launch_site: { type: SiteType },
     // rocket: { type: GraphQLString},
-    
+    core_serial: { type: GraphQLString },
     rocket: { type: RocketType }
     // rocket: {
     //   // type: RocketType,
@@ -53,7 +63,9 @@ const RocketType = new GraphQLObjectType({
       rocket_name: { type: GraphQLString },
       rocket_type: { type: GraphQLString },
       cost_per_launch: {type: GraphQLInt},
-      boosters: { type: GraphQLInt }
+      boosters: { type: GraphQLInt },
+      // first_stage: {type: GraphQLObjectType},
+      core: { type: CoreType}
     }),
   });
 
@@ -70,6 +82,7 @@ const RocketType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+      
         launches: {
             type: new GraphQLList(LaunchType),
             resolve(parent, args){
@@ -81,7 +94,8 @@ const RootQuery = new GraphQLObjectType({
         launch: {
             type: LaunchType,
             args: {
-                flight_number: { type: GraphQLInt } 
+                flight_number: { type: GraphQLInt } ,
+                mission_name: { type: GraphQLString }
             },
             resolve(parent, args) {
               
@@ -107,7 +121,27 @@ const RootQuery = new GraphQLObjectType({
             .get(`https://api.spacexdata.com/v3/rockets/${args.id}`)
             .then(res => res.data)
           }
+        },
+        cores: {
+          type: new GraphQLList(CoreType),
+          resolve(parent, args){
+              return axios
+              .get('https://api.spacexdata.com/v3/cores')
+              .then(res => res.data);
+          }
+      },
+      core: {
+        type: CoreType,
+        args: {
+            id: { type: GraphQLString } 
+        },
+        resolve(parent, args) {
+          
+            return axios
+            .get(`https://api.spacexdata.com/v3/cores/${args.mission_name}`)
+            .then(res => res.data);
         }
+    },
      
 
     }
