@@ -10,7 +10,8 @@
 		 <div className="
 		 flex
 		 xs:flex-col
-		 xs:justify-center
+		 xs:items-center
+		 sm:items-center
 		 md:flex-col 
 		 md:items-center 
 		 md:justify-center
@@ -34,7 +35,8 @@
 					 text-center
 					 mb-4 
 					 italic text-xl text-semibold
-					 
+					 xs:text-deeppink-default
+					 sm:text-deeppink-default
 					 md:text-bold
 					 ">Complex Caching...</h1>
 					 <article className="
@@ -44,14 +46,15 @@
  
 				 <div className="
 				 flex items-center justify-center 
-				 w-1/5 
+				 w-1/5
+				 xs:w-1/2 
 				 md:flex-col">
 				 <img className="
 				 h-4/5 
 				 transform transition duration-500 
 				 hover:animate-pulse 
 				 w-{277px}
-				 xs:w-3/4
+				 xs:w-{300px}
 				 md:w-{400px}
 				 md:mt-5
 				 md:mb-5" 
@@ -75,6 +78,8 @@
 				 mb-4 
 				 font-medium italic text-xl 
 				 md:text-lg
+				 xs:text-deeppink-default
+				 sm:text-deeppink-default
 				 ">...Made Simple!</h1>
 					 <article className="
 					 md:text-base
