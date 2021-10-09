@@ -8,7 +8,9 @@
  const Features = () => {
 	 return (
 		 <div className="
-		 flex 
+		 flex
+		 xs:flex-col
+		 xs:justify-center
 		 md:flex-col 
 		 md:items-center 
 		 md:justify-center
@@ -19,9 +21,11 @@
 				 transform transition duration-500 
 				 hover:scale-110 
 				 text-darkblue-default 
+				 sm:text-deeppink-default
 				 w-2/5 
 				 px-8 py-6 
-				 border-2 bg-white-default border-yellow-newYellow  shadow-2xl rounded-lg 
+				 border-2 bg-white-default border-yellow-newYellow  shadow-2xl rounded-lg
+				 xs:w-3/4
 				 md:flex-col
 				 md:w-auto
 				 md:text-center
@@ -47,6 +51,7 @@
 				 transform transition duration-500 
 				 hover:animate-pulse 
 				 w-{277px}
+				 xs:w-3/4
 				 md:w-{400px}
 				 md:mt-5
 				 md:mb-5" 
@@ -59,7 +64,8 @@
 				 text-darkblue-default  
 				 w-2/5 px-8 py-4 
 				 bg-white-default 
-				 border-2 border-yellow-newYellow  shadow-2xl rounded-lg 
+				 border-2 border-yellow-newYellow  shadow-2xl rounded-lg
+				 xs:w-3/4 
 				 md:flex-col
 				 md:w-auto
 				 md:text-center
