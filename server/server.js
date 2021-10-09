@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
-const graphqlHTTP  = require('express-graphql')
+const graphqlHTTP = require('express-graphql')
 const dotenv = require('dotenv').config()
 const PORT = process.env.PORT
 
@@ -27,19 +27,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({ extended: true }))
 
-/**
-* @description
-*
-* gqlHTTP works as middleware
-we tell our app to head to the directory ofgraphql
-then it hands off thecontrol of the request to graphqlHTTP()
-make sure to access it on the gqlHTTP object
-*
-*/
-
 app.use('/rediql', RediQLQuery, (req, res) => {
-  // console.log('res.locals.query => ', res.locals.query);
-  // console.log('req.body.query =>', req.body.data.query)
   console.log('exiting rediql endpoint', res.locals.query)
   res.send(res.locals.query)
 })
@@ -56,7 +44,6 @@ app.use('/build', express.static(path.join(__dirname, '../build')))
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../index.html'))
 })
-// // Catch all unknown routes(404)
 
 app.use((err, req, res, next) => {
   const defaultErr = {
