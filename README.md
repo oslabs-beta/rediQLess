@@ -4,8 +4,8 @@
 <h1 align ="center">RediQLess</h1>
 <p align="center">One part Redis, one part GraphQL, this is RediQLess - a caching tool for APIs.</p>
 <p align="center">
-<a href="https://github.com/oslabs-beta/rediQLess//blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/rediQLess"></a>
-<img alt="npm" src="https://img.shields.io/npm/v/rediqless">
+<a target="_blank" href="https://github.com/oslabs-beta/rediQLess//blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/rediQLess"></a> 
+<a href="https://www.npmjs.com/package/rediqless"><img alt="npm" src="https://img.shields.io/npm/v/rediqless"></a>
 <a href="https://github.com/oslabs-beta/rediQLess/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/oslabs-beta/rediQLess"></a>
 <a href="https://github.com/oslabs-beta/rediQLess/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/rediQLess"></a>
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/rediQLess">
