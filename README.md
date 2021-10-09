@@ -28,19 +28,9 @@ Leveraging GraphQL’s declarative query language and strongly typed API with Re
 
 An optimization middleware that leverages the best features of GraphQL and Redis to give developers the most lightweight database possible, with runtime speeds that average to around eighty to ninety percent faster than standard calls to an API. All while avoiding an overabundance of calls to third-party APIs. More specific, more efficient, absolutely RediQLess.
 
-<h2 href="#Features">Features</h2>
-
-<h2>Getting Started</h2>
-
-
-
-Once installed, you can now require the modules necessary to implement RediQLess:
-
-`import { Query, Cache, Return } from 'rediqless'`
 
 ## Getting Started
 
-<h2 href="#Example">How to Use</h2>
 
 ### 1. Installing and Connecting to a Redis Server
 
