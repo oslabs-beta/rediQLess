@@ -18,6 +18,22 @@
 	 w-4/5 
 	 text-darkblue-default 
 	 border-deeppink-default shadow-2xl rounded-lg 
+
+	 xs:flex-col 
+	 xs:items-center 
+	 xs:justify-center 
+	 xs:text-center 
+	 xs:p-0 
+	 xs:max-w-md
+
+	 sm:flex-col 
+	 sm:items-center 
+	 sm:justify-center 
+	 sm:text-center 
+	 sm:p-0 
+	 sm:max-w-md
+
+
 	 md:flex-col 
 	 md:items-center 
 	 md:justify-center 
@@ -26,9 +42,18 @@
 	 md:max-w-md">
 		 <div className="p-0 m-0">
 			 <h1 className="text-center p-2 mb-1 mt-1 font-semibold
-			 md:text-2xl md:font-bold">RediQLess Speeds</h1>
+			 md:text-2xl md:font-bold xs:text-2xl sm:text-3xl">RediQLess Speeds</h1>
 		 </div>
 		 <div className="flex justify-evenly 
+		 xs:flex-col 
+		 xs:items-center 
+		 xs:justify-evenly
+
+		 sm:flex-col 
+		 sm:items-center 
+		 sm:justify-evenly
+
+
 		 md:flex-col 
 		 md:items-center 
 		 md:justify-center">

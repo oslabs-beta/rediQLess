@@ -29,9 +29,18 @@
      <div className="
      flex flex-col center items-center 
      w-1/4 
-     md:w-auto md:mt-2">
-       <img className="w-1/2 rounded-full mb-4" src={image}></img>
-       <h1 className="mb-4">{name}</h1>
+      xs:w-full
+      xs:mb-8
+
+      sm:w-full
+      sm:mb-8
+
+      md:w-1/2
+      md:mb-8
+      
+      ">
+       <img className="w-3/4 rounded-full mb-4" src={image}></img>
+       <h1 className="mb-4 text-khaki-alt xs:text-3xl sm:text-3xl md:text-4xl">{name}</h1>
        {!showModal &&
          <button 
          className="hover:animate-bounce hover:scale-150 hover:bg-blue-500 bg-transparent text-white-default font-bold uppercase text-sm rounded "
@@ -67,7 +76,7 @@
                  <i
                    className={
                      ("text-white") +
-                     " fab fa-github fa-3x text-xl leading-lg"
+                     " fab fa-github fa-2x  text-xl leading-lg"
                    }
                  />
                </a>
@@ -82,7 +91,7 @@
                  <i
                    className={
                      ("text-white ") +
-                     " fab fa-linkedin fa-4x "
+                     " fab fa-linkedin fa-3x "
                    }
                  />
                </a>
