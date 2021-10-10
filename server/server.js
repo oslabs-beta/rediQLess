@@ -10,10 +10,7 @@ const schema = require('./schema/schema')
 const cors = require('cors')
 const redis = require('redis')
 const { RediQLess } = require('rediqless')
-const redisClient = redis.createClient({
-  host: 'localhost',
-  port: 6379,
-})
+const redisClient = redis.createClient(process.env.REDIS_URL)
 
 // --> REQUIRE REDIQL MW
 
