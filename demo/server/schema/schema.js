@@ -69,6 +69,22 @@ const RocketType = new GraphQLObjectType({
     }),
   });
 
+  const CharacterType = new GraphQLObjectType({
+    name: "Character",
+    fields: () => ({
+      id: { type: GraphQLID },
+      name: {type: GraphQLString },
+      status: { type: GraphQLString },
+      species: {type: GraphQLString}
+    })
+  })
+
+  const CharactersType = new GraphQLObjectType({
+    name: "Characters",
+    fields: () => ({
+      results: [CharacterType]
+    })
+  })
 // const SiteType = new GraphQLObjectType({
 //   name: "launch_site",
 //   fields: () => ({
@@ -82,7 +98,26 @@ const RocketType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-      
+        characters: {
+            type: new GraphQLList(CharacterType),
+            resolve(parent, args) {
+                return axios
+                .get('https://rickandmortyapi.com/api/character')
+                .then(res => res.data)
+            }
+        },
+        
+          character: {
+            type: CharacterType,
+            args: {
+              id: {type: GraphQLInt}
+            },
+            resolve(parent, args) {
+              return axios 
+              .get(`http://rickandmortyapi.com/api/character/${args.id}`)
+            }
+          },
+        
         launches: {
             type: new GraphQLList(LaunchType),
             resolve(parent, args){

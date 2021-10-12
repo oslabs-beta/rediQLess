@@ -30,6 +30,10 @@ class RediCache {
 
     // AN ARRAY OF THE UNIQUE ID'S BASED ON FIELD 1 OF EACH TYPE
     this.keyIndex
+
+    this.exactQuery = false;
+
+    this.rawQuery 
   }
 
 
@@ -38,6 +42,14 @@ class RediCache {
   // INSTANTIATE ARGSID AND ARGS
     let argsId;
     let args;
+    this.rawQuery = JSON.stringify(this.QLQueryObj)
+    this.exactQuery = await this.checkRedis(this.rawQuery)
+    if(this.exactQuery > 0) {
+      this.rediResponse = true
+      console.log('exact match')
+      return this.newResponse = await this.getFromRedis(this.rawQuery)
+    }
+    console.log('exact query', this.exactQuery)
     
     // USING REDIS FUNCTION TO SEE IF KEYINDEX EXISTS -   IF IT DOESNT, ASSIGNE TO AN EMPTY ARRAY
     this.keyIndex = (JSON.parse(await this.getFromRedis('keyIndex')) || [])
@@ -45,7 +57,7 @@ class RediCache {
     // QUERY TYPES IS LOCATING THE FIRST TYPE IN THE QUERY
     const types =
       this.QLQueryObj['definitions'][0].selectionSet.selections[0].name.value
-    
+
     // ESTABLISHES AN ARRAY OF FIELD OBJECTS
     const fields =
       this.QLQueryObj['definitions'][0].selectionSet.selections[0].selectionSet
@@ -55,7 +67,7 @@ class RediCache {
     argsId = this.QLQueryObj['definitions'][0].selectionSet.selections[0].arguments[0].name.value
     console.log('arguments id', argsId)
     args = this.QLQueryObj['definitions'][0].selectionSet.selections[0].arguments[0].value.value
-    console.log('arguments', args)
+ 
     }
  
     // INSTANTIATE NEXTTYPE
@@ -215,13 +227,14 @@ class RediCache {
     }
 
     // <---- * 3 VALUE TEST - TO BE REMOVED FOR LAUNCH * ---> 
-    let firstThree = []
+    // let firstThree = []
 
-    for (let i = 0; i < 3; i++) {
-      //COMING FROM REDIS CACHE - TESTING HOW DATA GETS RETURNED
-      firstThree.push(this.newResponse[this.QLQueryObj.types][i])
-    }
-    console.log('new response from values from cache(first 3)', firstThree)
+    // for (let i = 0; i < 3; i++) {
+    //   //COMING FROM REDIS CACHE - TESTING HOW DATA GETS RETURNED
+    //   firstThree.push(this.newResponse[this.QLQueryObj.types][i])
+    // }
+    // console.log('new response from values from cache(first 3)', firstThree)
+    console.log('granular response')
     }
 
     // <---------------------------------------------->
@@ -282,7 +295,6 @@ class RediCache {
     //send request from createQuery
     //keyExists checks Redis for the given key
     let keyExists = false
-    console.log('this.nextType', this.nextType)
 
 
     //given a unique value (in this example it is flight_number)
@@ -330,6 +342,8 @@ class RediCache {
       }
       //save keyIndex array into redis
       this.redisClient.setex('keyIndex', 3600, JSON.stringify(this.keyIndex))
+
+      this.redisClient.setex(this.rawQuery, 3600, JSON.stringify(this.QLResponse))
     }
 
   }

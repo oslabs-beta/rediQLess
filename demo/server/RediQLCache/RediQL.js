@@ -4,15 +4,13 @@ const { graphql } = require('graphql')
 
 const axios = require('axios')
 const { request, gql } = require('graphql-request')
-const redis = require('redis')
-const REDIS_PORT = process.env.PORT || 6379
-const redisClient = redis.createClient(REDIS_PORT)
+
 const RediCache = require('./RediCache')
 
 
 class RediQLCache {
   // establish our props
-  constructor() {
+  constructor(redisClient) {
     // bind our parser function to the constructor function
     this.parser = this.parser.bind(this)
     
@@ -38,6 +36,7 @@ class RediQLCache {
     // CHECK IF THE DATA IS IN THE CACHE, INIT AS FALSE, IF DATA IS IN CACHE REDIRESPONSE BECOMES TRUE
     this.rediResponse = false
     
+    this.responseTime
   }
 
   // PARSER METHOD WILL BE CALLED WITH AN ARG OF FALSE IF WE ARE CHECKING IF A RES CAN BE FORMED FROM THE CACHE
@@ -62,24 +61,16 @@ class RediQLCache {
     if(cacheResponse) await rediCache.cacheResponse() 
 
     this.rediResponse = rediCache.rediResponse
-    console.log('rediCache.rediResponse', rediCache.rediResponse)
+    
     if(rediCache.rediResponse) { 
       this.response = rediCache.newResponse
     }
   }
 
   async query(req, res, next) {
+    this.responseTime = Date.now()
     // this.QLQuery = req.body.data.query 
-    this.QLQuery = req.body.data.query ||  `
-    {
-      launch(flight_number: 5) {
-        flight_number
-        mission_name
-        rocket {
-          rocket_id
-        }
-      } 
-    }`
+    this.QLQuery = req.body.data.query 
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false)
     
@@ -93,7 +84,7 @@ class RediQLCache {
     // for(let i = 0; i < 2; i++) {   
     //   console.log(this.response['launches'][i])
     // }
-  
+    res.locals.responseTime = Date.now() - this.responseTime
     // MOVE TO NEXT PIECE OF MW
       return next()
 
@@ -104,7 +95,7 @@ class RediQLCache {
       let responseData;
         // MAKING A REQUEST TO GQL, ON 1500/GQL, WITH THE QUERY FROM THE FRONT END
         responseData = await this.request(
-          'http://localhost:1500/graphql',  
+          'http://localhost:8080/graphql',  
           this.QLQuery
         )
         
@@ -121,9 +112,9 @@ class RediQLCache {
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if(!this.rediResponse) await this.parser()
-
+         res.locals.responseTime = Date.now() - this.responseTime
       //MOVE TO NEXT PIECE OF MW
-      next()
+      next() 
     } 
   }
 
