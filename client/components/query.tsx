@@ -52,7 +52,7 @@ const Query = () => {
               .then((res) => {
                 
                 console.log('Response recieved from the back: ', res.data)
-                data = res.data
+                data = res.data.query
                 changeTimeData(res.data.responseTime)
               })
               .catch(err => console.log(`some shit broke fam: ${err}`))

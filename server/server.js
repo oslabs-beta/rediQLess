@@ -25,8 +25,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/rediql', RediQLQuery, (req, res) => {
-  console.log('exiting rediql endpoint', res.locals.responseTime)
-  res.send(res.locals.responseTime)
+  console.log('exiting rediql endpoint', res.locals.query)
+  res.send(res.locals)
 })
 
 app.use('/clearcache', RediQLClear, (req, res) => {
