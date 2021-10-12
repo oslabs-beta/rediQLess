@@ -34,6 +34,8 @@ class RediQLCache {
 
     // CHECK IF THE DATA IS IN THE CACHE, INIT AS FALSE, IF DATA IS IN CACHE REDIRESPONSE BECOMES TRUE
     this.rediResponse = false;
+
+    this.responseTime;
   }
 
   // PARSER METHOD WILL BE CALLED WITH AN ARG OF FALSE IF WE ARE CHECKING IF A RES CAN BE FORMED FROM THE CACHE
@@ -62,14 +64,14 @@ class RediQLCache {
     if (cacheResponse) await rediCache.cacheResponse();
 
     this.rediResponse = rediCache.rediResponse;
-    console.log("rediCache.rediResponse", rediCache.rediResponse);
+
     if (rediCache.rediResponse) {
       this.response = rediCache.newResponse;
     }
   }
 
   async query(req, res, next) {
-    // this.QLQuery = req.body.data.query
+    this.responseTime = Date.now();
     this.QLQuery = req.body.data.query;
     // RUN THE PARSER IF THE CACHE RESP IS FALSE, AWAIT FOR IT TO FINISH
     await this.parser(false);
@@ -78,13 +80,7 @@ class RediQLCache {
     if (this.rediResponse) {
       res.locals.query = this.response;
 
-      // THIS.RESPONSE TEST
-      // console.log('this.response test:')
-
-      // for(let i = 0; i < 2; i++) {
-      //   console.log(this.response['launches'][i])
-      // }
-
+      res.locals.responseTime = Date.now() - this.responseTime;
       // MOVE TO NEXT PIECE OF MW
       return next();
     } else {
@@ -99,22 +95,18 @@ class RediQLCache {
 
       // SAVING THE RESPONSE DATA FROM GQL TO THIS.RESPONSE
       this.response = responseData;
-      console.log("this.response test:");
-      // for(let i = 0; i < 2; i++) {
-      //   console.log(this.response['launches'][i])
-      // }
-      // console.log(this.response)
+
       // THIS.PARSER USES PARSER METHOD
       // SEND NEW RESPONSE FROM API THROUGH THE PARSER, SO THE DATA GETS CACHED
       if (!this.rediResponse) await this.parser();
-
+      res.locals.responseTime = Date.now() - this.responseTime;
       //MOVE TO NEXT PIECE OF MW
       next();
     }
   }
 
   // THIS CLEARS THE CACHE
-  // ** POTENTIALLY MOVE THIS TO EXP CACHE CLASS
+
   clearCache(req, res, next) {
     this.redisClient.flushall();
     next();
