@@ -53,8 +53,7 @@ const Query = () => {
                 
                 console.log('Response recieved from the back: ', res.data)
                 data = res.data
-
-
+                changeTimeData(res.data.responseTime)
               })
               .catch(err => console.log(`some shit broke fam: ${err}`))
 
@@ -67,13 +66,8 @@ setSpaceXData(JSON.stringify(data.launches))
 // spaceXData(utilFunc(data.launches))
     // console.log('spaceXData is', spaceXData)
     
-    // After the data comes back, and we recieve a response, we create a variable for the time the response came back
-    const timeReceived = Date.now()
-    // Establishing the time it took  from the time is was sent to the time it was received
-    const timeElapsed = timeReceived - timeSent;
-
     //setting the context of timeData by passing the timeElapsed into changeTimeData
-    changeTimeData(timeElapsed)
+    
 
     //NOTE: Will most likely return to the below to create a streamlined algo to get the data from the backend and turn into a readable string on the front
     //creating a dataArray with Object.entries on data.launches
