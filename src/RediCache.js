@@ -38,7 +38,6 @@ class RediCache {
     this.exactQuery = await this.checkRedis(this.rawQuery);
     if (this.exactQuery > 0) {
       this.rediResponse = true;
-      console.log("exact match");
       return (this.newResponse = await this.getFromRedis(this.rawQuery));
     }
     // USING REDIS FUNCTION TO SEE IF KEYINDEX EXISTS -   IF IT DOESNT, ASSIGNE TO AN EMPTY ARRAY
@@ -314,6 +313,12 @@ class RediCache {
       }
       //save keyIndex array into redis
       this.redisClient.setex("keyIndex", 3600, JSON.stringify(this.keyIndex));
+
+      this.redisClient.setex(
+        this.rawQuery,
+        3600,
+        JSON.stringify(this.QLResponse)
+      );
     }
   }
   // if cacheResponse finds nested object nestedResponse caches those nested values
