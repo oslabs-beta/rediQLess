@@ -37,7 +37,8 @@ const Query = () => {
               .then((res) => {
                 
                 console.log('Response recieved from the back: ', res.data)
-                data = res.data
+                data = res.data.query
+                changeTimeData(res.data.responseTime)
 
 
               })
@@ -58,7 +59,7 @@ setSpaceXData(JSON.stringify(data.launches))
     const timeElapsed = timeReceived - timeSent;
 
     //setting the context of timeData by passing the timeElapsed into changeTimeData
-    changeTimeData(timeElapsed)
+    // changeTimeData(timeElapsed)
 
     //NOTE: Will most likely return to the below to create a streamlined algo to get the data from the backend and turn into a readable string on the front
     //creating a dataArray with Object.entries on data.launches

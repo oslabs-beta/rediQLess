@@ -5,18 +5,19 @@ const app = express()
 const gqlHTTP = require('express-graphql')
 const PORT = process.env.PORT || 1500
 const schema = require('./schema/schema')
-const RediQLCache = require('./RediQLCache/RediQL')
+const {RediQLess} = require('rediqless')
+const RediQLCache = require('rediqless')
 
 const redis = require('redis')
 const redisClient = redis.createClient({
   host: 'localhost',
-  port: 6379,
+  port: 6379, 
 })
 
 // const { RediQLess } = require('rediqless')
 const cors = require('cors')
-
-const RediQL = new RediQLCache(redisClient)
+ 
+const RediQL = new RediQLess(redisClient)
 
 const RediQLQuery = RediQL.query
 const RediQLClear = RediQL.clearCache
@@ -52,12 +53,12 @@ app.use('/rediql', RediQLQuery, (req, res) => {
   // console.log('res.locals.query => ', res.locals.query);
   // console.log('req.body.query =>', req.body.data.query)
   console.log(res.locals.responseTime)
-  res.send(res.locals.query) 
+  res.send(res.locals) 
 })
 
 app.use('/clearcache', RediQLClear, (req, res) => {
   res.send('cache cleared')
-})
+}) 
  
 app.use('/graphql', gqlHTTP.graphqlHTTP({ schema, graphiql: true }))
 
