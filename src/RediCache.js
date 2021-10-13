@@ -38,7 +38,8 @@ class RediCache {
     this.exactQuery = await this.checkRedis(this.rawQuery);
     if (this.exactQuery > 0) {
       this.rediResponse = true;
-      return (this.newResponse = await this.getFromRedis(this.rawQuery));
+      this.newResponse = JSON.parse(await this.getFromRedis(this.rawQuery));
+      return;
     }
     // USING REDIS FUNCTION TO SEE IF KEYINDEX EXISTS -   IF IT DOESNT, ASSIGNE TO AN EMPTY ARRAY
     this.keyIndex = JSON.parse(await this.getFromRedis("keyIndex")) || [];
