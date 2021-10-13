@@ -211,6 +211,11 @@ class RediCache {
         }
       }
     }
+    this.redisClient.setex(
+      this.rawQuery,
+      3600,
+      JSON.stringify(this.QLResponse)
+    );
   }
 
   // <---------------------------------------------->
