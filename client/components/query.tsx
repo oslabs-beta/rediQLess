@@ -52,42 +52,19 @@ const Query = () => {
               .then((res) => {
                 
                 console.log('Response recieved from the back: ', res.data)
-                data = res.data.query
+                data = res.data
                 changeTimeData(res.data.responseTime)
               })
-              .catch(err => console.log(`some shit broke fam: ${err}`))
+              .catch(err => console.log(`An error occurred: ${err}`))
 
   
     
-console.log('gettoh data: ', data.launches)
+console.log('Data from query: ', data)
 
 setSpaceXData(JSON.stringify(data.launches))
 
-// spaceXData(utilFunc(data.launches))
-    // console.log('spaceXData is', spaceXData)
-    
-    //setting the context of timeData by passing the timeElapsed into changeTimeData
-    
+  return data;
 
-    //NOTE: Will most likely return to the below to create a streamlined algo to get the data from the backend and turn into a readable string on the front
-    //creating a dataArray with Object.entries on data.launches
-    // const dataArray = Object.entries(data.launches)
-    // //creating a dataObj by mapping over the dataArray and grabing the values at x[1]
-    // const dataObj = dataArray.map((x) => Object.values(x[1]))
-    // //Setting the dataString from the dataObj, this will provide a readible string on the front end
-    // const dataString = dataObj.map((x) => {
-    //   return `Flight Number: ${x[0]}
-    //     Mission Name: ${x[1]}
-    //     Cost: ${x[2]}
-    //     Launch Success: ${x[3]}
-        
-    //     `
-    // })
-    // //set state of spaceXdata to be the GraphQL query response
-    // setSpaceXData(`${dataString}`)
-
-    // console.log('QUERY SENT', query)
-    //return data
   }
 
 
