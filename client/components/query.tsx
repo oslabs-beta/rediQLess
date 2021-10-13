@@ -52,7 +52,7 @@ const Query = () => {
               .then((res) => {
                 
                 console.log('Response recieved from the back: ', res.data)
-                data = res.data
+                data = res.data.query.launches
                 changeTimeData(res.data.responseTime)
               })
               .catch(err => console.log(`An error occurred: ${err}`))
@@ -61,7 +61,7 @@ const Query = () => {
     
 console.log('Data from query: ', data)
 
-setSpaceXData(JSON.stringify(data.launches))
+setSpaceXData(JSON.stringify(data))
 
   return data;
 
