@@ -1,3 +1,9 @@
+/**
+ * @description
+ *RediQL.js is a dynamic query caching mechanism in the form of a functional Class Object which leverages the RediCache.js file to *communicate with Redis on your local Redis port to initialize Redis functionaly.
+ *
+ */
+
 const { parse } = require("graphql/language/parser");
 
 const { request } = require("graphql-request");

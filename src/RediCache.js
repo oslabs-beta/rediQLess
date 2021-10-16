@@ -1,3 +1,9 @@
+/**
+ *
+ * @description
+ *  The RediCache Class Object uses incoming queries as a map to navigate Redis' key-value store; destructuring the queries into a series of constant time-readable key-value pairs with references to connected nodes. If RediCache finds that incoming query information is stored within Redis, RediCache is able to return that requested data in sub-15ms time. If RediCache does not find the incoming query within the Redis Store, the query is sent back through RediQL to grab the information in the requested API schema via GraphQL. As the data returns to the client, it is simultaneously sent back to RediCache to store that data for future use.
+ */
+
 class RediCache {
   constructor(QLQueryObj, redisClient, QLResponse = {}) {
     // REQUESTED FIELDS THAT ARE NOT FOUND IN THE CACHE ARE PUSHED INTO THIS ARRAY
