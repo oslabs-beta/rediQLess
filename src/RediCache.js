@@ -5,7 +5,7 @@
  */
 
 class RediCache {
-  constructor(QLQueryObj, redisClient, QLResponse = {}) {
+  constructor(QLQueryObj, redisClient, QLResponse = {}, rawQuery) {
     // REQUESTED FIELDS THAT ARE NOT FOUND IN THE CACHE ARE PUSHED INTO THIS ARRAY
     this.redisFields = [];
 
@@ -32,7 +32,7 @@ class RediCache {
 
     this.exactQuery = false;
 
-    this.rawQuery;
+    this.rawQuery = rawQuery;
   }
 
   /// ASYNCRONOUS METHOD WHICH CHECKS TO SEE IF A KEYINDEX EXISTS
@@ -40,7 +40,7 @@ class RediCache {
     // INSTANTIATE ARGSID AND ARGS
     let argsId;
     let args;
-    this.rawQuery = JSON.stringify(this.QLQueryObj);
+    // this.rawQuery = JSON.stringify(this.QLQueryObj);
     this.exactQuery = await this.checkRedis(this.rawQuery);
     if (this.exactQuery > 0) {
       this.rediResponse = true;
@@ -221,7 +221,7 @@ class RediCache {
     this.redisClient.setex(
       this.rawQuery,
       3600,
-      JSON.stringify(this.QLResponse)
+      JSON.stringify(this.newResponse)
     );
   }
 

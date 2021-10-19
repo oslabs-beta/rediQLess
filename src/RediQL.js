@@ -60,7 +60,8 @@ class RediQLCache {
     const rediCache = new RediCache(
       parsedQuery,
       this.redisClient,
-      parsedResponse
+      parsedResponse,
+      this.QLQuery
     );
     //CREATE QUERY CHECKS THE CACHE AND ASSIGNS A NEW RESPONSE TO EXPCACHE.NEWRESPONSE IF AVAILABLE
     await rediCache.createQuery();
