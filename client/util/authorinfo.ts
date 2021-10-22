@@ -26,7 +26,7 @@ const authorData = [
 	  },
 	  {
 		name: "Travis Woolston",
-		image: "https://rediqless.s3.us-east-2.amazonaws.com/coffee+shop.jpg",
+		image: "https://rediqless.s3.us-east-2.amazonaws.com/Screen+Shot+2021-10-21+at+10.30.15+PM.png",
 		info: "Travis is a full-stack JavaScript engineer with a passion for back-end design. He loves learning new ways to optimize code and hitting that sweet constant time-complexity. In his free-time he enjoys making games in Javascript, floating in sensory deprivation tanks, walks in the rain, and recording music with his guitar and keyboard.",
 		github: "https://github.com/TravisWoolston",
 		linkedin: 'https://www.linkedin.com/in/traviswoolston/'	  
