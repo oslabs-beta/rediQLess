@@ -50,16 +50,11 @@ const Query = () => {
                 }
               })
               .then((res) => {
-                
-                console.log('Response recieved from the back: ', res.data)
                 data = res.data.query.launches
                 changeTimeData(res.data.responseTime)
               })
               .catch(err => console.log(`An error occurred: ${err}`))
 
-  
-    
-console.log('Data from query: ', data)
 
 setSpaceXData(JSON.stringify(data))
 
@@ -114,7 +109,6 @@ setSpaceXData(JSON.stringify(data))
             queryNum: 1  
           })
           setSpaceXData('')
-          console.log(queryPreview.queryNum)
         }
         }
         >
@@ -132,7 +126,6 @@ setSpaceXData(JSON.stringify(data))
             queryNum: 2  
           })
           setSpaceXData('')
-          console.log(queryPreview.queryNum)
         }
         }
         >
@@ -149,7 +142,6 @@ setSpaceXData(JSON.stringify(data))
             queryNum: 3  
           })
           setSpaceXData('')
-          console.log(queryPreview.queryNum)
         }
         }
         >
