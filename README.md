@@ -129,7 +129,7 @@ const RediQLClear = RediQL.clearCache;
 // Leverage RediQLess Queries
 // ** Assign queries on the front-end to 'req.body.data.query'
 app.use('/rediql', RediQLQuery, (req, res) => {
-  return res.status(202).send(res.locals.query))
+  return res.status(202).send(res.locals.query)
 });
 
 // Leverage RediQLess Cache Clearing
