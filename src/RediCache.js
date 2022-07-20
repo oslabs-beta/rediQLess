@@ -40,9 +40,11 @@ class RediCache {
     // INSTANTIATE ARGSID AND ARGS
     let argsId;
     let args;
-    // this.rawQuery = JSON.stringify(this.QLQueryObj);
+
     this.exactQuery = await this.checkRedis(this.rawQuery);
-    if (this.exactQuery > 0) {
+
+    // IF THE QUERY HAS BEEN CACHED, RETURN ITS DATA
+    if (this.exactQuery) {
       this.rediResponse = true;
       this.newResponse = JSON.parse(await this.getFromRedis(this.rawQuery));
       return;
@@ -58,6 +60,7 @@ class RediCache {
     const fields =
       this.QLQueryObj["definitions"][0].selectionSet.selections[0].selectionSet
         .selections;
+
     // IF ARGUMENTS ID AND ARGUMENTS ARE DEFINED IN QUERY AST, ASSIGN THEM TO ARGSID AND ARGS
     if (
       this.QLQueryObj["definitions"][0].selectionSet.selections[0]
@@ -70,20 +73,21 @@ class RediCache {
         this.QLQueryObj["definitions"][0].selectionSet.selections[0]
           .arguments[0].value.value;
     }
-
     // INSTANTIATE NEXTTYPE
     let nextType;
-
     // CHECKS TO SEE IF THE NEXTTYPE IN THE QUERY IS NESTED (OR IF IT EXISTS)
     const fieldsArr = fields.map((field) => {
       // CHECKS TO SEE IF SELECTIONSET IS UNDEFINED (ARRAY OF FIELDS) IF IT IS, NEXTTYPE GETS REASSIGNED TO THE FILED OF FIELDSOBK
-      if (field.selectionSet !== undefined) nextType = field;
-      //RETURN FIELD.NAME.VALUE
+      if (typeof field.selectionSet !== 'undefined') {
+        nextType = field;
+      }
       return field.name.value;
     });
 
     // IF WE DISCOVERED A NESTED TYPE, THEN THIS.NEXTTYPE GETS PASED INTO NEXTED QUERY
-    if (nextType) this.nextType = await this.nestedQuery(nextType);
+    if (nextType) {
+      this.nextType = await this.nestedQuery(nextType);
+    }
 
     // redis fields will check the fields arr and return only fields that don't have existing keys in redis
     // REDIS FIELDS WILL  CHECK
@@ -125,13 +129,17 @@ class RediCache {
       fieldsArr: fieldsArr,
       arguments: argsAndId, // --> [argsId, args]
     };
-
+   
     // IF THE NEXTTYPE IS AN OBJ, SAVE IT TO REDIS
-    if (typeof this.nextType == "object")
-      this.redisClient.setex("nextType", 3600, JSON.stringify(this.nextType));
+    if (typeof this.nextType == "object") {
+      this.redisClient.set("nextType", JSON.stringify(this.nextType));
+      this.redisClient.expire("nextType", 60);
+    }
 
     // IF ALL ALL VALUES WERE FOUND IN REDIS, INVOKE CREATE RESPONSE
-    if (this.rediResponse) await this.createResponse();
+    if (this.rediResponse) {
+      await this.createResponse();
+    }
   }
   // <--- END OF CREATEQUERY ---> //
 
@@ -139,7 +147,6 @@ class RediCache {
   async createResponse() {
     // CREATE KEY/VALUE PAIR IN EMPTY NEWRESPONSE OBJ
     this.newResponse[`${this.QLQueryObj.types}`] = [];
-
     //IF A RESPONSE BY ID IS REQUESTED (BY WAY OF SINGLE VALUE REQUEST)
     if (this.QLQueryObj.arguments) {
       this.newResponse[`${this.QLQueryObj.types}`][0] = {};
@@ -148,8 +155,7 @@ class RediCache {
         // IF THE QLQUERYOBJ AT I HAS A NESTED TYPE...
         if (this.QLQueryObj.fieldsArr[i] === this.nextType.types) {
           // PROCESS THE NESTED RESPONSE
-          this.newResponse[`${this.QLQueryObj.types}`][0][this.nextType.types] =
-            {};
+          this.newResponse[`${this.QLQueryObj.types}`][0][this.nextType.types] = {};
           // CREATE NESTED RESPONSE VIA NESTEDCREATE METHOD
           await this.nestedCreate(0);
         } else {
@@ -218,11 +224,9 @@ class RediCache {
         }
       }
     }
-    this.redisClient.setex(
-      this.rawQuery,
-      3600,
-      JSON.stringify(this.newResponse)
-    );
+
+    this.redisClient.set(this.rawQuery, JSON.stringify(this.newResponse));
+    this.redisClient.expire(this.rawQuery, 60);
   }
 
   // <---------------------------------------------->
@@ -233,8 +237,7 @@ class RediCache {
     const fields = field.selectionSet.selections;
 
     const fieldsArr = fields.map((field) => {
-      if (field.selectionSet !== undefined) {
-        // this.nestedQuery(field)
+      if (typeof field.selectionSet !== 'undefined') {
         this.nextType = this.nestedQuery(field);
       }
       return field.name.value;
@@ -284,10 +287,11 @@ class RediCache {
 
     //given a unique value (in the demo it is flight_number)
     //the corresponding values could be cached with that unique value concatenated for the key value.
-
+    if (typeof this.QLQueryObj.types === 'undefined') {
+      return false;
+    }
     this.newResponse[`${this.QLQueryObj.types}`] = [];
     //j will iterate through array of objects in response. In this case each launch.
-
     for (let j = 0; j < this.QLResponse[this.QLQueryObj.types].length; j++) {
       //push key into array for later reference.
       this.keyIndex.push(
@@ -321,16 +325,15 @@ class RediCache {
           ]
         }`;
 
-        this.redisClient.setex(redisKey, 3600, value);
+        this.redisClient.set(redisKey, value);
+        this.redisClient.expire(redisKey, 60);
       }
       //save keyIndex array into redis
-      this.redisClient.setex("keyIndex", 3600, JSON.stringify(this.keyIndex));
+      this.redisClient.set("keyIndex", JSON.stringify(this.keyIndex));
+      this.redisClient.expire("keyIndex", 60);
 
-      this.redisClient.setex(
-        this.rawQuery,
-        3600,
-        JSON.stringify(this.QLResponse)
-      );
+      this.redisClient.set(this.rawQuery, JSON.stringify(this.QLResponse));
+      this.redisClient.expire(this.rawQuery, 60);
     }
   }
   // if cacheResponse finds nested object nestedResponse caches those nested values
@@ -345,25 +348,18 @@ class RediCache {
           ]
         }`;
       const value = `${nestedResponse[this.nextType.fieldsArr[i]]}`;
-
-      this.redisClient.setex(redisKey, 3600, value);
+      
+      this.redisClient.set(redisKey, value);
+      this.redisClient.expire(redisKey, 60);
     }
   }
 
-  checkRedis(key) {
-    return new Promise((resolve, reject) => {
-      this.redisClient.exists(key, (err, exists) => {
-        err ? reject(err) : resolve(exists);
-      });
-    });
+  async checkRedis(key) {
+    return !!(await this.redisClient.exists(key));
   }
 
-  getFromRedis(key) {
-    const redisResponse = new Promise((resolve, reject) => {
-      this.redisClient.get(key, (error, result) =>
-        error ? reject(error) : resolve(result)
-      );
-    });
+  async getFromRedis(key) {
+    let redisResponse = await this.redisClient.get(key);
     //convert number string into number type
     //isNaN checking to see if redisResponse is a number-string
     if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse);
