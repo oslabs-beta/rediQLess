@@ -41,6 +41,10 @@ app.use('/rediql', [connectToRedis, new RediQLess(redisClient).query, disconnect
     res.send(res.locals.query);
 });
 
+app.use('/clearcache', [connectToRedis, new RediQLess(redisClient).clearCache, disconnectToRedis], (req, res) => {
+    res.send(res.locals.query);
+});
+
 // Stimulate graphql POST request
 app.get('/', async (req, res) => {
     const query = {

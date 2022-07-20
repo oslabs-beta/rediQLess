@@ -89,14 +89,13 @@ class RediQLCache {
       res.locals.query = this.response;
       res.locals.responseTime = Date.now() - this.responseTime;
       // MOVE TO NEXT PIECE OF MW
-      return next();
+      next();
     } else {
       // IF THE DATA IS NOT IN THE CACHE...
       // RESPONSE DATA IS INITIALIZED
-      let responseData;
       // MAKING A REQUEST TO GQL, ON 1500/GQL, WITH THE QUERY FROM THE FRONT END
       const query = this.gql`${this.QLQuery}`;
-      responseData = await this.request(`${URL}/graphql`, query);
+      let responseData = await this.request(`${URL}/graphql`, query);
       // SENDING THE RESPONSE DATA FROM GQL TO THE FRONT
       res.locals.query = responseData;
       // SAVING THE RESPONSE DATA FROM GQL TO THIS.RESPONSE
@@ -107,7 +106,7 @@ class RediQLCache {
       await this.parser();
       res.locals.responseTime = Date.now() - this.responseTime;
       //MOVE TO NEXT PIECE OF MW
-      return next();
+      next();
     }
   }
 

@@ -4,7 +4,8 @@
   "description": "A tool to cache graphQL responses by leveraging Redis.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,15 @@
   },
   "homepage": "https://github.com/oslabs-beta/rediQLess#readme",
   "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
     "graphql": "^15.6.1",
-    "graphql-request": "^3.5.0"
+    "graphql-request": "^3.5.0",
+    "graphql-tools": "^8.3.0",
+    "node-fetch": "^3.2.9",
+    "nodemon": "^2.0.19",
+    "redis": "^4.2.0"
   }
 }

@@ -33,8 +33,6 @@ class RediCache {
     this.exactQuery = false;
 
     this.rawQuery = rawQuery;
-
-    this.queryDataContainer = [];
   }
 
   /// ASYNCRONOUS METHOD WHICH CHECKS TO SEE IF A KEYINDEX EXISTS
@@ -362,11 +360,6 @@ class RediCache {
 
   async getFromRedis(key) {
     let redisResponse = await this.redisClient.get(key);
-    // const redisResponse = new Promise((resolve, reject) => {
-    //   this.redisClient.get(key, (error, result) =>
-    //     error ? reject(error) : resolve(result)
-    //   );
-    // });
     //convert number string into number type
     //isNaN checking to see if redisResponse is a number-string
     if (!isNaN(+redisResponse)) redisResponse = Number(redisResponse);
